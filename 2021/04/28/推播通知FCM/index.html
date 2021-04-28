@@ -1,0 +1,210 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Hexo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/tutu1023/css/main.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/tutu1023/atom.xml" title="Hexo" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/tutu1023/">Home</a>
+       
+         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+   </div>
+ -->
+    <h1 class="blog-title">Hexo</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/tutu1023/2021/04/28/推播通知FCM/">
+            
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-04-28
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <h1 id="推播通知FCM"><a href="#推播通知FCM" class="headerlink" title="推播通知FCM"></a>推播通知FCM</h1><p>  Update：2019/01/02<br>  Code：Java、Kotlin<br>  By：Ada</p>
+<p>參考來源：<a target="_blank" rel="noopener" href="https://fightwennote.blogspot.com/2019/03/android-firebase-fcm.html">https://fightwennote.blogspot.com/2019/03/android-firebase-fcm.html</a></p>
+<p><img src="/file/adf9544099dd17502cfe90f2150ac44e" alt="IMG_20191230_154939.jpg"></p>
+<hr>
+<h2 id="Firebase註冊Cloud-Message"><a href="#Firebase註冊Cloud-Message" class="headerlink" title="Firebase註冊Cloud Message"></a>Firebase註冊Cloud Message</h2><p>到FireBase頁面，點選Cloud Messaging，並依循指示將FireBase新增到App中。</p>
+<p><img src="/file/a46c586daec6bd8752e9d5ca2d87bbf8" alt="擷取.PNG"></p>
+<p>P.S. 尋找SHA-1憑證的方式。Andorid Studio 側邊有一個Gradle欄位，找到Task資料夾，找到 Tasks 資料夾，android -&gt; signingReport，點開執行就可以在下方Run找到SHA1欄位。</p>
+<p>參考資料：<a target="_blank" rel="noopener" href="https://anson-site.blogspot.com/2018/02/sha1md5.html">https://anson-site.blogspot.com/2018/02/sha1md5.html</a></p>
+<p><img src="/file/5253b2fc78bc13d37be358960a874d22" alt="擷取.PNG"><br><img src="/file/02f32bd7ce04e9e19e3f6a7120d0607a" alt="tempsnip.png"></p>
+<hr>
+<h2 id="Android-Studio接應"><a href="#Android-Studio接應" class="headerlink" title="Android Studio接應"></a>Android Studio接應</h2><p>在app/build.gradle的dependencies加入依賴</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.google.firebase:firebase-messaging:20.1.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在build.gradle的dependencies加入依賴</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    classpath <span class="string">&#x27;com.google.gms:google-services:4.3.3&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>新增一個 Class 繼承 FirebaseMessagingService，並且 Override onMessageReceived 跟 onNewToken，以及sendNotification的Function來處理/顯示通知。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFirebaseService</span> <span class="keyword">extends</span> <span class="title">FirebaseMessagingService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessageReceived</span><span class="params">(<span class="meta">@NotNull</span> RemoteMessage remoteMessage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onMessageReceived(remoteMessage);</span><br><span class="line">        <span class="keyword">if</span> (remoteMessage.getNotification() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;title &quot;</span>+remoteMessage.getNotification().getTitle());</span><br><span class="line">            Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;body &quot;</span>+remoteMessage.getNotification().getBody());</span><br><span class="line">            </span><br><span class="line">            sendNotification(remoteMessage.getNotification().getTitle(),</span><br><span class="line">                    remoteMessage.getNotification().getBody(),vid);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNewToken</span><span class="params">(<span class="meta">@NotNull</span> String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onNewToken(s);</span><br><span class="line">        Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;token &quot;</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendNotification</span><span class="params">(String messageTitle, String messageBody, <span class="keyword">int</span> vid)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, WelcomePage.class);</span><br><span class="line">        PendingIntent pendingIntent = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, intent,</span><br><span class="line">                PendingIntent.FLAG_ONE_SHOT);                                     <span class="comment">//設定點擊通知要跳轉的路徑</span></span><br><span class="line"></span><br><span class="line">        String channelId = <span class="string">&quot;default_channel_id&quot;</span>;</span><br><span class="line">        Uri defaultSoundUri =RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span><br><span class="line">        NotificationCompat.Builder notificationBuilder = </span><br><span class="line">                <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>, channelId)                   </span><br><span class="line">                        .setContentTitle(messageTitle)                            <span class="comment">//標題</span></span><br><span class="line">                        .setSmallIcon(R.drawable.ic_noti_58)                      <span class="comment">//icon</span></span><br><span class="line">                        .setColor(getResources().getColor(R.color.ThemeTiffany))  <span class="comment">//主題顏色</span></span><br><span class="line">                        .setContentText(messageBody)                              <span class="comment">//訊息內容        </span></span><br><span class="line">                        .setAutoCancel(<span class="keyword">true</span>)                                      <span class="comment">//點擊後通知自動消失</span></span><br><span class="line">                        .setPriority(NotificationCompat.PRIORITY_HIGH)            <span class="comment">//優先程度</span></span><br><span class="line">                        .setSound(defaultSoundUri)                                <span class="comment">//提示音</span></span><br><span class="line">                        .setContentIntent(pendingIntent);                         <span class="comment">//套用路徑Intent</span></span><br><span class="line"></span><br><span class="line">        NotificationManager notificationManager =</span><br><span class="line">                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Android Oreo後，規定需要創建Channel才能顯示通知</span></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) &#123;</span><br><span class="line">            NotificationChannel channel = <span class="keyword">new</span> NotificationChannel(channelId,</span><br><span class="line">                    <span class="string">&quot;default_channel_name&quot;</span>,</span><br><span class="line">                    NotificationManager.IMPORTANCE_HIGH);</span><br><span class="line">            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);</span><br><span class="line">            <span class="keyword">assert</span> notificationManager != <span class="keyword">null</span>;</span><br><span class="line">            notificationManager.createNotificationChannel(channel);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> notificationManager != <span class="keyword">null</span>;</span><br><span class="line">        notificationManager.notify(<span class="number">0</span>, notificationBuilder.build()); <span class="comment">//丟出通知</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 AndroidMenifest.xml 的 application 標籤裡聲明MyFirebaseService 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;service android:name=<span class="string">&quot;com.example.fcmdemoapp.MyFirebaseService&quot;</span>&gt;</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=<span class="string">&quot;com.google.firebase.MESSAGING_EVENT&quot;</span> /&gt;</span><br><span class="line">        &lt;/intent-filter&gt;</span><br><span class="line">    &lt;/service&gt;</span><br><span class="line">&lt;/application&gt; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>由於在發送正式推播之前要先在手邊的手機設備上作微調以及測試的動作，所以我們需要在程式碼中加入FirebaseInstanceId.getInstance().instanceId方法來拿取手機設備的token</p>
+<p>token通常於app第一次安裝時會產生一組新的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">FirebaseInstanceId.getInstance().instanceId</span><br><span class="line">    .addOnCompleteListener &#123;</span><br><span class="line">        <span class="keyword">if</span> (!it.isSuccessful) &#123;</span><br><span class="line">            <span class="keyword">return</span><span class="meta">@addOnCompleteListener</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( it.result == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span><span class="meta">@addOnCompleteListener</span></span><br><span class="line">            <span class="comment">// Get new Instance ID token</span></span><br><span class="line">            val token = it.result!!.token</span><br><span class="line">            <span class="comment">// Log and toast</span></span><br><span class="line">            Log.i(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;token $token&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/file/020ac2678a9c0dc42c73ea47819a5702" alt="擷取1.PNG"></p>
+<p>拿到token後就可以到Firebase的Cloud Messaging傳送測試訊息囉！<br>輸入完訊息標題以及內文後，就可以點擊旁邊的「傳送測試訊息」，貼上並加入token，就可以傳送囉。</p>
+<p><img src="/file/b6776903c07e7f57e472071a41e694c6" alt="擷取.PNG"></p>
+<p>這樣就能收到訊息囉！</p>
+<hr>
+<h2 id="需注意的地方"><a href="#需注意的地方" class="headerlink" title="需注意的地方"></a>需注意的地方</h2><p>因為前述onMessageRecieve只有app在前台的時候會執行，如果我們的 App 放到背景，甚至是關閉，推播的Notification會變成系統預設樣式，<br>然而預設系統樣式能夠變化的只有 small icon 跟 文字顏色。</p>
+<p>在 AndroidMenifest.xml 的 application 標籤裡聲明MetaData，就可以在預設情況下改變icon以及顏色。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name=<span class="string">&quot;com.google.firebase.messaging.default_notification_icon&quot;</span></span><br><span class="line">        android:resource=<span class="string">&quot;@drawable/ic_noti_58&quot;</span> /&gt;</span><br><span class="line">        </span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name=<span class="string">&quot;com.google.firebase.messaging.default_notification_color&quot;</span></span><br><span class="line">        android:resource=<span class="string">&quot;@color/ThemeTiffany&quot;</span> /&gt;</span><br><span class="line">        </span><br><span class="line">&lt;/application&gt; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="傳值"><a href="#傳值" class="headerlink" title="傳值"></a>傳值</h2><p>如果需要傳值並處理的話，可以在其他選項加入自訂資料</p>
+<p><img src="/file/b6a2b0125ac229c6c11b4a015f2af338" alt="擷取.PNG"></p>
+<p>由於app前台的通知處理以及後台的通知處理不一樣，先來說說該如何處理前台～</p>
+<h3 id="前台onMessageReceive"><a href="#前台onMessageReceive" class="headerlink" title="前台onMessageReceive"></a>前台onMessageReceive</h3><p>利用remoteMessage.getData().entrySet()</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry: remoteMessage.getData().entrySet()) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(entry.getKey().equals(<span class="string">&quot;key&quot;</span>))&#123;</span><br><span class="line">        key= Integer.parseInt(entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="預設系統樣式"><a href="#預設系統樣式" class="headerlink" title="預設系統樣式"></a>預設系統樣式</h3><p>在點開通知第一個啟動的Activity中，接取該Activity的Intent。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">this</span>.intent.hasExtra(<span class="string">&quot;key&quot;</span>))&#123;    <span class="comment">//開啟app時</span></span><br><span class="line">    <span class="keyword">val</span> fbVid = <span class="keyword">this</span>.intent.getStringExtra(<span class="string">&quot;key&quot;</span>).toInt()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="移除推播通知"><a href="#移除推播通知" class="headerlink" title="移除推播通知"></a>移除推播通知</h2><h3 id="移除所有推播"><a href="#移除所有推播" class="headerlink" title="移除所有推播"></a>移除所有推播</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line">notificationManager.cancelAll()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移除特定推播"><a href="#移除特定推播" class="headerlink" title="移除特定推播"></a>移除特定推播</h3><p>若想要移除同類型推播通知(如某特定對象傳來的多則訊息)，則可以使用notificationManager.cancel(id)來進行移除。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line">notificationManager.cancel(id)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>前提是在發出推播訊息時的notificationManager.notify(id, notificationBuilder.build())，id欄位須設定值。但在系統通知預設的情況下還不知道如何改變Notification ID的值。</p>
+<p>Firebase弄了一個這麼重要的FCM功能，居然不能直接支援改變系統的預設通知，傻眼貓咪。</p>
+<hr>
+<h2 id="遇到問題"><a href="#遇到問題" class="headerlink" title="遇到問題"></a>遇到問題</h2><h4 id="預設情況下如何指定跳轉頁面"><a href="#預設情況下如何指定跳轉頁面" class="headerlink" title="預設情況下如何指定跳轉頁面"></a>預設情況下如何指定跳轉頁面</h4><p>notificationMessage 可傳值 click_action ，用於點擊預設推播通知時要跳往的頁面。</p>
+<figure class="highlight plain"><figcaption><span>".Main.WelcomePage" ```  名字可以自己取，只要與intent-filter命名一致就行</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;activity android:name&#x3D;&quot;your activity&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name&#x3D;&quot;.Main.WelcomePage&quot; &#x2F;&gt;   &#x2F;&#x2F;與click_action命名一致</span><br><span class="line">                &lt;category android:name&#x3D;&quot;android.intent.category.DEFAULT&quot; &#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;intent-filter&gt;</span><br><span class="line">    &lt;&#x2F;activity&gt;</span><br><span class="line">&lt;&#x2F;application</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://example.com/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/
+http://example.com/2021/04/28/%25E6%258E%25A8%25E6%2592%25AD%25E9%2580%259A%25E7%259F%25A5FCM/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/tutu1023/js/main.js"></script>
+
+
+</body>
+
+</html>

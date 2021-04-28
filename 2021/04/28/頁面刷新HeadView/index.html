@@ -1,0 +1,199 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Hexo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/tutu1023/css/main.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/tutu1023/atom.xml" title="Hexo" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/tutu1023/">Home</a>
+       
+         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+   </div>
+ -->
+    <h1 class="blog-title">Hexo</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/tutu1023/2021/04/28/頁面刷新HeadView/">
+            
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-04-28
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <h1 id="頁面刷新HeadView"><a href="#頁面刷新HeadView" class="headerlink" title="頁面刷新HeadView"></a>頁面刷新HeadView</h1><p>Update：2019/12/06  Code：Kotlin<br>By：Ada</p>
+<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/xyxyLiu/SwipeRefreshLayout">https://github.com/xyxyLiu/SwipeRefreshLayout</a></p>
+<p><img src="/file/541c62f4a58987add76f51fda956bafa" alt="Screenshot_20191204-141843.jpg"></p>
+<p><img src="/file/e480286eab1f93d71ab4dd12c66e426b" alt="anim6.gif"></p>
+<p>拖曳時風扇扇葉會隨著拖曳幅度而增加旋轉角度，因此須將美工圖分為兩個部分。   </p>
+<ul>
+<li>  電扇旋轉切割圖(png*8)</li>
+<li>  右邊單純動畫(gif*1)</li>
+</ul>
+<hr>
+<p>1.導入依賴</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.reginald.swiperefresh:library:1.1.2&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.將CustomSwipeRefreshLayout包裹在欲更新的RecyclerView外，並設定相關swiperefresh時間(毫秒)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;com.reginald.swiperefresh.CustomSwipeRefreshLayout</span><br><span class="line">    android:id=&quot;@+id/mSwipeRefresh&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    swiperefresh:refresh_mode=&quot;pull_mode&quot;</span><br><span class="line">    swiperefresh:time_out_refresh_complete=&quot;500&quot;</span><br><span class="line">    swiperefresh:time_out_return_to_top=&quot;500&quot;</span><br><span class="line">    swiperefresh:return_to_top_duration=&quot;500&quot;</span><br><span class="line">    swiperefresh:return_to_header_duration=&quot;500&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">            ...</span><br><span class="line">            android:id=&quot;@+id/recyclerView&quot;&gt;</span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">androidx.recyclerview.widget.RecyclerView</span>&gt;</span>                </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.reginald.swiperefresh.CustomSwipeRefreshLayout</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>3.在RecyclerView所在的Activity/Fragment中，引用CustomSwipeRefreshLayout.OnRefreshListener</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FragmentTemplete</span>: <span class="type">Fragment</span></span>(),  BaseQuickAdapter.RequestLoadMoreListener, </span><br><span class="line">    CustomSwipeRefreshLayout.OnRefreshListener&#123;</span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>4.系統會要求一個onRefresh來執行更新時要做的事情</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onRefresh</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">data</span>.clear()</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>5.需要先為2.放置的CustomSwipeRefreshLayout宣告一個變數(記得是不能直接拿來使用)</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> mSwip: CustomSwipeRefreshLayout? =<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">mSwip = findViewById(R.id.mSwipeRefresh)</span><br><span class="line">mSwip!!.setOnRefreshListener(<span class="keyword">this</span>)</span><br><span class="line">mSwip!!.setCustomHeadview(MyCustomHeadView(context) <span class="keyword">as</span> View)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>記得要在更新完後呼叫一個mSwip!!.refreshComplete()</p>
+<p>6.在創造MyCustomHeadView前，先為MyCustomHeadView弄一個layout<br>由於動圖希望是固定在RecyclerView底下，在拉的時候能夠先看見動圖頂部，因此將動圖藏於MainActivity。</p>
+<p><img src="/file/aa2395690f86abf9c75e85929044fc78" alt="Screenshot_20191204-141843.jpg"></p>
+<p>若是希望動圖由RecyclerView上方跟著拖曳一起拉下來的話，就可以把動圖藏在MyCustomHeadView的Layout中</p>
+<p>↓原始MyCustomHeadView的位置<br><img src="/file/f58f4d656a5c991364cc6f7ebab83aa4" alt="Screenshot_20191204-141843.jpg"></p>
+<p>7.創建一個MyCustomHeadView並引用CustomSwipeRefreshLayout.CustomSwipeRefreshHeadLayout</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCustomHeadView</span> <span class="title">extends</span> <span class="title">LinearLayout</span> </span></span><br><span class="line">        implements CustomSwipeRefreshLayout.CustomSwipeRefreshHeadLayout &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> SparseArray&lt;String&gt; STATE_MAP = new SparseArray&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ViewGroup mContainer;</span><br><span class="line">    <span class="keyword">private</span> pl.droidsonroids.gif.GifImageView anim;</span><br><span class="line">    <span class="keyword">private</span> ConstraintLayout mConstrainLayout;</span><br><span class="line">    <span class="keyword">private</span> int mState = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        STATE_MAP.put(<span class="number">0</span>, <span class="string">&quot;STATE_NORMAL&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">1</span>, <span class="string">&quot;STATE_READY&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">2</span>, <span class="string">&quot;STATE_REFRESHING&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">3</span>, <span class="string">&quot;STATE_COMPLETE&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>設定建構子以及建構時要做的事情</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> MyCustomHeadView(Context context) &#123;</span><br><span class="line">    <span class="keyword">super</span>(context);</span><br><span class="line">    setupLayout();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;InflateParams&quot;</span>)</span></span><br><span class="line"><span class="keyword">private</span> void setupLayout() &#123;</span><br><span class="line">    ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">    mContainer = (ConstraintLayout) LayoutInflater.from(getContext()).inflate(R.layout.my_swiperefresh_head_layout, <span class="literal">null</span>);</span><br><span class="line">    addView(mContainer, lp);</span><br><span class="line">    setGravity(Gravity.BOTTOM);</span><br><span class="line">    setBackgroundColor(Color.TRANSPARENT);</span><br><span class="line">    mConstrainLayout = findViewById(com.reginald.swiperefresh.R.id.default_header_content);</span><br><span class="line">    anim = findViewById(R.id.headAnim);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>onStateChange決定每個階段要做的事情</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;SetTextI18n&quot;</span>)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> void onStateChange(CustomSwipeRefreshLayout.State state, CustomSwipeRefreshLayout.State lastState) &#123;</span><br><span class="line">    <span class="keyword">if</span> (DEBUG)</span><br><span class="line">        Log.d(<span class="string">&quot;csrh&quot;</span>, <span class="string">&quot;onStateChange state = &quot;</span> + state + <span class="string">&quot;, lastState = &quot;</span> + lastState);</span><br><span class="line">    int stateCode = state.getRefreshState();</span><br><span class="line">    int lastStateCode = lastState.getRefreshState();</span><br><span class="line">    float percent = state.getPercent();</span><br><span class="line">    AnimationDrawable animationDrawable;    <span class="comment">//When Ready, 要讓風扇一直轉圈的動畫設定</span></span><br><span class="line">    switch (stateCode) &#123;</span><br><span class="line">        case CustomSwipeRefreshLayout.State.STATE_NORMAL:</span><br><span class="line">            ConstraintLayout.LayoutParams layoutParams </span><br><span class="line">                = (ConstraintLayout.LayoutParams) mConstrainLayout.getLayoutParams();</span><br><span class="line">            layoutParams.topMargin = getTop() - (int)percent*<span class="number">100</span>;</span><br><span class="line">            mConstrainLayout.setLayoutParams(layoutParams);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (percent &gt; <span class="number">0.3f</span>) &#123;    <span class="comment">//percent&gt;0.3f時開始旋轉</span></span><br><span class="line">                int current = (int) ((percent*<span class="number">100</span>-<span class="number">50</span>)/<span class="number">3</span>);</span><br><span class="line">                switch (current)&#123;</span><br><span class="line">                    case <span class="number">1</span> :</span><br><span class="line">                        MainActivity.fanImageView.setImageDrawable(fan2);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                        ...</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+<p>圖片替換的方法，是先將圖片資源load到變數中，在因應時機替換變數上去，否則動畫直接撈資源耗效能，手機會卡卡的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Drawable fan1= getResources().getDrawable(R.drawable.fan1);  <span class="comment">//順暢</span></span><br><span class="line">    fanImageView.setImageDrawable(fan1)</span><br><span class="line">    </span><br><span class="line">```    </span><br><span class="line">    v.s.</span><br><span class="line"></span><br><span class="line">```kotlin</span><br><span class="line"></span><br><span class="line">    fanImageView.setImageDrawable(getResources().getDrawable(R.drawable.fan1))   <span class="comment">//卡頓</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>Ready且手指還沒放開的時候，要讓風扇不斷轉動，提醒使用者已經可以放開更新了。所以用寫好的Drawable代入AnamationDrawable。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_READY:</span><br><span class="line">                <span class="keyword">if</span> (stateCode != lastStateCode) &#123;</span><br><span class="line">                    fanImageView.setImageResource(R.drawable.rotate_fan);</span><br><span class="line">                    animationDrawable = (AnimationDrawable) MainActivity.fanImageView.getDrawable();</span><br><span class="line">                    animationDrawable.setOneShot(<span class="literal">false</span>);</span><br><span class="line">                    animationDrawable.start();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_REFRESHING:</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_COMPLETE:</span><br><span class="line">                <span class="keyword">if</span> (stateCode != lastStateCode) &#123;</span><br><span class="line">                    Handler handler = new Handler();</span><br><span class="line">                    handler.postDelayed(() -&gt; fanImageView.setImageDrawable(fan1), <span class="number">1000</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            default:</span><br><span class="line">        &#125;</span><br><span class="line">        mState = stateCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rotate_fan.xml</span><br><span class="line"></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;animation-list xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">                android:oneshot=<span class="string">&quot;false&quot;</span>&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan1&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan2&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan3&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan4&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan5&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan6&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan7&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan8&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">&lt;/animation-list&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>當targetSdkVersion &gt;= 28，刷新時會造成APP閃退。這時只要將enableTopProgressBar設定為false就能夠在targetSdkVersion &gt;= 28時正常使用了。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)</span><br><span class="line">swipeRefreshLayout.enableTopProgressBar(<span class="literal">false</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://example.com/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/
+http://example.com/2021/04/28/%25E9%25A0%2581%25E9%259D%25A2%25E5%2588%25B7%25E6%2596%25B0HeadView/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/tutu1023/js/main.js"></script>
+
+
+</body>
+
+</html>

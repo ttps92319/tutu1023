@@ -1,0 +1,165 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Hexo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/tutu1023/css/main.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/tutu1023/atom.xml" title="Hexo" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/tutu1023/">Home</a>
+       
+         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+   </div>
+ -->
+    <h1 class="blog-title">Hexo</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/tutu1023/2021/04/28/浮動目錄PopMenu(附指定APP分享路徑)/">
+            
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-04-28
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <h1 id="浮動目錄PopMenu-附指定APP分享路徑"><a href="#浮動目錄PopMenu-附指定APP分享路徑" class="headerlink" title="浮動目錄PopMenu(附指定APP分享路徑)"></a>浮動目錄PopMenu(附指定APP分享路徑)</h1><p>Update：2020/04/15  Code：Kotlin<br>By：Ada</p>
+<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/joelan/WeiboPopupMenu">https://github.com/joelan/WeiboPopupMenu</a></p>
+<p><img src="/file/9e32321bf8d1b7fd8c1c3b108cba0d9f" alt="Screenshot_20200311-174808.png"></p>
+<hr>
+<h3 id="1-創建一個PopMenu且加入MenuItem"><a href="#1-創建一個PopMenu且加入MenuItem" class="headerlink" title="1.創建一個PopMenu且加入MenuItem"></a>1.創建一個PopMenu且加入MenuItem</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> message=<span class="string">&quot;your message&quot;</span></span><br><span class="line"><span class="keyword">val</span> mPopMenu = PopMenu.Builder().attachToActivity(<span class="keyword">this</span>)</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;LINE&quot;</span>, resources.getDrawable(R.drawable.line)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;動態消息&quot;</span>, resources.getDrawable(R.drawable.facebook)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;Telegram&quot;</span>, resources.getDrawable(R.drawable.telegram)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;訊息&quot;</span>, resources.getDrawable(R.drawable.message)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;複製鏈結&quot;</span>, resources.getDrawable(R.drawable.hyperlink)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;顯示更多&quot;</span>, resources.getDrawable(R.drawable.other)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-設定Item的ClickListener"><a href="#2-設定Item的ClickListener" class="headerlink" title="2.設定Item的ClickListener"></a>2.設定Item的ClickListener</h3><p>利用mPopMenu.getMenuItem(position).textView.text作為按鈕判斷指標</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.setOnItemClickListener &#123; popMenu, position -&gt;</span><br><span class="line">    <span class="keyword">when</span>(mPopMenu.getMenuItem(position).textView.text)&#123;</span><br><span class="line">        <span class="string">&quot;LINE&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            sendIntent.`<span class="keyword">package</span>`=<span class="string">&quot;jp.naver.line.android&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;            </span><br><span class="line">        <span class="string">&quot;動態消息&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            sendIntent.`<span class="keyword">package</span>`=<span class="string">&quot;com.facebook.katana&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;Telegram&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> myIntent = Intent(Intent.ACTION_SEND)</span><br><span class="line">            myIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            myIntent.setPackage(<span class="string">&quot;org.telegram.messenger&quot;</span>)</span><br><span class="line">            myIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                startActivity(myIntent)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> ( ex:android.content.ActivityNotFoundException) &#123;</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;Telegram Not Install&quot;</span>, Toast.LENGTH_LONG).show()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;訊息&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent( Intent.ACTION_VIEW, Uri.parse( <span class="string">&quot;sms:&quot;</span> + <span class="string">&quot;&quot;</span> ) )</span><br><span class="line">            sendIntent.putExtra( <span class="string">&quot;sms_body&quot;</span>, message )</span><br><span class="line">            startActivity(sendIntent)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;複製鏈結&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> clipboard = getSystemService(Context.CLIPBOARD_SERVICE) <span class="keyword">as</span> ClipboardManager</span><br><span class="line">            <span class="keyword">val</span> clip = ClipData.newPlainText(<span class="string">&quot;58_share&quot;</span>, message)</span><br><span class="line">            clipboard.setPrimaryClip(clip)</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;鏈結已複製&quot;</span>,Toast.LENGTH_LONG).show()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;顯示更多&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="3-設定欄位數以及建立"><a href="#3-設定欄位數以及建立" class="headerlink" title="3.設定欄位數以及建立"></a>3.設定欄位數以及建立</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.columnCount(<span class="number">6</span>)</span><br><span class="line">.build()            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-設定其他客製化選項以及顯示"><a href="#4-設定其他客製化選項以及顯示" class="headerlink" title="4.設定其他客製化選項以及顯示"></a>4.設定其他客製化選項以及顯示</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mPopMenu.setmBackGroundColor(resources.getColor(R.color.TransBlackDeep))</span><br><span class="line">mPopMenu.setmCloseButtomResourceid(R.drawable.baseline_clear_24)<span class="comment">//X圖示，顏色需於XML先行設定</span></span><br><span class="line">mPopMenu.setmMarginTopRemainSpace(<span class="number">3.0f</span>)<span class="comment">//設定ＭarginTop的數值Ｆ</span></span><br><span class="line">mPopMenu.textcolor=R.color.TextWhiteGray<span class="comment">//Item標題顏色</span></span><br><span class="line">mPopMenu.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/
+http://example.com/2021/04/28/%25E6%25B5%25AE%25E5%258B%2595%25E7%259B%25AE%25E9%258C%2584PopMenu(%25E9%2599%2584%25E6%258C%2587%25E5%25AE%259AAPP%25E5%2588%2586%25E4%25BA%25AB%25E8%25B7%25AF%25E5%25BE%2591)/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/tutu1023/js/main.js"></script>
+
+
+</body>
+
+</html>

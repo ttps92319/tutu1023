@@ -1,9 +1,7 @@
-extends partial/layout
+extends includes/layout
+
 block content
-	.autopagerize_page_element: .content
-		- page.posts.each(function (item) {
-			include mixins
-			+make_post(item, false)
-		- })
-		include mixins
-		+make_pager(__('prev'), __('next'))
+    .page(itemscope itemtype='http://schema.org/CreativeWork')
+          each article in page.posts.data
+              if article.academia
+                  article!= article.content

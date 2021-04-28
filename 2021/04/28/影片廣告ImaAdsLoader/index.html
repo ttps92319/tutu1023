@@ -1,6 +1,177 @@
-extends includes/layout
+<html>
 
-block content
-    .page(itemscope itemtype='http://schema.org/CreativeWork')
-        h2.page-title!= page.title
-        article!= page.content
+<head>
+    <meta charset="utf-8">
+    
+    <title>影片廣告ImaAdsLoader | PY&#39;s Blog</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/tutu1023/css/main.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/tutu1023/atom.xml" title="PY&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/tutu1023/">Home</a>
+       
+         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+   </div>
+ -->
+    <h1 class="blog-title">PY&#39;s Blog</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/tutu1023/2021/04/28/影片廣告ImaAdsLoader/">
+            影片廣告ImaAdsLoader
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-04-28
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>  Update：2020/08/17<br>  By：Ada<br>  Code：Kotlin</p>
+<p>參考來源：<a target="_blank" rel="noopener" href="https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side">https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side</a></p>
+<p><img src="/file/73c7275a66277efff6ee88341fbb5668" alt="image.png"></p>
+<p>放置在影片前的影片廣告ImaAdsLoader（本篇適用於Android系統之半官方承認播放器ExoPlayer）</p>
+<hr>
+<h4 id="1-build-gradle-app增加依賴"><a href="#1-build-gradle-app增加依賴" class="headerlink" title="1.build.gradle/app增加依賴"></a>1.build.gradle/app增加依賴</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">29</span></span><br><span class="line">    buildToolsVersion <span class="string">&quot;29.0.2&quot;</span></span><br><span class="line"></span><br><span class="line">    compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer-hls:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:extension-ima:2.11.1&#x27;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-AndroidMenifest增加權限"><a href="#2-AndroidMenifest增加權限" class="headerlink" title="2.AndroidMenifest增加權限"></a>2.AndroidMenifest增加權限</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span>/&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-放置player-view"><a href="#3-放置player-view" class="headerlink" title="3.放置player_view"></a>3.放置player_view</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;com.google.android.exoplayer2.ui.PlayerView</span><br><span class="line">    android:id=<span class="string">&quot;@+id/player_view&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-在value的string中加入測試用影片及廣告網址"><a href="#4-在value的string中加入測試用影片及廣告網址" class="headerlink" title="4.在value的string中加入測試用影片及廣告網址"></a>4.在value的string中加入測試用影片及廣告網址</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;string name=<span class="string">&quot;content_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//storage.googleapis.com/gvabox/media/samples/stock.mp4]]&gt;&lt;/string&gt;</span></span><br><span class="line">&lt;string name=<span class="string">&quot;ad_tag_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//pubads.g.doubleclick.net/gampad/ads?sz=640x480&amp;iu=/124319096/external/single_ad_samples&amp;ciu_szs=300x250&amp;impl=s&amp;gdfp_req=1&amp;env=vp&amp;output=vast&amp;unviewed_position_start=1&amp;cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&amp;correlator=]]&gt;&lt;/string&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-初始化播放器"><a href="#5-初始化播放器" class="headerlink" title="5.初始化播放器"></a>5.初始化播放器</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">simpleExoplayer = SimpleExoPlayer.Builder(<span class="keyword">this</span>).build()</span><br><span class="line">simpleExoplayerView.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line">imaAdsLoader = ImaAdsLoader(<span class="keyword">this</span>,Uri.parse(getString(R.string.ad_tag_url)))<span class="comment">//預設廣告網址</span></span><br><span class="line">imaAdsLoader.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> defaultDataSourceFactory= DefaultHttpDataSourceFactory(Util.getUserAgent(<span class="keyword">this</span>, <span class="string">&quot;app-name&quot;</span>))</span><br><span class="line"><span class="keyword">val</span> mediaSource = HlsMediaSource.Factory(defaultDataSourceFactory).createMediaSource(Uri.parse(R.string.content_url)) <span class="comment">//預設影片網址</span></span><br><span class="line"><span class="keyword">val</span> adsMediaSource = AdsMediaSource(mediaSource, defaultDataSourceFactory, imaAdsLoader, simpleExoPlayerView)</span><br><span class="line">simpleExoplayer.prepare(adsMediaSource)</span><br><span class="line">simpleExoplayer.seekTo(<span class="number">0L</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-記得在onDestroy把廣告釋放掉"><a href="#6-記得在onDestroy把廣告釋放掉" class="headerlink" title="6.記得在onDestroy把廣告釋放掉"></a>6.記得在onDestroy把廣告釋放掉</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//清除廣告的快取</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    imaAdsLoader.release()</span><br><span class="line">&#125;<span class="keyword">catch</span> (e:Exception)&#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Do Re Mi So ~ ~ 這樣就大功告成了<br>至於怎麼樣將廣告平均分配在影片中，還沒有研究出來😂</p>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/
+http://example.com/2021/04/28/%25E5%25BD%25B1%25E7%2589%2587%25E5%25BB%25A3%25E5%2591%258AImaAdsLoader/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/tutu1023/js/main.js"></script>
+
+
+</body>
+
+</html>

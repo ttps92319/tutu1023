@@ -1,6 +1,201 @@
-extends includes/layout
+<html>
 
-block content
-    .page(itemscope itemtype='http://schema.org/CreativeWork')
-        h2.page-title!= page.title
-        article!= page.content
+<head>
+    <meta charset="utf-8">
+    
+    <title>調試模式設定方法DebugView | PY&#39;s Blog</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon/favicon.ico">
+    
+<link rel="stylesheet" href="/tutu1023/css/main.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+
+    
+<link rel="stylesheet" href="/tutu1023/css/highlight.css">
+
+    
+
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/tutu1023/atom.xml" title="PY&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="blog-header">
+   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
+   <div class="nav-container">
+     <nav id="main-nav">
+       
+         <a class="main-nav-link" href="/tutu1023/">Home</a>
+       
+         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
+       
+     </nav>
+   </div>
+   <!--
+   <div id="search-form-wrap">
+     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+   </div>
+ -->
+    <h1 class="blog-title">PY&#39;s Blog</h1>
+    <p class="lead blog-description"></p>
+</div>
+
+  <div id='main-part'>
+      <div class="main">
+<div class="blog-post">
+    <!-- Title -->
+    <h1 class="blog-post-title">
+        <a href="/tutu1023/2021/04/28/調試模式設定方法DebugView/">
+            調試模式設定方法DebugView
+        </a>
+    </h1>
+    <!-- Date and Author -->
+    <p class="blog-post-meta">
+        2021-04-28
+        
+    </p>
+
+    
+
+    <!-- Content -->
+    <p>  Update：2020/07/14<br>  By：Ada</p>
+<p>參考來源：<a target="_blank" rel="noopener" href="https://shengyu7697.github.io/blog/2019/10/26/Android-adb/">https://shengyu7697.github.io/blog/2019/10/26/Android-adb/</a></p>
+<p><img src="/file/f3424d7101ac9dbe1d8a2e2c1e71c44a" alt="image.png"></p>
+<p>為測試一款新的app是否正常植入GA（或是植入GA後沒有正常收到訊息），故需要先行測試FirebaseAnalytics指令是否正常傳送。</p>
+<hr>
+<p>1.Firebase官網只提到，要開啟手機設備的調試模式，需USB插上手機，並輸入語法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>到AS的Terminal輸入指令，系統卻說不認識adb，這時須先下載platform-tools工具</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/platform-tools-latest-windows.zip">Windows載點</a></li>
+<li><a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/platform-tools-latest-darwin.zip">MAC載點</a></li>
+</ul>
+<p>載好之後解壓縮並且丟到一個自己找得到的位置（直接丟在package內的第一層）</p>
+<p>2.回到Terminal，並進入platform-tools資料夾中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd platform-tools</span><br></pre></td></tr></table></figure>
+<p>進入之後，可能會發現系統找不到adb這個指令，是因為環境變數沒有設置好。</p>
+<p>這時候就可以參考<a target="_blank" rel="noopener" href="https://medium.com/@stanleylin_7768/android-studio-mac%E4%B8%ADadb-command-not-found-9b8c2b559f4c">Ｊ個網址</a></p>
+<pre><code>(1) 首先輸入下列指令，開啟一個新檔案
+
+    touch .bash_profile
+
+(2) 打開該檔案
+
+    open -e .bash_profile
+
+(3) 在跳出的空白視窗中，輸入先前放置platform-tools的路徑。
+
+    例：/Users/MyMac/MyApplication/platform-tools
+
+    export PATH=$&#123;PATH&#125;:/Users/MyMac/MyApplication/platform-tools
+
+    輸入完後直接關閉，會自動存檔。
+
+(4)輸入下列指令更新剛剛的配置
+
+    source .bash_profile
+
+    就可以發現剛剛的adb指令已經可以開始使用啦～
+</code></pre>
+<p>3.輸入啟用指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>Terminal不會有任何反應，但過一兩分鐘後，Firebase的DebugView頁面應該會連接上手機。</p>
+<p>若遲遲沒有連接，可以到Firebase設定去檢查應用程式的SHA1指紋是否一致</p>
+<p>4.關閉調適模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app .none.</span><br></pre></td></tr></table></figure>
+
+
+    <!-- Social share choices -->
+    
+  <div id="social-share">
+    <a data-url="http://example.com/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/
+http://example.com/2021/04/28/%25E8%25AA%25BF%25E8%25A9%25A6%25E6%25A8%25A1%25E5%25BC%258F%25E8%25A8%25AD%25E5%25AE%259A%25E6%2596%25B9%25E6%25B3%2595DebugView/
+-->
+
+
+
+    <hr />
+
+
+    <!-- Tags and Categories links -->
+    
+
+    
+
+
+    <!-- Comment using disqus -->
+    
+
+</div>
+</div>
+
+
+  </div>
+  <!-- Footer -->
+  <div id="footer">
+  <div id="footer-social">
+    
+    
+    
+    
+    
+    
+</div>
+
+  <p id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
+  </p>
+
+  <div id="busuanzi">
+    <span id="busuanzi_container_site_pv">
+      &hearts;
+    Total visits: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  </div>
+  <!--
+  <div id="footer-info">
+    &copy; 2021 John Doe<br>
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </div>
+-->
+</div>
+
+  <!-- After footer scripts -->
+  <!-- Disqus Comments -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/tutu1023/js/main.js"></script>
+
+
+</body>
+
+</html>

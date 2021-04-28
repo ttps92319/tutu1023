@@ -1,785 +1,618 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
+<!-- Head tag -->
 <head>
     <meta charset="utf-8">
-    
-    <title>Hexo</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/favicon/favicon.ico">
-    
-<link rel="stylesheet" href="/tutu1023/css/main.css">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/tutu1023/img/favicon.ico">
 
-    
-<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
+    <title>
+        
+          
+        
+    </title>
 
+    <link rel="canonical" href="http://example.com/tutu1023/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/tutu1023/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/tutu1023/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
     
 <link rel="stylesheet" href="/tutu1023/css/highlight.css">
 
-    
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/tutu1023/atom.xml" title="Hexo" type="application/atom+xml" />
-    
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
-<body>
-  <div class="blog-header">
-   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
-   <div class="nav-container">
-     <nav id="main-nav">
-       
-         <a class="main-nav-link" href="/tutu1023/">Home</a>
-       
-         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
-       
-     </nav>
-   </div>
-   <!--
-   <div id="search-form-wrap">
-     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-   </div>
- -->
-    <h1 class="blog-title">Hexo</h1>
-    <p class="lead blog-description"></p>
-</div>
 
-  <div id='main-part'>
-      
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E9%A0%81%E9%9D%A2%E5%88%B7%E6%96%B0HeadView/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/tutu1023/">Hexo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/tutu1023/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/tutu1023/')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Hexo</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
         
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/頁面刷新HeadView/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            頁面刷新HeadViewUpdate：2019/12/06  Code：KotlinBy：Ada
+參考來源：https://github.com/xyxyLiu/SwipeRefreshLayout
+
+
+拖曳時風扇扇葉會隨著拖曳幅度而增加旋轉角度，因此須將美工圖分為兩個部分。   
+
+  電扇旋轉切割圖(png*8)
+  右邊單純動畫(gif*1)
+
+
+1.導入依賴
+12345depende......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
     </p>
 
-    
+</div>
+<hr>
 
-    <!-- Content -->
-    <h1 id="頁面刷新HeadView"><a href="#頁面刷新HeadView" class="headerlink" title="頁面刷新HeadView"></a>頁面刷新HeadView</h1><p>Update：2019/12/06  Code：Kotlin<br>By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/xyxyLiu/SwipeRefreshLayout">https://github.com/xyxyLiu/SwipeRefreshLayout</a></p>
-<p><img src="/file/541c62f4a58987add76f51fda956bafa" alt="Screenshot_20191204-141843.jpg"></p>
-<p><img src="/file/e480286eab1f93d71ab4dd12c66e426b" alt="anim6.gif"></p>
-<p>拖曳時風扇扇葉會隨著拖曳幅度而增加旋轉角度，因此須將美工圖分為兩個部分。   </p>
-<ul>
-<li>  電扇旋轉切割圖(png*8)</li>
-<li>  右邊單純動畫(gif*1)</li>
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/遠端投屏ChromeCast/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            遠端投屏ChromeCastUpdate：2019/12/11  Code：KotlinBy：Ada
+參考來源：https://qiita.com/tomo1139/items/fea907958160f77760efhttps://medium.com/@quentin7b/make-your-android-app-compatible-with-your-chromecast-ca75......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/遠程配置RemoteConfig(Firebase)/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            遠程配置RemoteConfig(Firebase)Update：2020/04/15  Code：KotlinBy：Ada
+參考來源：https://firebase.google.com/docs/remote-config/use-config-android
+
+利用Firebase的Config功能，幫助我們在未更新新版本的情況下更改App中的配置。
+
+1.導入依賴123implem......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/資料庫Room/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            資料庫Room  Update：2019/12/12  Code：Kotlin  By：Ada
+參考來源：https://medium.com/jastzeonic/kotlin-room-%E4%BD%BF%E7%94%A8%E5%88%9D%E9%AB%94%E9%A9%97-f3af4f8ddc80
+1.導入依賴
+1234dependencies &#123;    implement......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/調試模式設定方法DebugView/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            調試模式設定方法DebugView  Update：2020/07/14  By：Ada
+參考來源：https://shengyu7697.github.io/blog/2019/10/26/Android-adb/
+
+為測試一款新的app是否正常植入GA（或是植入GA後沒有正常收到訊息），故需要先行測試FirebaseAnalytics指令是否正常傳送。
+
+1.Firebase官網只提到，......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/浮動目錄PopMenu(附指定APP分享路徑)/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            浮動目錄PopMenu(附指定APP分享路徑)Update：2020/04/15  Code：KotlinBy：Ada
+參考來源：https://github.com/joelan/WeiboPopupMenu
+
+
+1.創建一個PopMenu且加入MenuItem12345678910val message=&quot;your message&quot;val mPopMenu = Pop......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/浮動圖示FloatingView(Firebase)/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            浮動圖示FloatingView(Firebase)Update：2019/12/11  Code：Java、KotlinBy：Ada
+參考來源：https://github.com/recruit-lifestyle/FloatingView
+
+圖示需要漂浮在桌面以及其他應用程式上方，方便使用者快速回到APP。
+
+1.加入依賴到build.gradle(Module:app)
+123456......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/日夜間模式DayNight/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            日夜間模式DayNightUpdate：2020/04/15  Code：KotlinBy：Ada
+參考來源：https://www.journaldev.com/19352/android-daynight-theme-night-modehttps://www.twblogs.net/a/5b8afe592b71773b27ca3b4a
+
+實現App內日夜間模式切換，又分為手動以及依照裝......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/Blog/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Blog上傳文章-&gt;Source-&gt;_posts-&gt;丟入文章.md檔 
+更改主題-&gt;themes-&gt;丟入主題_config.yml theme: 替換主題名稱
+hexo clean 清除靜態檔案
+hexo g 建立新的靜態檔案
+hexo s 測試
+hexo d 上傳到git
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/tutu1023/2021/04/28/推播通知FCM/">
+        <h2 class="post-title">
+            Untitled
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            推播通知FCM  Update：2019/01/02  Code：Java、Kotlin  By：Ada
+參考來源：https://fightwennote.blogspot.com/2019/03/android-firebase-fcm.html
+
+
+Firebase註冊Cloud Message到FireBase頁面，點選Cloud Messaging，並依循指示將FireBase新增......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by John Doe on
+        2021-04-28
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+        <li class="next">
+            <a href="/tutu1023/page/2/">Older Posts &rarr;</a>
+        </li>
+    
 </ul>
-<hr>
-<p>1.導入依賴</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.reginald.swiperefresh:library:1.1.2&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>2.將CustomSwipeRefreshLayout包裹在欲更新的RecyclerView外，並設定相關swiperefresh時間(毫秒)</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;com.reginald.swiperefresh.CustomSwipeRefreshLayout</span><br><span class="line">    android:id=&quot;@+id/mSwipeRefresh&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    swiperefresh:refresh_mode=&quot;pull_mode&quot;</span><br><span class="line">    swiperefresh:time_out_refresh_complete=&quot;500&quot;</span><br><span class="line">    swiperefresh:time_out_return_to_top=&quot;500&quot;</span><br><span class="line">    swiperefresh:return_to_top_duration=&quot;500&quot;</span><br><span class="line">    swiperefresh:return_to_header_duration=&quot;500&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">            ...</span><br><span class="line">            android:id=&quot;@+id/recyclerView&quot;&gt;</span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">androidx.recyclerview.widget.RecyclerView</span>&gt;</span>                </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.reginald.swiperefresh.CustomSwipeRefreshLayout</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3.在RecyclerView所在的Activity/Fragment中，引用CustomSwipeRefreshLayout.OnRefreshListener</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FragmentTemplete</span>: <span class="type">Fragment</span></span>(),  BaseQuickAdapter.RequestLoadMoreListener, </span><br><span class="line">    CustomSwipeRefreshLayout.OnRefreshListener&#123;</span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p>4.系統會要求一個onRefresh來執行更新時要做的事情</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onRefresh</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">data</span>.clear()</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p>5.需要先為2.放置的CustomSwipeRefreshLayout宣告一個變數(記得是不能直接拿來使用)</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> mSwip: CustomSwipeRefreshLayout? =<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">mSwip = findViewById(R.id.mSwipeRefresh)</span><br><span class="line">mSwip!!.setOnRefreshListener(<span class="keyword">this</span>)</span><br><span class="line">mSwip!!.setCustomHeadview(MyCustomHeadView(context) <span class="keyword">as</span> View)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>記得要在更新完後呼叫一個mSwip!!.refreshComplete()</p>
-<p>6.在創造MyCustomHeadView前，先為MyCustomHeadView弄一個layout<br>由於動圖希望是固定在RecyclerView底下，在拉的時候能夠先看見動圖頂部，因此將動圖藏於MainActivity。</p>
-<p><img src="/file/aa2395690f86abf9c75e85929044fc78" alt="Screenshot_20191204-141843.jpg"></p>
-<p>若是希望動圖由RecyclerView上方跟著拖曳一起拉下來的話，就可以把動圖藏在MyCustomHeadView的Layout中</p>
-<p>↓原始MyCustomHeadView的位置<br><img src="/file/f58f4d656a5c991364cc6f7ebab83aa4" alt="Screenshot_20191204-141843.jpg"></p>
-<p>7.創建一個MyCustomHeadView並引用CustomSwipeRefreshLayout.CustomSwipeRefreshHeadLayout</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCustomHeadView</span> <span class="title">extends</span> <span class="title">LinearLayout</span> </span></span><br><span class="line">        implements CustomSwipeRefreshLayout.CustomSwipeRefreshHeadLayout &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> SparseArray&lt;String&gt; STATE_MAP = new SparseArray&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ViewGroup mContainer;</span><br><span class="line">    <span class="keyword">private</span> pl.droidsonroids.gif.GifImageView anim;</span><br><span class="line">    <span class="keyword">private</span> ConstraintLayout mConstrainLayout;</span><br><span class="line">    <span class="keyword">private</span> int mState = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        STATE_MAP.put(<span class="number">0</span>, <span class="string">&quot;STATE_NORMAL&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">1</span>, <span class="string">&quot;STATE_READY&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">2</span>, <span class="string">&quot;STATE_REFRESHING&quot;</span>);</span><br><span class="line">        STATE_MAP.put(<span class="number">3</span>, <span class="string">&quot;STATE_COMPLETE&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p>設定建構子以及建構時要做的事情</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> MyCustomHeadView(Context context) &#123;</span><br><span class="line">    <span class="keyword">super</span>(context);</span><br><span class="line">    setupLayout();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;InflateParams&quot;</span>)</span></span><br><span class="line"><span class="keyword">private</span> void setupLayout() &#123;</span><br><span class="line">    ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">    mContainer = (ConstraintLayout) LayoutInflater.from(getContext()).inflate(R.layout.my_swiperefresh_head_layout, <span class="literal">null</span>);</span><br><span class="line">    addView(mContainer, lp);</span><br><span class="line">    setGravity(Gravity.BOTTOM);</span><br><span class="line">    setBackgroundColor(Color.TRANSPARENT);</span><br><span class="line">    mConstrainLayout = findViewById(com.reginald.swiperefresh.R.id.default_header_content);</span><br><span class="line">    anim = findViewById(R.id.headAnim);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>onStateChange決定每個階段要做的事情</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;SetTextI18n&quot;</span>)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> void onStateChange(CustomSwipeRefreshLayout.State state, CustomSwipeRefreshLayout.State lastState) &#123;</span><br><span class="line">    <span class="keyword">if</span> (DEBUG)</span><br><span class="line">        Log.d(<span class="string">&quot;csrh&quot;</span>, <span class="string">&quot;onStateChange state = &quot;</span> + state + <span class="string">&quot;, lastState = &quot;</span> + lastState);</span><br><span class="line">    int stateCode = state.getRefreshState();</span><br><span class="line">    int lastStateCode = lastState.getRefreshState();</span><br><span class="line">    float percent = state.getPercent();</span><br><span class="line">    AnimationDrawable animationDrawable;    <span class="comment">//When Ready, 要讓風扇一直轉圈的動畫設定</span></span><br><span class="line">    switch (stateCode) &#123;</span><br><span class="line">        case CustomSwipeRefreshLayout.State.STATE_NORMAL:</span><br><span class="line">            ConstraintLayout.LayoutParams layoutParams </span><br><span class="line">                = (ConstraintLayout.LayoutParams) mConstrainLayout.getLayoutParams();</span><br><span class="line">            layoutParams.topMargin = getTop() - (int)percent*<span class="number">100</span>;</span><br><span class="line">            mConstrainLayout.setLayoutParams(layoutParams);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (percent &gt; <span class="number">0.3f</span>) &#123;    <span class="comment">//percent&gt;0.3f時開始旋轉</span></span><br><span class="line">                int current = (int) ((percent*<span class="number">100</span>-<span class="number">50</span>)/<span class="number">3</span>);</span><br><span class="line">                switch (current)&#123;</span><br><span class="line">                    case <span class="number">1</span> :</span><br><span class="line">                        MainActivity.fanImageView.setImageDrawable(fan2);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                        ...</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
-<p>圖片替換的方法，是先將圖片資源load到變數中，在因應時機替換變數上去，否則動畫直接撈資源耗效能，手機會卡卡的。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Drawable fan1= getResources().getDrawable(R.drawable.fan1);  <span class="comment">//順暢</span></span><br><span class="line">    fanImageView.setImageDrawable(fan1)</span><br><span class="line">    </span><br><span class="line">```    </span><br><span class="line">    v.s.</span><br><span class="line"></span><br><span class="line">```kotlin</span><br><span class="line"></span><br><span class="line">    fanImageView.setImageDrawable(getResources().getDrawable(R.drawable.fan1))   <span class="comment">//卡頓</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p>Ready且手指還沒放開的時候，要讓風扇不斷轉動，提醒使用者已經可以放開更新了。所以用寫好的Drawable代入AnamationDrawable。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_READY:</span><br><span class="line">                <span class="keyword">if</span> (stateCode != lastStateCode) &#123;</span><br><span class="line">                    fanImageView.setImageResource(R.drawable.rotate_fan);</span><br><span class="line">                    animationDrawable = (AnimationDrawable) MainActivity.fanImageView.getDrawable();</span><br><span class="line">                    animationDrawable.setOneShot(<span class="literal">false</span>);</span><br><span class="line">                    animationDrawable.start();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_REFRESHING:</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            case CustomSwipeRefreshLayout.State.STATE_COMPLETE:</span><br><span class="line">                <span class="keyword">if</span> (stateCode != lastStateCode) &#123;</span><br><span class="line">                    Handler handler = new Handler();</span><br><span class="line">                    handler.postDelayed(() -&gt; fanImageView.setImageDrawable(fan1), <span class="number">1000</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            default:</span><br><span class="line">        &#125;</span><br><span class="line">        mState = stateCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rotate_fan.xml</span><br><span class="line"></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;animation-list xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">                android:oneshot=<span class="string">&quot;false&quot;</span>&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan1&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan2&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan3&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan4&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan5&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan6&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan7&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">    &lt;item android:drawable=<span class="string">&quot;@drawable/fan8&quot;</span> android:duration=<span class="string">&quot;50&quot;</span> /&gt;</span><br><span class="line">&lt;/animation-list&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>當targetSdkVersion &gt;= 28，刷新時會造成APP閃退。這時只要將enableTopProgressBar設定為false就能夠在targetSdkVersion &gt;= 28時正常使用了。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)</span><br><span class="line">swipeRefreshLayout.enableTopProgressBar(<span class="literal">false</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
 
 
 
-</div>
-</div>
+                <!-- 如果开启评论功能 -->
+                
 
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
 
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E9%81%A0%E7%AB%AF%E6%8A%95%E5%B1%8FChromeCast/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/tutu1023/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+
+                            
+
+                            
+
+                            
+                            
+                            
+                            
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Friends Blog -->
+                
+            </div>
         
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="遠端投屏ChromeCast"><a href="#遠端投屏ChromeCast" class="headerlink" title="遠端投屏ChromeCast"></a>遠端投屏ChromeCast</h1><p>Update：2019/12/11  Code：Kotlin<br>By：Ada</p>
-<p>參考來源：<br><a target="_blank" rel="noopener" href="https://qiita.com/tomo1139/items/fea907958160f77760ef">https://qiita.com/tomo1139/items/fea907958160f77760ef</a><br><a target="_blank" rel="noopener" href="https://medium.com/@quentin7b/make-your-android-app-compatible-with-your-chromecast-ca751294c4e2">https://medium.com/@quentin7b/make-your-android-app-compatible-with-your-chromecast-ca751294c4e2</a></p>
-<p>1.導入依賴 google play service framework、mediarouter</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;androidx.appcompat:appcompat:1.1.0-rc01&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;androidx.mediarouter:mediarouter:1.1.0&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.gms:play-services-cast-framework:17.1.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2.創一個castOptionProvider 創造notification</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">CastOptionsProvider</span> : <span class="type">OptionsProvider &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCastOptions</span><span class="params">(context: <span class="type">Context</span>)</span></span>: CastOptions &#123;</span><br><span class="line">        <span class="keyword">return</span> CastOptions.Builder()</span><br><span class="line">            .setReceiverApplicationId(context.getString(R.string.app_id))</span><br><span class="line">            .build()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAdditionalSessionProviders</span><span class="params">(context: <span class="type">Context</span>)</span></span>: List&lt;SessionProvider&gt;? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>其中R.string.app_id為申請ChromeCast後得到的一組ＩＤ，但網路上流傳(?)一組大家都可以用的id</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!-- App Id <span class="keyword">for</span> ChromeCast--&gt;</span><br><span class="line">&lt;string name=<span class="string">&quot;app_id&quot;</span> translatable=<span class="string">&quot;false&quot;</span>&gt;CC1AD845&lt;/string&gt;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p>3.相關權限、meta-data標記castOptionProvider，記得更改放置CastOptionsProvider的路徑</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;meta-<span class="keyword">data</span></span><br><span class="line">        android:name=</span><br><span class="line">            <span class="string">&quot;com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME&quot;</span></span><br><span class="line">        android:value=<span class="string">&quot;com.example.casttest.CastOptionsProvider&quot;</span> /&gt;  <span class="comment">//&lt;---記得更改</span></span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>4.在想要投屏的activity設定getShareInstance = this</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//MainActivity.kt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> castContext: CastContext? = <span class="literal">null</span></span><br><span class="line">castContext = CastContext.getSharedInstance(<span class="keyword">this</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>chromecast不支援機種</strong></p>
-<p>大陸手機(如：小米)因為沒有google play，所以他們的手機基本上不支援chromecast</p>
-<p>因此在getSharedInstance的時候就會報錯</p>
-<p>加上一個判斷式檢查是否支援Google的ChromeCast</p>
-<pre><code>GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
-</code></pre>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//MainActivity.kt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(isCastApiAvailable())&#123;</span><br><span class="line">    castContext = CastContext.getSharedInstance(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isCastApiAvailable</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> isCastApiAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(<span class="keyword">this</span>) == ConnectionResult.SUCCESS</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        CastContext.getSharedInstance(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        <span class="comment">// track non-fatal</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isCastApiAvailable</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>5.布置cast專屬按鈕</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//main_activity.xml</span></span><br><span class="line"></span><br><span class="line">&lt;android.support.v7.app.MediaRouteButton</span><br><span class="line">    android:id=<span class="string">&quot;@+id/media_route_button&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">    android:layout_weight=<span class="string">&quot;1&quot;</span></span><br><span class="line">    android:mediaRouteTypes=<span class="string">&quot;user&quot;</span></span><br><span class="line">    android:visibility=<span class="string">&quot;gone&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//res/menu/cast_expanded_controller_menu.xml</span></span><br><span class="line"></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;menu </span><br><span class="line">    xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    xmlns:app=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span> &gt;</span><br><span class="line">    </span><br><span class="line">    &lt;item</span><br><span class="line">        android:id=<span class="string">&quot;@+id/media_route_menu_item&quot;</span></span><br><span class="line">        app:actionProviderClass=<span class="string">&quot;androidx.mediarouter.app.MediaRouteActionProvider&quot;</span></span><br><span class="line">        app:showAsAction=<span class="string">&quot;always&quot;</span> android:title=<span class="string">&quot;&quot;</span>/&gt;</span><br><span class="line">        </span><br><span class="line">&lt;/menu&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>並在activity內做串接的動作</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//MainActivity.kt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateOptionsMenu</span><span class="params">(menu: <span class="type">Menu</span>)</span></span>:<span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreateOptionsMenu(menu)</span><br><span class="line">    menuInflater.inflate(R.menu.cast_expanded_controller_menu, menu)</span><br><span class="line">    CastButtonFactory.setUpMediaRouteButton(</span><br><span class="line">        applicationContext,</span><br><span class="line">        menu,</span><br><span class="line">        R.id.media_route_menu_item)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果要改變按鈕顏色（預設為黑色），需要style檔設定</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;style name=<span class="string">&quot;CustomMediaRouterTheme&quot;</span> parent=<span class="string">&quot;Theme.MediaRouter&quot;</span>&gt;</span><br><span class="line">    &lt;item name=<span class="string">&quot;mediaRouteButtonStyle&quot;</span>&gt;<span class="meta">@style</span>/CustomMediaRouteButtonStyle&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;style name=<span class="string">&quot;CustomMediaRouteButtonStyle&quot;</span> parent=<span class="string">&quot;Widget.MediaRouter.Light.MediaRouteButton&quot;</span>&gt;</span><br><span class="line">    &lt;item name=<span class="string">&quot;mediaRouteButtonTint&quot;</span>&gt;#FFFFFF&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//主要的theme中標明套用</span></span><br><span class="line">&lt;style name=<span class="string">&quot;AppTheme&quot;</span> parent=<span class="string">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span>&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;item name=<span class="string">&quot;mediaRouteTheme&quot;</span>&gt;<span class="meta">@style</span>/CustomMediaRouterTheme&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>6.sessionManagerListener 連接狀態的監聽 有start、startFailed、end、resumed等等 </p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> mSessionManagerListener = SessionManagerListenerImpl()</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionManagerListenerImpl</span> : <span class="type">SessionManagerListener</span>&lt;<span class="type">CastSession</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionStarting</span><span class="params">( castSession:<span class="type">CastSession</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionStarted</span><span class="params">(castSession:<span class="type">CastSession</span>, s:<span class="type">String</span> )</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionStartFailed</span><span class="params">(castSession:<span class="type">CastSession</span>, i:<span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionEnding</span><span class="params">(castSession:<span class="type">CastSession</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionEnded</span><span class="params">(castSession:<span class="type">CastSession</span>, i:<span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionResuming</span><span class="params">(castSession:<span class="type">CastSession</span>, s:<span class="type">String</span> )</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionResumed</span><span class="params">(castSession:<span class="type">CastSession</span>, b:<span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionResumeFailed</span><span class="params">(castSession:<span class="type">CastSession</span>, i:<span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionSuspended</span><span class="params">(castSession:<span class="type">CastSession</span>,  i:<span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>需要在onPause、onResume重新定義</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPause</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onPause()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(isCastApiAvailable())&#123;</span><br><span class="line">        castContext!!.sessionManager.removeSessionManagerListener(mSessionManagerListener, CastSession::<span class="keyword">class</span>.java)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResume</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume()    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(isCastApiAvailable())&#123;</span><br><span class="line">        castContext!!.sessionManager.addSessionManagerListener(mSessionManagerListener, CastSession::<span class="keyword">class</span>.java)</span><br><span class="line">    &#125;        </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>7.設定<em><strong>onSessionStared</strong></em>在成功連接後要做的事情</p>
-<p><strong>movieMetadata</strong>：儲存影片的標題、副標題，或是圖片網址</p>
-<p><strong>mediaInfo</strong>：建立影片連結、聲明影片格式且夾帶movieMetadata</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionStarted</span><span class="params">(castSession:<span class="type">CastSession</span>, s:<span class="type">String</span> )</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> movieMetadata = MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE)</span><br><span class="line">    movieMetadata.putString(MediaMetadata.KEY_SUBTITLE, airVideoTitle)</span><br><span class="line">    movieMetadata.putString(MediaMetadata.KEY_TITLE, airVideoName)</span><br><span class="line">    movieMetadata.addImage(WebImage(Uri.parse(videoPic)))</span><br><span class="line">    movieMetadata.addImage(WebImage(Uri.parse(videoPic)))</span><br><span class="line">    <span class="keyword">val</span> mediaInfo = MediaInfo.Builder(videoUrl)</span><br><span class="line">        .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)</span><br><span class="line">        .setContentType(<span class="string">&quot;videos/mp4&quot;</span>)</span><br><span class="line">        .setMetadata(movieMetadata)</span><br><span class="line">        .build()</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">val</span> remoteMediaClient = castSession.remoteMediaClient</span><br><span class="line">    remoteMediaClient.load(mediaInfo, <span class="literal">true</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>由於連接後需要馬上彈出相關的遙控器畫面給使用者使用，於是要改寫remoteMediaClient.load，設定CallBack</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">remoteMediaClient.load(mediaInfo, <span class="literal">true</span>, <span class="number">0</span>).setResultCallback(<span class="keyword">object</span> :ResultCallbacks&lt;RemoteMediaClient.MediaChannelResult&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">(<span class="meta">@NonNull</span> mediaChannelResult:<span class="type">RemoteMediaClient</span>.<span class="type">MediaChannelResult</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent(videoContext,ExpandedControlsActivity::<span class="keyword">class</span>.java)</span><br><span class="line">        startActivity(videoContext,intent,<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(<span class="meta">@NonNull</span> status: <span class="type">Status</span>)</span></span> &#123;</span><br><span class="line">        Toast.makeText(videoContext, <span class="string">&quot;連接失敗&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">        remoteMediaClient.stop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>8.建立ExpandedController</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExpandedControlsActivity</span> : <span class="type">ExpandedControllerActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateOptionsMenu</span><span class="params">(menu: <span class="type">Menu</span>)</span></span>:<span class="built_in">Boolean</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreateOptionsMenu(menu)</span><br><span class="line">        menuInflater.inflate(R.menu.cast_expanded_controller_menu, menu)</span><br><span class="line">        CastButtonFactory.setUpMediaRouteButton(</span><br><span class="line">            applicationContext,</span><br><span class="line">            menu,</span><br><span class="line">            R.id.media_route_menu_item)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//AndroidMenifest.xml</span></span><br><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">...</span><br><span class="line">&lt;activity</span><br><span class="line">        android:name=<span class="string">&quot;.ExpandedControlsActivity&quot;</span></span><br><span class="line">        android:label=<span class="string">&quot;@string/app_name&quot;</span></span><br><span class="line">        android:launchMode=<span class="string">&quot;singleTask&quot;</span></span><br><span class="line">        android:theme=<span class="string">&quot;@style/Theme.AppCompat.NoActionBar&quot;</span></span><br><span class="line">        android:screenOrientation=<span class="string">&quot;portrait&quot;</span>&gt;</span><br><span class="line">    &lt;intent-filter&gt;</span><br><span class="line">        &lt;action android:name=<span class="string">&quot;android.intent.action.MAIN&quot;</span>/&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line">    &lt;meta-<span class="keyword">data</span></span><br><span class="line">            android:name=<span class="string">&quot;android.support.PARENT_ACTIVITY&quot;</span></span><br><span class="line">            android:value=<span class="string">&quot;com.example.casttest.MainActivity&quot;</span>/&gt;</span><br><span class="line">&lt;/activity&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>且串接 Controller到castOptionProvider上</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">CastOptionsProvider</span> : <span class="type">OptionsProvider &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCastOptions</span><span class="params">(context: <span class="type">Context</span>)</span></span>: CastOptions &#123;</span><br><span class="line">        <span class="keyword">val</span> buttonActions = arrayListOf&lt;String&gt;()   <span class="comment">//notification要使用的按鈕列表</span></span><br><span class="line">        buttonActions.add(MediaIntentReceiver.ACTION_REWIND)</span><br><span class="line">        buttonActions.add(MediaIntentReceiver.ACTION_TOGGLE_PLAYBACK)</span><br><span class="line">        buttonActions.add(MediaIntentReceiver.ACTION_FORWARD)</span><br><span class="line">        buttonActions.add(MediaIntentReceiver.ACTION_STOP_CASTING)</span><br><span class="line">        <span class="keyword">val</span> compatButtonActionsIndicies = intArrayOf(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        <span class="keyword">val</span> notificationOptions = NotificationOptions.Builder()</span><br><span class="line">            .setTargetActivityClassName(ExpandedControlsActivity::<span class="keyword">class</span>.java.name)</span><br><span class="line">            .setActions(buttonActions, compatButtonActionsIndicies)</span><br><span class="line">            .setSkipStepMs(<span class="number">30</span> * DateUtils.SECOND_IN_MILLIS)</span><br><span class="line">            .build()</span><br><span class="line">        <span class="keyword">val</span> mediaOptions = CastMediaOptions.Builder()</span><br><span class="line">            .setNotificationOptions(notificationOptions)</span><br><span class="line">            .setExpandedControllerActivityClassName(ExpandedControlsActivity::<span class="keyword">class</span>.java.name)</span><br><span class="line">            .build()</span><br><span class="line">        <span class="keyword">return</span> CastOptions.Builder()</span><br><span class="line">            .setReceiverApplicationId(context.getString(R.string.app_id))</span><br><span class="line">            .setCastMediaOptions(mediaOptions)</span><br><span class="line">            .build()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAdditionalSessionProviders</span><span class="params">(context: <span class="type">Context</span>)</span></span>: List&lt;SessionProvider&gt;? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>9.覆寫ExpandedController，套用自己拉的介面，利用uiMediaController串接功能</p>
-<p><strong>uiMediaController.bind(綁定)SeekBar(expandedCastSeekBar,1000L)</strong></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExpandedControlsActivity</span> : <span class="type">ExpandedControllerActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(bundle: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(bundle)</span><br><span class="line">        setContentView(R.layout.expanded_controller)   <span class="comment">//毫不猶豫地給他套用上去</span></span><br><span class="line"></span><br><span class="line">        uiMediaController.bindViewToRewind(expandedRewind,<span class="number">10000</span>)</span><br><span class="line">        uiMediaController.bindViewToForward(expandedForward,<span class="number">10000</span>)</span><br><span class="line">        uiMediaController.bindSeekBar(expandedCastSeekBar,<span class="number">1000L</span>)</span><br><span class="line">        uiMediaController.bindTextViewToStreamPosition(expandedPosition,<span class="literal">true</span>,<span class="number">1000</span>)</span><br><span class="line">        uiMediaController.bindTextViewToStreamDuration(expandedDuration)</span><br><span class="line">        uiMediaController.bindImageViewToPlayPauseToggle(expandedPlayPause,resources.getDrawable(R.drawable.play),resources.getDrawable(R.drawable.pause),<span class="literal">null</span>,<span class="literal">null</span>, <span class="literal">false</span>)</span><br><span class="line">        uiMediaController.bindImageViewToMuteToggle(expandedMute)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>缺點：越深入的物件名稱由於保護的關係，所以看起來都很相像，拿取存影片資訊的mediaMetaData時，需要用心挖</p>
-<p>ex.</p>
-<pre><code>private TextView zzxy;
- private SeekBar zzvx;
- private CastSeekBar zzxz;
- private ImageView zzya;
- private ImageView zzyb;
- private int[] zzyc;
- 
-</code></pre>
-<p>▼拿取存影片資訊的mediaMetaData</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> metadata: com.google.android.gms.cast.MediaMetadata=session.remoteMediaClient.mediaInfo.metadata</span><br><span class="line">expandedTitle.text = metadata.getString(<span class="string">&quot;com.google.android.gms.cast.metadata.TITLE&quot;</span>)</span><br><span class="line">expandedSubTitle.text = (zzp.zzb(metadata)).toString()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>震動方法以及按鈕調整音量方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//震動控制</span></span><br><span class="line"><span class="keyword">val</span> myVibrator = application.getSystemService(Service.VIBRATOR_SERVICE) <span class="keyword">as</span> Vibrator</span><br><span class="line"><span class="comment">//get session</span></span><br><span class="line"><span class="keyword">val</span> session:CastSession = CastContext.getSharedInstance(applicationContext).sessionManager.currentCastSession</span><br><span class="line">expandedMute.setOnClickListener &#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">26</span>) &#123;</span><br><span class="line">        myVibrator.vibrate(VibrationEffect.createOneShot(<span class="number">100</span>, <span class="number">10</span>))   <span class="comment">//按鈕震動</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        myVibrator.vibrate(<span class="number">50</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(session.isConnected)&#123;   </span><br><span class="line">        session.isMute = !session.isMute   <span class="comment">//靜音</span></span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//音量控制</span></span><br><span class="line"><span class="keyword">val</span> audioManager: AudioManager = applicationContext.getSystemService(Context.AUDIO_SERVICE) <span class="keyword">as</span> AudioManager</span><br><span class="line">expandedVolDown.setOnClickListener &#123;</span><br><span class="line">    audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND)  <span class="comment">//音量--</span></span><br><span class="line">&#125;</span><br><span class="line">expandedVolUp.setOnClickListener &#123;</span><br><span class="line">    audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND)  <span class="comment">//音量++</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>ExpandedController在播放完畢之後一段時間會自動消失，這時如果用當作捷徑的浮動按鈕來Intent回來，會因為找不到東西而報錯，所以要Intent過來ExpandedControlsActivity以前，必須要檢查cast的資料還在不在</p>
-<pre><code>Objects.requireNonNull(CastContext.getSharedInstance()).getSessionManager().getCurrentCastSession()!=null
-</code></pre>
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
+    </div>
 </div>
 
 
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E9%81%A0%E7%A8%8B%E9%85%8D%E7%BD%AERemoteConfig(Firebase)/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="遠程配置RemoteConfig-Firebase"><a href="#遠程配置RemoteConfig-Firebase" class="headerlink" title="遠程配置RemoteConfig(Firebase)"></a>遠程配置RemoteConfig(Firebase)</h1><p>Update：2020/04/15  Code：Kotlin<br>By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://firebase.google.com/docs/remote-config/use-config-android">https://firebase.google.com/docs/remote-config/use-config-android</a></p>
-<p><img src="/file/21fd234b4ed7774b48588ff5f309c31a" alt="截圖 2020-04-15 上午11.01.19.png"></p>
-<p>利用Firebase的Config功能，幫助我們在未更新新版本的情況下更改App中的配置。</p>
-<hr>
-<h3 id="1-導入依賴"><a href="#1-導入依賴" class="headerlink" title="1.導入依賴"></a>1.導入依賴</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">implementation <span class="string">&#x27;com.google.firebase:firebase-config-ktx:19.1.3&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-建立RemoteConfig以及設定ConfigSetting"><a href="#2-建立RemoteConfig以及設定ConfigSetting" class="headerlink" title="2.建立RemoteConfig以及設定ConfigSetting"></a>2.建立RemoteConfig以及設定ConfigSetting</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> remoteConfig = FirebaseRemoteConfig.getInstance()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> firebaseRemoteConfigSettings =</span><br><span class="line">    FirebaseRemoteConfigSettings.Builder().apply &#123;</span><br><span class="line">        setDeveloperModeEnabled(<span class="literal">true</span>)</span><br><span class="line">    &#125;.build()</span><br><span class="line">    </span><br><span class="line">remoteConfig.setConfigSettings(firebaseRemoteConfigSettings)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="3-設定預設值-以防沒有成功抓取Config值"><a href="#3-設定預設值-以防沒有成功抓取Config值" class="headerlink" title="3.設定預設值(以防沒有成功抓取Config值)"></a>3.設定預設值(以防沒有成功抓取Config值)</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">remoteConfig.setDefaults(R.xml.remote_config_default)<span class="comment">//預設結果</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//remote_config_default.xml</span></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;defaultsMap&gt;</span><br><span class="line">    &lt;entry&gt;</span><br><span class="line">        &lt;key&gt;hello_text&lt;/key&gt;</span><br><span class="line">        &lt;value&gt;Hello default&lt;/value&gt;</span><br><span class="line">    &lt;/entry&gt;</span><br><span class="line">    &lt;entry&gt;</span><br><span class="line">        &lt;key&gt;...&lt;/key&gt;</span><br><span class="line">        &lt;value&gt;...&lt;/value&gt;</span><br><span class="line">    &lt;/entry&gt;</span><br><span class="line">&lt;/defaultsMap&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-設定刷新時間並且送出請求"><a href="#4-設定刷新時間並且送出請求" class="headerlink" title="4.設定刷新時間並且送出請求"></a>4.設定刷新時間並且送出請求</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// cache刷新時間，單位是秒</span></span><br><span class="line"><span class="keyword">var</span> cacheExpiration = <span class="number">3600L</span></span><br><span class="line"><span class="keyword">if</span> (remoteConfig.info.configSettings.isDeveloperModeEnabled) &#123;</span><br><span class="line">    cacheExpiration = <span class="number">0L</span></span><br><span class="line">&#125;</span><br><span class="line">remoteConfig.fetch(cacheExpiration)</span><br><span class="line">    .addOnCompleteListener(<span class="keyword">this</span>) &#123; task -&gt;</span><br><span class="line">        <span class="keyword">if</span> (task.isSuccessful) &#123;</span><br><span class="line">            <span class="keyword">val</span> updated = remoteConfig.activate()</span><br><span class="line">            Log.d(<span class="string">&quot;remoteConfigResponse&quot;</span>,<span class="string">&quot;update -&gt; <span class="variable">$update</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        displayWelcomeMessage()<span class="comment">//要執行的東西</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E8%B3%87%E6%96%99%E5%BA%ABRoom/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="資料庫Room"><a href="#資料庫Room" class="headerlink" title="資料庫Room"></a>資料庫Room</h1><p>  Update：2019/12/12<br>  Code：Kotlin<br>  By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://medium.com/jastzeonic/kotlin-room-%E4%BD%BF%E7%94%A8%E5%88%9D%E9%AB%94%E9%A9%97-f3af4f8ddc80">https://medium.com/jastzeonic/kotlin-room-%E4%BD%BF%E7%94%A8%E5%88%9D%E9%AB%94%E9%A9%97-f3af4f8ddc80</a></p>
-<p>1.導入依賴</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;androidx.room:room-runtime:2.2.2&#x27;</span></span><br><span class="line">    kapt <span class="string">&#x27;androidx.room:room-compiler:2.2.2&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2.建立 Room 的 Entities(key值、欄位的部分)，設定table名稱</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity(tableName = FavoModel.TABLE_NAME)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FavoModel</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> TABLE_NAME = <span class="string">&quot;favorite&quot;</span>    <span class="comment">//設定Table名稱</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PrimaryKey(autoGenerate = true)</span>    <span class="comment">//欄位</span></span><br><span class="line">    <span class="keyword">var</span> id: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">&quot;&quot;</span></span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="meta">@ColumnInfo(name = <span class="meta-string">&quot;timestamp&quot;</span>, typeAffinity = ColumnInfo.TEXT)</span></span><br><span class="line">    <span class="keyword">var</span> time = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Ignore</span></span><br><span class="line">    <span class="keyword">var</span> ignoreText = <span class="string">&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.建立 Dao interface，包含</p>
-<ul>
-<li>  <a href="#GetAll">GetAll</a></li>
-<li>  <a href="#QueryById">QueryById</a></li>
-<li>  <a href="#Insert">Insert</a></li>
-<li>  <a href="#Update">Update</a></li>
-<li>  <a href="#Delete">Delete</a></li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">FavoDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(<span class="meta-string">&quot;select * from &quot;</span> + FavoModel.TABLE_NAME + <span class="meta-string">&quot; order by timestamp DESC&quot;</span>)</span>   </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getAll</span><span class="params">()</span></span>: List&lt;FavoModel&gt;                                               　 </span><br><span class="line">                                            <span class="comment">//timestamp from 2.Entities @ColumnInfo(新增/更新時以item.time來記錄)</span></span><br><span class="line">                                            <span class="comment">//ASC小到大排序 DESC大到小排序</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Query(<span class="meta-string">&quot;select * from &quot;</span> + FavoModel.TABLE_NAME + <span class="meta-string">&quot; where id LIKE :id LIMIT 1&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">queryById</span><span class="params">(id: <span class="type">Int</span>)</span></span>: FavoModel</span><br><span class="line">                                            <span class="comment">//當id = 所需 id 且限制取一筆</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert(onConflict = OnConflictStrategy.REPLACE)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">insert</span><span class="params">(item: <span class="type">FavoModel</span>)</span></span>:<span class="built_in">Long</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">(item: <span class="type">FavoModel</span>)</span></span>:<span class="built_in">Int</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">delete</span><span class="params">(item: <span class="type">FavoModel</span>)</span></span>:<span class="built_in">Int</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>4.需要建立一個標示 Database 以及繼承 RoomDatabase 的抽象型別</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = [(FavoModel::class)</span>], version = <span class="number">1</span>)</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">TodoDatabase</span> : <span class="type">RoomDatabase</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> DATABASE_NAME = <span class="string">&quot;database&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getTodoDao</span><span class="params">()</span></span>: FavoDao</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>5.如有多張Table，創建專屬的Model與Dao，並在DataBase中，加入entities欄位以及getDao方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = [(FavoModel::class)</span>,(FollowModel::<span class="class"><span class="keyword">class</span>),<span class="type"></span></span>(RecordModel::<span class="class"><span class="keyword">class</span>)], <span class="type">version = 1)</span></span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">TodoDatabase</span> : <span class="type">RoomDatabase</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> DATABASE_NAME = <span class="string">&quot;database&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getFavoDao</span><span class="params">()</span></span>: FavoDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getFollowDao</span><span class="params">()</span></span>: FollowDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getRecordDao</span><span class="params">()</span></span>: RecordDao</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>6.若新版本需要新增table或更改表單欄位，DataBase中的version需加1，並添加migration方法。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Database(entities = [(FavoModel::class)</span>,(FollowModel::<span class="class"><span class="keyword">class</span>),<span class="type"></span></span>(RecordModel::<span class="class"><span class="keyword">class</span>)], <span class="type">version = 2)</span></span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">TodoDatabase</span> : <span class="type">RoomDatabase</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> DATABASE_NAME = <span class="string">&quot;database&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">val</span> MIGRATION_1_2 = <span class="keyword">object</span> : Migration(<span class="number">1</span>, <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">migrate</span><span class="params">(database: <span class="type">SupportSQLiteDatabase</span>)</span></span> &#123;</span><br><span class="line">                <span class="keyword">val</span> tableName = TodoModel.TABLE_NAME</span><br><span class="line">                database.execSQL(<span class="string">&quot;ALTER TABLE <span class="variable">$tableName</span> ADD COLUMN imageUrl TEXT NOT NULL DEFAULT &#x27;&#x27;&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getFavoDao</span><span class="params">()</span></span>: FavoDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getFollowDao</span><span class="params">()</span></span>: FollowDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">getRecordDao</span><span class="params">()</span></span>: RecordDao</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在呼叫時也需要一個addMigration的方法。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">AsyncTask.execute(&#123;</span><br><span class="line">    todoDatabase = Room.databaseBuilder(applicationContext, TodoDatabase::<span class="keyword">class</span>.java, TodoDatabase.DATABASE_NAME)</span><br><span class="line">        .addMigrations(TodoDatabase.MIGRATION_1_2)</span><br><span class="line">        .build()</span><br><span class="line">    todoDao = todoDatabase.getTodoDao()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>資料庫無法在UI Thread上執行，所以需要用AsyncTask.execute包起來。用完記得要把資料庫關閉，有些機型對於資料庫重複開啟未關閉會造成系統吃不消。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AsyncTask.execute(&#123;</span><br><span class="line">    <span class="keyword">val</span> todoDatabase = Room.databaseBuilder(applicationContext, TodoDatabase::<span class="keyword">class</span>.java, TodoDatabase.DATABASE_NAME)</span><br><span class="line">        .allowMainThreadQueries()</span><br><span class="line">        .build()</span><br><span class="line">    <span class="keyword">val</span> todoDao = todoDatabase.getTodoDao()</span><br><span class="line">    <span class="keyword">val</span> allTodoList = todoDao.getAll()</span><br><span class="line">    <span class="comment">//getAll()方法只能抓到位置</span></span><br><span class="line">    </span><br><span class="line">    todoDatabase.close()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="GetAll">GetAll_獲取列表</h3>
-
-<p><strong>get列表size</strong>：todoDatabase.getTodoDao().getAll().size<br><strong>get列表[0]的id值</strong>：todoDatabase.getTodoDao().getAll()[0].id</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">AsyncTask.execute &#123;</span><br><span class="line">    <span class="keyword">val</span> todoDatabase = Room.databaseBuilder(applicationContext, TodoDatabase::<span class="keyword">class</span>.java, TodoDatabase.DATABASE_NAME)</span><br><span class="line">        .build()</span><br><span class="line">    <span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">0</span> until todoDatabase.getTodoDao().getAll().size)&#123;</span><br><span class="line">        <span class="keyword">val</span> tempArray:MutableMap&lt;String,String&gt; = mutableMapOf()</span><br><span class="line">        tempArray[<span class="string">&quot;vid&quot;</span>] = todoDatabase.getTodoDao().getAll()[i].id.toString()</span><br><span class="line">        tempArray[<span class="string">&quot;name&quot;</span>] = todoDatabase.getTodoDao().getAll()[i].name</span><br><span class="line">        ...</span><br><span class="line">        collect.add(tempArray)</span><br><span class="line">    &#125;</span><br><span class="line">    activity!!.runOnUiThread &#123;</span><br><span class="line">        mAdapter.setNewData(collect)</span><br><span class="line">        mAdapter.notifyDataSetChanged()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="QueryById">QueryById_搜尋項目</h3>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span>(todoDatabase.getTodoDao().queryById(id)!=<span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="comment">//資料存在</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//資料不存在</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Insert">Insert_插入項目</h3>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> item = FavoModel()</span><br><span class="line">item.id=vid</span><br><span class="line">item.name=name</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">todoDatabase.getTodoDao().insert(item)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Update">Update_更新項目</h3>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">AsyncTask.execute &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> todoDatabase = Room.databaseBuilder(applicationContext, TodoDatabase::<span class="keyword">class</span>.java, TodoDatabase.DATABASE_NAME)</span><br><span class="line">        .build()</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span>(todoDatabase.getTodoDao().queryById(id)!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">val</span> item = todoDatabase.getTodoDao().queryById(id)</span><br><span class="line">        item.name = newName</span><br><span class="line">        item.imageUrl = newImageUrl</span><br><span class="line">        todoDatabase.getTodoDao().update(item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Delete">Delete_刪除項目</h3>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">AsyncTask.execute &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> todoDatabase = Room.databaseBuilder(applicationContext, TodoDatabase::<span class="keyword">class</span>.java, TodoDatabase.DATABASE_NAME)</span><br><span class="line">        .build()</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span>(todoDatabase.getTodoDao().queryById(id)!=<span class="literal">null</span>)&#123;</span><br><span class="line">        todoDatabase.getTodoDao().delete(todoDatabase.getTodoDao().queryById(id))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//刪到不存在的資料會閃退</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<h1 id="遇到問題"><a href="#遇到問題" class="headerlink" title="遇到問題"></a>遇到問題</h1><p><img src="/file/1a7fc4c3ab27b3226507c3029ca89a21" alt="1.PNG"><br><img src="/file/5cc4729fc7040dcfe703cf3c799867c0" alt="2.PNG"><br><img src="/file/302d25ac83e101fb548fb8f39190b6f2" alt="3.PNG"></p>
-<p>以上原因均是因為資料庫在使用之後沒有做.close()的動作，多次開啟造成內存不足</p>
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E8%AA%BF%E8%A9%A6%E6%A8%A1%E5%BC%8F%E8%A8%AD%E5%AE%9A%E6%96%B9%E6%B3%95DebugView/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="調試模式設定方法DebugView"><a href="#調試模式設定方法DebugView" class="headerlink" title="調試模式設定方法DebugView"></a>調試模式設定方法DebugView</h1><p>  Update：2020/07/14<br>  By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://shengyu7697.github.io/blog/2019/10/26/Android-adb/">https://shengyu7697.github.io/blog/2019/10/26/Android-adb/</a></p>
-<p><img src="/file/f3424d7101ac9dbe1d8a2e2c1e71c44a" alt="image.png"></p>
-<p>為測試一款新的app是否正常植入GA（或是植入GA後沒有正常收到訊息），故需要先行測試FirebaseAnalytics指令是否正常傳送。</p>
-<hr>
-<p>1.Firebase官網只提到，要開啟手機設備的調試模式，需USB插上手機，並輸入語法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
-
-<p>到AS的Terminal輸入指令，系統卻說不認識adb，這時須先下載platform-tools工具</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/platform-tools-latest-windows.zip">Windows載點</a></li>
-<li><a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/platform-tools-latest-darwin.zip">MAC載點</a></li>
-</ul>
-<p>載好之後解壓縮並且丟到一個自己找得到的位置（直接丟在package內的第一層）</p>
-<p>2.回到Terminal，並進入platform-tools資料夾中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd platform-tools</span><br></pre></td></tr></table></figure>
-<p>進入之後，可能會發現系統找不到adb這個指令，是因為環境變數沒有設置好。</p>
-<p>這時候就可以參考<a target="_blank" rel="noopener" href="https://medium.com/@stanleylin_7768/android-studio-mac%E4%B8%ADadb-command-not-found-9b8c2b559f4c">Ｊ個網址</a></p>
-<pre><code>(1) 首先輸入下列指令，開啟一個新檔案
-
-    touch .bash_profile
-
-(2) 打開該檔案
-
-    open -e .bash_profile
-
-(3) 在跳出的空白視窗中，輸入先前放置platform-tools的路徑。
-
-    例：/Users/MyMac/MyApplication/platform-tools
-
-    export PATH=$&#123;PATH&#125;:/Users/MyMac/MyApplication/platform-tools
-
-    輸入完後直接關閉，會自動存檔。
-
-(4)輸入下列指令更新剛剛的配置
-
-    source .bash_profile
-
-    就可以發現剛剛的adb指令已經可以開始使用啦～
-</code></pre>
-<p>3.輸入啟用指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
-<p>Terminal不會有任何反應，但過一兩分鐘後，Firebase的DebugView頁面應該會連接上手機。</p>
-<p>若遲遲沒有連接，可以到Firebase設定去檢查應用程式的SHA1指紋是否一致</p>
-<p>4.關閉調適模式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app .none.</span><br></pre></td></tr></table></figure>
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="浮動目錄PopMenu-附指定APP分享路徑"><a href="#浮動目錄PopMenu-附指定APP分享路徑" class="headerlink" title="浮動目錄PopMenu(附指定APP分享路徑)"></a>浮動目錄PopMenu(附指定APP分享路徑)</h1><p>Update：2020/04/15  Code：Kotlin<br>By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/joelan/WeiboPopupMenu">https://github.com/joelan/WeiboPopupMenu</a></p>
-<p><img src="/file/9e32321bf8d1b7fd8c1c3b108cba0d9f" alt="Screenshot_20200311-174808.png"></p>
-<hr>
-<h3 id="1-創建一個PopMenu且加入MenuItem"><a href="#1-創建一個PopMenu且加入MenuItem" class="headerlink" title="1.創建一個PopMenu且加入MenuItem"></a>1.創建一個PopMenu且加入MenuItem</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> message=<span class="string">&quot;your message&quot;</span></span><br><span class="line"><span class="keyword">val</span> mPopMenu = PopMenu.Builder().attachToActivity(<span class="keyword">this</span>)</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;LINE&quot;</span>, resources.getDrawable(R.drawable.line)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;動態消息&quot;</span>, resources.getDrawable(R.drawable.facebook)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;Telegram&quot;</span>, resources.getDrawable(R.drawable.telegram)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;訊息&quot;</span>, resources.getDrawable(R.drawable.message)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;複製鏈結&quot;</span>, resources.getDrawable(R.drawable.hyperlink)))</span><br><span class="line">    .addMenuItem(PopMenuItem(<span class="string">&quot;顯示更多&quot;</span>, resources.getDrawable(R.drawable.other)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-設定Item的ClickListener"><a href="#2-設定Item的ClickListener" class="headerlink" title="2.設定Item的ClickListener"></a>2.設定Item的ClickListener</h3><p>利用mPopMenu.getMenuItem(position).textView.text作為按鈕判斷指標</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.setOnItemClickListener &#123; popMenu, position -&gt;</span><br><span class="line">    <span class="keyword">when</span>(mPopMenu.getMenuItem(position).textView.text)&#123;</span><br><span class="line">        <span class="string">&quot;LINE&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            sendIntent.`<span class="keyword">package</span>`=<span class="string">&quot;jp.naver.line.android&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;            </span><br><span class="line">        <span class="string">&quot;動態消息&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            sendIntent.`<span class="keyword">package</span>`=<span class="string">&quot;com.facebook.katana&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;Telegram&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> myIntent = Intent(Intent.ACTION_SEND)</span><br><span class="line">            myIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            myIntent.setPackage(<span class="string">&quot;org.telegram.messenger&quot;</span>)</span><br><span class="line">            myIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                startActivity(myIntent)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> ( ex:android.content.ActivityNotFoundException) &#123;</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;Telegram Not Install&quot;</span>, Toast.LENGTH_LONG).show()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;訊息&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent( Intent.ACTION_VIEW, Uri.parse( <span class="string">&quot;sms:&quot;</span> + <span class="string">&quot;&quot;</span> ) )</span><br><span class="line">            sendIntent.putExtra( <span class="string">&quot;sms_body&quot;</span>, message )</span><br><span class="line">            startActivity(sendIntent)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;複製鏈結&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> clipboard = getSystemService(Context.CLIPBOARD_SERVICE) <span class="keyword">as</span> ClipboardManager</span><br><span class="line">            <span class="keyword">val</span> clip = ClipData.newPlainText(<span class="string">&quot;58_share&quot;</span>, message)</span><br><span class="line">            clipboard.setPrimaryClip(clip)</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;鏈結已複製&quot;</span>,Toast.LENGTH_LONG).show()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="string">&quot;顯示更多&quot;</span> -&gt; &#123;</span><br><span class="line">            <span class="keyword">val</span> sendIntent = Intent()</span><br><span class="line">            sendIntent.flags=Intent.FLAG_ACTIVITY_SINGLE_TOP</span><br><span class="line">            sendIntent.action = Intent.ACTION_SEND</span><br><span class="line">            sendIntent.putExtra(Intent.EXTRA_TEXT, message)</span><br><span class="line">            sendIntent.type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">            startActivity(Intent.createChooser(sendIntent, <span class="string">&quot;分享內容到...&quot;</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="3-設定欄位數以及建立"><a href="#3-設定欄位數以及建立" class="headerlink" title="3.設定欄位數以及建立"></a>3.設定欄位數以及建立</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.columnCount(<span class="number">6</span>)</span><br><span class="line">.build()            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-設定其他客製化選項以及顯示"><a href="#4-設定其他客製化選項以及顯示" class="headerlink" title="4.設定其他客製化選項以及顯示"></a>4.設定其他客製化選項以及顯示</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mPopMenu.setmBackGroundColor(resources.getColor(R.color.TransBlackDeep))</span><br><span class="line">mPopMenu.setmCloseButtomResourceid(R.drawable.baseline_clear_24)<span class="comment">//X圖示，顏色需於XML先行設定</span></span><br><span class="line">mPopMenu.setmMarginTopRemainSpace(<span class="number">3.0f</span>)<span class="comment">//設定ＭarginTop的數值Ｆ</span></span><br><span class="line">mPopMenu.textcolor=R.color.TextWhiteGray<span class="comment">//Item標題顏色</span></span><br><span class="line">mPopMenu.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="浮動圖示FloatingView-Firebase"><a href="#浮動圖示FloatingView-Firebase" class="headerlink" title="浮動圖示FloatingView(Firebase)"></a>浮動圖示FloatingView(Firebase)</h1><p>Update：2019/12/11  Code：Java、Kotlin<br>By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/recruit-lifestyle/FloatingView">https://github.com/recruit-lifestyle/FloatingView</a></p>
-<p><img src="/file/2778ac939a97d89c72106c416bedc5d8" alt="6-1.png"></p>
-<p>圖示需要漂浮在桌面以及其他應用程式上方，方便使用者快速回到APP。</p>
-<hr>
-<p>1.加入依賴到build.gradle(Module:app)</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url <span class="string">&quot;https://jitpack.io&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.github.recruit-lifestyle:FloatingView:2.4.4&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2.創建一個伺服器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatHeadService</span> <span class="keyword">extends</span> <span class="title">Service</span> <span class="keyword">implements</span> <span class="title">FloatingViewListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;ChatHeadService&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_CUTOUT_SAFE_AREA = <span class="string">&quot;cutout_safe_area&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NOTIFICATION_ID = <span class="number">9083150</span>;</span><br><span class="line">    <span class="keyword">private</span> FloatingViewManager mFloatingViewManager;</span><br><span class="line">    <span class="keyword">private</span> ImageView iconView;</span><br><span class="line">    <span class="meta">@TargetApi(Build.VERSION_CODES.Q)</span></span><br><span class="line">    <span class="meta">@RequiresApi(api = Build.VERSION_CODES.M)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> START_STICKY;   <span class="comment">//如果已經存在就直接返回</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> DisplayMetrics metrics = <span class="keyword">new</span> DisplayMetrics();</span><br><span class="line">        <span class="keyword">final</span> WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">        <span class="keyword">assert</span> windowManager != <span class="keyword">null</span>;</span><br><span class="line">        windowManager.getDefaultDisplay().getMetrics(metrics);</span><br><span class="line">        <span class="keyword">final</span> LayoutInflater inflater = LayoutInflater.from(<span class="keyword">this</span>);</span><br><span class="line">        iconView = (ImageView) inflater.inflate(R.layout.widget_chathead, <span class="keyword">null</span>, <span class="keyword">false</span>);  </span><br><span class="line">        Bitmap bmp;    <span class="comment">//設定圖示</span></span><br><span class="line">        <span class="keyword">int</span> width=<span class="number">300</span>;</span><br><span class="line">        <span class="keyword">int</span> height=<span class="number">300</span>;</span><br><span class="line">        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.rd);<span class="comment">//image is your image</span></span><br><span class="line">        bmp = Bitmap.createScaledBitmap(bmp, width,height, <span class="keyword">true</span>);</span><br><span class="line">        iconView.setImageBitmap(bmp);</span><br><span class="line">        iconView.setOnClickListener(view -&gt; &#123;</span><br><span class="line">            <span class="comment">//點擊圖示後要做的事情</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mFloatingViewManager = <span class="keyword">new</span> FloatingViewManager(<span class="keyword">this</span>, <span class="keyword">this</span>);</span><br><span class="line">        mFloatingViewManager.setFixedTrashIconImage(R.drawable.ic_trash_fixed);</span><br><span class="line">        mFloatingViewManager.setActionTrashIconImage(R.drawable.ic_trash_action);</span><br><span class="line">        mFloatingViewManager.setSafeInsetRect((Rect) intent.getParcelableExtra(EXTRA_CUTOUT_SAFE_AREA));</span><br><span class="line">        <span class="keyword">final</span> FloatingViewManager.Options options = <span class="keyword">new</span> FloatingViewManager.Options();</span><br><span class="line">        options.overMargin = (<span class="keyword">int</span>) (<span class="number">16</span> * metrics.density);</span><br><span class="line">        mFloatingViewManager.addViewToWindow(iconView, options);</span><br><span class="line">        <span class="comment">// 常駐起動</span></span><br><span class="line">        startForeground(NOTIFICATION_ID, createNotification(<span class="keyword">this</span>));</span><br><span class="line">        YoYo.with(Techniques.Shake)   <span class="comment">//YoYo為動畫套件 主要作用為產生圖示時博取使用者注意的震動</span></span><br><span class="line">                .duration(<span class="number">500</span>)</span><br><span class="line">                .repeat(<span class="number">1</span>)</span><br><span class="line">                .playOn(iconView);</span><br><span class="line">        <span class="keyword">return</span> START_REDELIVER_INTENT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        destroy();</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFinishFloatingView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stopSelf();</span><br><span class="line">        Log.d(TAG, getString(R.string.finish_deleted));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTouchFinished</span><span class="params">(<span class="keyword">boolean</span> isFinishing, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFinishing) &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.deleted_soon));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.touch_finished_position, x, y));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mFloatingViewManager.removeAllViewToWindow();</span><br><span class="line">            mFloatingViewManager = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Notification <span class="title">createNotification</span><span class="params">(Context context)</span> </span>&#123;   <span class="comment">//設置通知</span></span><br><span class="line">        <span class="keyword">final</span> NotificationCompat.Builder builder = <span class="keyword">new</span> NotificationCompat.Builder(context, context.getString(R.string.default_floatingview_channel_id));</span><br><span class="line">        builder.setWhen(System.currentTimeMillis());</span><br><span class="line">        builder.setSmallIcon(R.mipmap.ic_noti_58);</span><br><span class="line">        builder.setContentTitle(context.getString(R.string.chathead_content_title));</span><br><span class="line">        builder.setContentText(context.getString(R.string.content_text));</span><br><span class="line">        builder.setOngoing(<span class="keyword">true</span>);</span><br><span class="line">        builder.setPriority(NotificationCompat.PRIORITY_MIN);</span><br><span class="line">        builder.setCategory(NotificationCompat.CATEGORY_SERVICE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>3.在AndroidManifest中開啟權限</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.FOREGROUND_SERVICE&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>4.在AndroidManifest中定義Service</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    &lt;service android:name=<span class="string">&quot;.FloatingController.ChatHeadService&quot;</span></span><br><span class="line">        android:exported=<span class="string">&quot;false&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>5.呼叫方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showFloatingView(applicationContext, isShowOverlayPermission &#x3D; true, isCustomFloatingView &#x3D; false)</span><br></pre></td></tr></table></figure>
-
-<p>這時會遇到一個特殊權限，叫做「在其他應用程式上層繪製內容」，經由google play認證的app是預設開啟的</p>
-<p>在安卓6(API22)以上才有區分是跟否!!!!sdk需大於安卓6以上(含)才能詢問，不然會報錯</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings.canDrawOverlays(this)   &#x2F;&#x2F;判斷是否可在其他程式上繪製東西</span><br></pre></td></tr></table></figure>
-
-<p>若得到false，需跳轉到設定頁讓使用者手動設定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(&quot;package:$packageName&quot;))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;NewApi&quot;</span>)</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFloatingView</span><span class="params">(context: <span class="type">Context</span>, isShowOverlayPermission: <span class="type">Boolean</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// API22以下不需要詢問Settings.canDrawOverlays(context)，詢問會閃退</span></span><br><span class="line">    <span class="comment">//  --&gt;直接開啟下一步</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt;= Build.VERSION_CODES.LOLLIPOP_MR1) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// API22以上先詢問Settings.canDrawOverlays(context)</span></span><br><span class="line">    <span class="keyword">if</span> (Settings.canDrawOverlays(context)) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 沒有開啟canDrawOverlays 跳轉到設定讓使用者手動開啟</span></span><br><span class="line">    <span class="keyword">if</span> (isShowOverlayPermission) &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(<span class="string">&quot;package:&quot;</span> + context.packageName))</span><br><span class="line">        startActivityForResult(</span><br><span class="line">            intent,</span><br><span class="line">            <span class="keyword">if</span> (isCustomFloatingView) CUSTOM_OVERLAY_PERMISSION_REQUEST_CODE <span class="keyword">else</span> CHATHEAD_OVERLAY_PERMISSION_REQUEST_CODE</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">startFloatingViewService</span><span class="params">(activity: <span class="type">Activity</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// *** You must follow these rules when obtain the cutout(FloatingViewManager.findCutoutSafeArea) ***</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.P) &#123;</span><br><span class="line">        <span class="comment">// 1. &#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> (activity.window.attributes.layoutInDisplayCutoutMode == WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;&#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2. Do not set Activity to landscape</span></span><br><span class="line">        <span class="keyword">if</span> (activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;Do not set Activity to landscape&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// launch service</span></span><br><span class="line">    <span class="keyword">val</span> service: Class&lt;<span class="keyword">out</span> Service&gt;</span><br><span class="line">    <span class="keyword">val</span> key: String</span><br><span class="line">    <span class="keyword">if</span> (isCustomFloatingView) &#123;</span><br><span class="line">        service = CustomFloatingViewService::<span class="keyword">class</span>.java</span><br><span class="line">        key = CustomFloatingViewService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        service = ChatHeadService::<span class="keyword">class</span>.java</span><br><span class="line">        key = ChatHeadService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(activity, service)</span><br><span class="line">    intent.putExtra(key, FloatingViewManager.findCutoutSafeArea(activity))</span><br><span class="line">    ContextCompat.startForegroundService(activity, intent)</span><br><span class="line">&#125;         </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E6%97%A5%E5%A4%9C%E9%96%93%E6%A8%A1%E5%BC%8FDayNight/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="日夜間模式DayNight"><a href="#日夜間模式DayNight" class="headerlink" title="日夜間模式DayNight"></a>日夜間模式DayNight</h1><p>Update：2020/04/15  Code：Kotlin<br>By：Ada</p>
-<p>參考來源：<br><a target="_blank" rel="noopener" href="https://www.journaldev.com/19352/android-daynight-theme-night-mode">https://www.journaldev.com/19352/android-daynight-theme-night-mode</a><br><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5b8afe592b71773b27ca3b4a">https://www.twblogs.net/a/5b8afe592b71773b27ca3b4a</a></p>
-<p><img src="/file/410d7441575e2a7a203b40d666d393a6" alt="截圖 2020-04-15 上午11.38.04.png"></p>
-<p>實現App內日夜間模式切換，又分為手動以及依照裝置系統NightMode切換</p>
-<hr>
-<h3 id="1-更改AppTheme"><a href="#1-更改AppTheme" class="headerlink" title="1.更改AppTheme"></a>1.更改AppTheme</h3><p>將value-&gt;style中App需套用AppTheme的parent改為”Theme.AppCompat.DayNight”或”Theme.AppCompat.DayNight.NoActionBar”</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;style name=<span class="string">&quot;AppTheme&quot;</span> parent=<span class="string">&quot;Theme.AppCompat.DayNight.NoActionBar&quot;</span>&gt;</span><br><span class="line">    &lt;item name=<span class="string">&quot;colorPrimary&quot;</span>&gt;<span class="meta">@color</span>/colorPrimary&lt;/item&gt;</span><br><span class="line">    &lt;item name=<span class="string">&quot;colorPrimaryDark&quot;</span>&gt;<span class="meta">@color</span>/colorPrimaryDark&lt;/item&gt;</span><br><span class="line">    &lt;item name=<span class="string">&quot;colorAccent&quot;</span>&gt;<span class="meta">@color</span>/colorAccent&lt;/item&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-增加value-night資料夾"><a href="#2-增加value-night資料夾" class="headerlink" title="2.增加value-night資料夾"></a>2.增加value-night資料夾</h3><p>複製一value資料夾並命名為value-night，更改value-night中對應數值以及資源</p>
-<p>⬇以colors為例，更改(night)資料夾中的數值，同name不同value</p>
-<p><img src="/file/100c1bd581d8434ed04f139cdfc17a60" alt="截圖 2020-04-15 上午11.53.35.png"></p>
-<p>⬇以drawable為例，覆蓋相同名稱的圖片</p>
-<p><img src="/file/6cf19100e9c6f8a00b134b2a70d0e063" alt="截圖 2020-04-15 上午11.57.32.png"></p>
-<h3 id="3-建立切換方式"><a href="#3-建立切換方式" class="headerlink" title="3.建立切換方式"></a>3.建立切換方式</h3><h4 id="依照裝置系統NightMode切換-google來的請小心服用"><a href="#依照裝置系統NightMode切換-google來的請小心服用" class="headerlink" title="依照裝置系統NightMode切換(google來的請小心服用)"></a>依照裝置系統NightMode切換(google來的請小心服用)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (getResources().getConfiguration().uiMode &amp; Configuration.UI_MODE_NIGHT_MASK) &#123;</span><br><span class="line">    <span class="keyword">case</span> Configuration.UI_MODE_NIGHT_YES:</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> Configuration.UI_MODE_NIGHT_NO:</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);</span><br><span class="line">        <span class="keyword">break</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="手動切換"><a href="#手動切換" class="headerlink" title="手動切換"></a>手動切換</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//switch button</span></span><br><span class="line">mineDayNightSwitch.setOnCheckedChangeListener &#123; _, isChecked -&gt;</span><br><span class="line">    saveNightMode(isChecked)<span class="comment">//儲存NightMode以便下次開啟時直接套用</span></span><br><span class="line">    <span class="keyword">if</span>(isChecked)&#123;</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/Blog/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="Blog"><a href="#Blog" class="headerlink" title="Blog"></a>Blog</h1><p>上傳文章<br>-&gt;Source-&gt;_posts-&gt;丟入文章.md檔 </p>
-<p>更改主題<br>-&gt;themes-&gt;丟入主題<br>_config.yml theme: 替換主題名稱</p>
-<p>hexo clean 清除靜態檔案</p>
-<p>hexo g 建立新的靜態檔案</p>
-<p>hexo s 測試</p>
-<p>hexo d 上傳到git</p>
-
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-    <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5FCM/">No-title</a>
-      </h1>
-    
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <h1 id="推播通知FCM"><a href="#推播通知FCM" class="headerlink" title="推播通知FCM"></a>推播通知FCM</h1><p>  Update：2019/01/02<br>  Code：Java、Kotlin<br>  By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://fightwennote.blogspot.com/2019/03/android-firebase-fcm.html">https://fightwennote.blogspot.com/2019/03/android-firebase-fcm.html</a></p>
-<p><img src="/file/adf9544099dd17502cfe90f2150ac44e" alt="IMG_20191230_154939.jpg"></p>
-<hr>
-<h2 id="Firebase註冊Cloud-Message"><a href="#Firebase註冊Cloud-Message" class="headerlink" title="Firebase註冊Cloud Message"></a>Firebase註冊Cloud Message</h2><p>到FireBase頁面，點選Cloud Messaging，並依循指示將FireBase新增到App中。</p>
-<p><img src="/file/a46c586daec6bd8752e9d5ca2d87bbf8" alt="擷取.PNG"></p>
-<p>P.S. 尋找SHA-1憑證的方式。Andorid Studio 側邊有一個Gradle欄位，找到Task資料夾，找到 Tasks 資料夾，android -&gt; signingReport，點開執行就可以在下方Run找到SHA1欄位。</p>
-<p>參考資料：<a target="_blank" rel="noopener" href="https://anson-site.blogspot.com/2018/02/sha1md5.html">https://anson-site.blogspot.com/2018/02/sha1md5.html</a></p>
-<p><img src="/file/5253b2fc78bc13d37be358960a874d22" alt="擷取.PNG"><br><img src="/file/02f32bd7ce04e9e19e3f6a7120d0607a" alt="tempsnip.png"></p>
-<hr>
-<h2 id="Android-Studio接應"><a href="#Android-Studio接應" class="headerlink" title="Android Studio接應"></a>Android Studio接應</h2><p>在app/build.gradle的dependencies加入依賴</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.google.firebase:firebase-messaging:20.1.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在build.gradle的dependencies加入依賴</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    classpath <span class="string">&#x27;com.google.gms:google-services:4.3.3&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>新增一個 Class 繼承 FirebaseMessagingService，並且 Override onMessageReceived 跟 onNewToken，以及sendNotification的Function來處理/顯示通知。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFirebaseService</span> <span class="keyword">extends</span> <span class="title">FirebaseMessagingService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessageReceived</span><span class="params">(<span class="meta">@NotNull</span> RemoteMessage remoteMessage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onMessageReceived(remoteMessage);</span><br><span class="line">        <span class="keyword">if</span> (remoteMessage.getNotification() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;title &quot;</span>+remoteMessage.getNotification().getTitle());</span><br><span class="line">            Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;body &quot;</span>+remoteMessage.getNotification().getBody());</span><br><span class="line">            </span><br><span class="line">            sendNotification(remoteMessage.getNotification().getTitle(),</span><br><span class="line">                    remoteMessage.getNotification().getBody(),vid);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNewToken</span><span class="params">(<span class="meta">@NotNull</span> String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onNewToken(s);</span><br><span class="line">        Log.i(<span class="string">&quot;MyFirebaseService&quot;</span>,<span class="string">&quot;token &quot;</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendNotification</span><span class="params">(String messageTitle, String messageBody, <span class="keyword">int</span> vid)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, WelcomePage.class);</span><br><span class="line">        PendingIntent pendingIntent = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, intent,</span><br><span class="line">                PendingIntent.FLAG_ONE_SHOT);                                     <span class="comment">//設定點擊通知要跳轉的路徑</span></span><br><span class="line"></span><br><span class="line">        String channelId = <span class="string">&quot;default_channel_id&quot;</span>;</span><br><span class="line">        Uri defaultSoundUri =RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);</span><br><span class="line">        NotificationCompat.Builder notificationBuilder = </span><br><span class="line">                <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>, channelId)                   </span><br><span class="line">                        .setContentTitle(messageTitle)                            <span class="comment">//標題</span></span><br><span class="line">                        .setSmallIcon(R.drawable.ic_noti_58)                      <span class="comment">//icon</span></span><br><span class="line">                        .setColor(getResources().getColor(R.color.ThemeTiffany))  <span class="comment">//主題顏色</span></span><br><span class="line">                        .setContentText(messageBody)                              <span class="comment">//訊息內容        </span></span><br><span class="line">                        .setAutoCancel(<span class="keyword">true</span>)                                      <span class="comment">//點擊後通知自動消失</span></span><br><span class="line">                        .setPriority(NotificationCompat.PRIORITY_HIGH)            <span class="comment">//優先程度</span></span><br><span class="line">                        .setSound(defaultSoundUri)                                <span class="comment">//提示音</span></span><br><span class="line">                        .setContentIntent(pendingIntent);                         <span class="comment">//套用路徑Intent</span></span><br><span class="line"></span><br><span class="line">        NotificationManager notificationManager =</span><br><span class="line">                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Android Oreo後，規定需要創建Channel才能顯示通知</span></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) &#123;</span><br><span class="line">            NotificationChannel channel = <span class="keyword">new</span> NotificationChannel(channelId,</span><br><span class="line">                    <span class="string">&quot;default_channel_name&quot;</span>,</span><br><span class="line">                    NotificationManager.IMPORTANCE_HIGH);</span><br><span class="line">            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);</span><br><span class="line">            <span class="keyword">assert</span> notificationManager != <span class="keyword">null</span>;</span><br><span class="line">            notificationManager.createNotificationChannel(channel);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> notificationManager != <span class="keyword">null</span>;</span><br><span class="line">        notificationManager.notify(<span class="number">0</span>, notificationBuilder.build()); <span class="comment">//丟出通知</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在 AndroidMenifest.xml 的 application 標籤裡聲明MyFirebaseService 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;service android:name=<span class="string">&quot;com.example.fcmdemoapp.MyFirebaseService&quot;</span>&gt;</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=<span class="string">&quot;com.google.firebase.MESSAGING_EVENT&quot;</span> /&gt;</span><br><span class="line">        &lt;/intent-filter&gt;</span><br><span class="line">    &lt;/service&gt;</span><br><span class="line">&lt;/application&gt; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>由於在發送正式推播之前要先在手邊的手機設備上作微調以及測試的動作，所以我們需要在程式碼中加入FirebaseInstanceId.getInstance().instanceId方法來拿取手機設備的token</p>
-<p>token通常於app第一次安裝時會產生一組新的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">FirebaseInstanceId.getInstance().instanceId</span><br><span class="line">    .addOnCompleteListener &#123;</span><br><span class="line">        <span class="keyword">if</span> (!it.isSuccessful) &#123;</span><br><span class="line">            <span class="keyword">return</span><span class="meta">@addOnCompleteListener</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( it.result == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span><span class="meta">@addOnCompleteListener</span></span><br><span class="line">            <span class="comment">// Get new Instance ID token</span></span><br><span class="line">            val token = it.result!!.token</span><br><span class="line">            <span class="comment">// Log and toast</span></span><br><span class="line">            Log.i(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;token $token&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/file/020ac2678a9c0dc42c73ea47819a5702" alt="擷取1.PNG"></p>
-<p>拿到token後就可以到Firebase的Cloud Messaging傳送測試訊息囉！<br>輸入完訊息標題以及內文後，就可以點擊旁邊的「傳送測試訊息」，貼上並加入token，就可以傳送囉。</p>
-<p><img src="/file/b6776903c07e7f57e472071a41e694c6" alt="擷取.PNG"></p>
-<p>這樣就能收到訊息囉！</p>
-<hr>
-<h2 id="需注意的地方"><a href="#需注意的地方" class="headerlink" title="需注意的地方"></a>需注意的地方</h2><p>因為前述onMessageRecieve只有app在前台的時候會執行，如果我們的 App 放到背景，甚至是關閉，推播的Notification會變成系統預設樣式，<br>然而預設系統樣式能夠變化的只有 small icon 跟 文字顏色。</p>
-<p>在 AndroidMenifest.xml 的 application 標籤裡聲明MetaData，就可以在預設情況下改變icon以及顏色。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name=<span class="string">&quot;com.google.firebase.messaging.default_notification_icon&quot;</span></span><br><span class="line">        android:resource=<span class="string">&quot;@drawable/ic_noti_58&quot;</span> /&gt;</span><br><span class="line">        </span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name=<span class="string">&quot;com.google.firebase.messaging.default_notification_color&quot;</span></span><br><span class="line">        android:resource=<span class="string">&quot;@color/ThemeTiffany&quot;</span> /&gt;</span><br><span class="line">        </span><br><span class="line">&lt;/application&gt; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="傳值"><a href="#傳值" class="headerlink" title="傳值"></a>傳值</h2><p>如果需要傳值並處理的話，可以在其他選項加入自訂資料</p>
-<p><img src="/file/b6a2b0125ac229c6c11b4a015f2af338" alt="擷取.PNG"></p>
-<p>由於app前台的通知處理以及後台的通知處理不一樣，先來說說該如何處理前台～</p>
-<h3 id="前台onMessageReceive"><a href="#前台onMessageReceive" class="headerlink" title="前台onMessageReceive"></a>前台onMessageReceive</h3><p>利用remoteMessage.getData().entrySet()</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry: remoteMessage.getData().entrySet()) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(entry.getKey().equals(<span class="string">&quot;key&quot;</span>))&#123;</span><br><span class="line">        key= Integer.parseInt(entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="預設系統樣式"><a href="#預設系統樣式" class="headerlink" title="預設系統樣式"></a>預設系統樣式</h3><p>在點開通知第一個啟動的Activity中，接取該Activity的Intent。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">this</span>.intent.hasExtra(<span class="string">&quot;key&quot;</span>))&#123;    <span class="comment">//開啟app時</span></span><br><span class="line">    <span class="keyword">val</span> fbVid = <span class="keyword">this</span>.intent.getStringExtra(<span class="string">&quot;key&quot;</span>).toInt()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="移除推播通知"><a href="#移除推播通知" class="headerlink" title="移除推播通知"></a>移除推播通知</h2><h3 id="移除所有推播"><a href="#移除所有推播" class="headerlink" title="移除所有推播"></a>移除所有推播</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line">notificationManager.cancelAll()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="移除特定推播"><a href="#移除特定推播" class="headerlink" title="移除特定推播"></a>移除特定推播</h3><p>若想要移除同類型推播通知(如某特定對象傳來的多則訊息)，則可以使用notificationManager.cancel(id)來進行移除。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line">notificationManager.cancel(id)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>前提是在發出推播訊息時的notificationManager.notify(id, notificationBuilder.build())，id欄位須設定值。但在系統通知預設的情況下還不知道如何改變Notification ID的值。</p>
-<p>Firebase弄了一個這麼重要的FCM功能，居然不能直接支援改變系統的預設通知，傻眼貓咪。</p>
-<hr>
-<h2 id="遇到問題"><a href="#遇到問題" class="headerlink" title="遇到問題"></a>遇到問題</h2><h4 id="預設情況下如何指定跳轉頁面"><a href="#預設情況下如何指定跳轉頁面" class="headerlink" title="預設情況下如何指定跳轉頁面"></a>預設情況下如何指定跳轉頁面</h4><p>notificationMessage 可傳值 click_action ，用於點擊預設推播通知時要跳往的頁面。</p>
-<figure class="highlight plain"><figcaption><span>".Main.WelcomePage" ```  名字可以自己取，只要與intent-filter命名一致就行</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;activity android:name&#x3D;&quot;your activity&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name&#x3D;&quot;.Main.WelcomePage&quot; &#x2F;&gt;   &#x2F;&#x2F;與click_action命名一致</span><br><span class="line">                &lt;category android:name&#x3D;&quot;android.intent.category.DEFAULT&quot; &#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;intent-filter&gt;</span><br><span class="line">    &lt;&#x2F;activity&gt;</span><br><span class="line">&lt;&#x2F;application</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    <!-- Only display the Read More link if we are displaying an excerpt -->
-    
-
-    <hr />
-
-    
-
-    
-
-
-
-</div>
-</div>
-
-
-
-
-<div id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/tutu1023/page/2/">2</a><a class="extend next" rel="next" href="/tutu1023/page/2/">Next &amp;raquo;</a>
-</div>
-
-
-
-  </div>
-  <!-- Footer -->
-  <div id="footer">
-  <div id="footer-social">
-    
-    
-    
-    
-    
-    
-</div>
-
-  <p id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
-    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
-  </p>
-
-  <div id="busuanzi">
-    <span id="busuanzi_container_site_pv">
-      &hearts;
-    Total visits: <span id="busuanzi_value_site_pv"></span>
-    </span>
-  </div>
-  <!--
-  <div id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-  </div>
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Hexo 2021 
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/tutu1023/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/tutu1023/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/tutu1023/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
 -->
-</div>
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
 
-  <!-- After footer scripts -->
-  <!-- Disqus Comments -->
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://example.com/tutu1023/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- Google Analytics -->
 
-<script src="/tutu1023/js/main.js"></script>
 
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://example.com/tutu1023/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
 

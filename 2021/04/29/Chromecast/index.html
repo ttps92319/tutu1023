@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/tutu1023/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/tutu1023/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Update：2021&#x2F;04&#x2F;07  By：Ada 資料來源：  Chromecast 基礎教學    Google Cast 大致工作原理     談談 GoogleCast (ChromeCast) Make your Android app compatible with your Chromecast  目錄： [TOC]                      ChromeCast">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chromecast">
+<meta property="og:url" content="http://example.com/2021/04/29/Chromecast/index.html">
+<meta property="og:site_name" content="PY&#39;s Blog">
+<meta property="og:description" content="Update：2021&#x2F;04&#x2F;07  By：Ada 資料來源：  Chromecast 基礎教學    Google Cast 大致工作原理     談談 GoogleCast (ChromeCast) Make your Android app compatible with your Chromecast  目錄： [TOC]                      ChromeCast">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/w7x45q5.jpg">
+<meta property="og:image" content="https://i.imgur.com/RdK4lLb.png">
+<meta property="og:image" content="https://i.imgur.com/PFD0Elk.jpg">
+<meta property="og:image" content="https://i.imgur.com/xC1PM91.png">
+<meta property="og:image" content="https://i.imgur.com/mPhc6B0.png">
+<meta property="og:image" content="https://i.imgur.com/WqAuzu4.png">
+<meta property="article:published_time" content="2021-04-28T23:58:08.000Z">
+<meta property="article:modified_time" content="2021-04-29T09:21:39.724Z">
+<meta property="article:author" content="PY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/w7x45q5.jpg"><title>Chromecast | PY's Blog</title><link ref="canonical" href="http://example.com/2021/04/29/Chromecast/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/tutu1023/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/tutu1023/',
+  algolia: undefined,
+  assistSearch: ["google"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"複製","copySuccess":"複製成功","copyError":"複製失敗"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首頁</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/archives"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/categories"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分類</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/tags"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">標籤</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/about"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">關於</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜尋</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">PY's Blog</div><div class="header-banner-info__subtitle">跌跌撞撞的AS學習筆記</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Chromecast</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">發表於</span><span class="post-meta-item__value">2021-04-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于於</span><span class="post-meta-item__value">2021-04-29</span></span></div></header><div class="post-body"><p>  Update：2021/04/07<br>  By：Ada</p>
+<p>資料來源：</p>
+<ul>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://medium.com/@givemepass/chromecast-%E5%9F%BA%E7%A4%8E%E6%95%99%E5%AD%B8-c1dc0be94af2" >Chromecast 基礎教學</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>   </li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://cappella-twilightzone.blogspot.com/2018/06/google-cast.html" >Google Cast 大致工作原理</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>    </li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.pigo.idv.tw/archives/2487" >談談 GoogleCast (ChromeCast)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://medium.com/@quentin7b/make-your-android-app-compatible-with-your-chromecast-ca751294c4e2" >Make your Android app compatible with your Chromecast</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+<p>目錄：</p>
+<p>[TOC]</p>
+<hr>
+
+        <h2 id="ChromeCast淺談"   >
+          <a href="#ChromeCast淺談" class="heading-link"><i class="fas fa-link"></i></a><a href="#ChromeCast淺談" class="headerlink" title="ChromeCast淺談"></a>ChromeCast淺談</h2>
+      <p>Chromecast 的運作原理與 Miracast 這種鏡像畫面不太一樣，它是透過下指令的方式「投放」影音內容到你的電視大螢幕上，讓 Chromecast 自行透過網路去串流影音，下完指令後，你的行動裝置及電腦便可以自由離開去做別的工作。</p>
+<p><img src="https://i.imgur.com/w7x45q5.jpg" alt="Imgur"></p>
+
+        <h2 id="Sender-App-amp-Receiver-App"   >
+          <a href="#Sender-App-amp-Receiver-App" class="heading-link"><i class="fas fa-link"></i></a><a href="#Sender-App-amp-Receiver-App" class="headerlink" title="Sender App &amp; Receiver App"></a>Sender App &amp; Receiver App</h2>
+      
+        <h3 id="Sender-App"   >
+          <a href="#Sender-App" class="heading-link"><i class="fas fa-link"></i></a><a href="#Sender-App" class="headerlink" title="Sender App"></a>Sender App</h3>
+      <p>發送端 app（sender app）使用 SDK，將需要播放的媒體的信息發送到 Google 的服務器，服務器再通知接收端播放（所以發送端和接收端必須都可以訪問 Google 的服務器才行）。 </p>
+
+        <h3 id="Receiver-App"   >
+          <a href="#Receiver-App" class="heading-link"><i class="fas fa-link"></i></a><a href="#Receiver-App" class="headerlink" title="Receiver App"></a>Receiver App</h3>
+      <p>接收端運行的是一個瀏覽器，它會根據發送端的app ID和媒體信息，去載入對應的一個網頁，這個網頁（receiver app）也是由發送端 app 的開發者提供的，的將會負責播放相應的媒體內容。即使接收端是 Chromecast Audio 之類只能播放音頻的硬件，這個網頁也是會載入並渲染的。</p>
+<p><img src="https://i.imgur.com/RdK4lLb.png" alt="Imgur"></p>
+<p>以 Youtube 或 Google Music 這兩個 App 為例子，手機上所看到的這兩個 App，被定義為 Sender App，而含有Chromecast的大型顯示裝置算是 Receiver。</p>
+<p>Receiver App 並不是執行在 Android 框架上的應用程式，而是執行在 Chrome 上的 Web Application，必須使用 HTML + JavaScript 開發，Youtube 有 Youtube Receiver App，Google Music 有 Google Music Receiver App，在 Recever 裝置上收到 Sender 端要求要啟動(Launch)某個 Reciver App 時，就會透過網路載入對應的 HTML5 Web。</p>
+<p>所以在電視上會看到，各種不同的 GoogleCast 應用有不同的展示風格與佈局，且這些畫面壓根和你手機或平板上看到的完全不同，也不是由手機所提供的。</p>
+<p>以 Youtube 來說Sender 端可能只負責將要播放的影片代碼傳遞給 Youtube Receiver App，然後 Youtube  Receiver  App 則透過網路下載 Youtube 影片來播放，因此頻寬完全是 Receiver 在吃的，相對的手持設備端就省電，也可以去做自己的事情，因為 Sender 端不負責下載影片或播放。</p>
+<p>在開發撰寫 Receiver App 之前，面臨到的第一個問題是評估該選擇哪一種 Receiver App 的類型，文件上列出 3 種。</p>
+<ol>
+<li>Default Media Receiver</li>
+<li>Styled Media Receiver</li>
+<li>Custom Receiver</li>
+</ol>
+<p>第一種與第二種在行為上是一模一樣的，只是 Styled Media Receiver 比 Default 多了客制 Background、Logo、Splash、Watermark 等選項，這些內容必須使用一個 css 檔案來管理，並且申請一個 Receiver Application Id 後，將這個 css 檔案的連結提供給 Google 與這個 Application Id 相對應，Chromecast 即可在 Sender 連上並傳送 Application Id 後，知道該開啟哪一種 App 與載入哪一個 css 檔案，第三種 Custom Receiver 指的是自己製作 Web App 所以客製程度是沒有限制的，比較需要注意的是第二種、第三種所要提供的 css 與 web URL 必須是 https 的連結。</p>
+<p><img src="https://i.imgur.com/PFD0Elk.jpg" alt="Imgur"></p>
+<p>Receiver App 雖然不用上架，但卻有一個註冊的流程，剛才說過，Sender 連接上 Receiver 時必須傳送一個 Application Id 告知 Chromecast 開啟哪一個應用程式，第二、三種 Receiver App 必須由開發者自己申請及註冊 Application Id，申請時每個開發者帳號需付美金 5 元，一個帳號底下可以建立數個應用程式，當然一個 Receiver App 對應多個 Sender App 也是可以辦得到的。第一種 Default Media Receiver 因為不需要開啟任何客制的項目，所以不必申請 Application Id，但 Sender 仍需送一個 Application Id 給 Chromecast，這是一個固定的值，常數名稱為 DEFAULT_MEDIA_RECEIVER_APPLICATION_ID</p>
+<hr>
+
+        <h2 id="Sender建構及串接流程"   >
+          <a href="#Sender建構及串接流程" class="heading-link"><i class="fas fa-link"></i></a><a href="#Sender建構及串接流程" class="headerlink" title="Sender建構及串接流程"></a>Sender建構及串接流程</h2>
+      <p>在建置Chromecast按鈕時，將物件指向MediaRouteActionProvider，同時Chromecast的SDK會去尋找我們提供的Option Provider Class，以及該Class利用Receiver Application Id建構出來的CastOptions，以利Chromecast進行下一步的對話。</p>
+<p>當Chromecast按鈕被點擊時，首先會跳出附近設備的選單。待使用者選擇後，發送端（手持設備）會發送請求給接收端（大型顯示器），並且啟用SessionManagerListener來監聽該對話。</p>
+<p>確定對話連接成功並開始後（onSessionStarted），會將影片資訊打包成MediaInfo的格式，傳送給當前的CastSession。可由Callbacks確認影片播放失敗與否。</p>
+<p><img src="https://i.imgur.com/xC1PM91.png" alt="Imgur"></p>
+
+        <h3 id="建置按鈕"   >
+          <a href="#建置按鈕" class="heading-link"><i class="fas fa-link"></i></a><a href="#建置按鈕" class="headerlink" title="建置按鈕"></a>建置按鈕</h3>
+      <p>建置Chromecast按鈕並將物件指向MediaRouteActionProvider</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;menu&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id=<span class="string">&quot;@+id/media_route_menu_item&quot;</span></span><br><span class="line">        app:actionProviderClass=<span class="string">&quot;androidx.mediarouter.app.MediaRouteActionProvider&quot;</span></span><br><span class="line">        app:showAsAction=<span class="string">&quot;always&quot;</span> android:title=<span class="string">&quot;&quot;</span>/&gt;</span><br><span class="line">&lt;/menu&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="提供Option-Provider-Class給SDK"   >
+          <a href="#提供Option-Provider-Class給SDK" class="heading-link"><i class="fas fa-link"></i></a><a href="#提供Option-Provider-Class給SDK" class="headerlink" title="提供Option Provider Class給SDK"></a>提供Option Provider Class給SDK</h3>
+      <p>將Option Provider Class用meta-data的方式提供給Chromecast SDK</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;meta-<span class="keyword">data</span>   <span class="comment">//給第三方SDK的資料</span></span><br><span class="line">        android:name=<span class="string">&quot;com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME&quot;</span></span><br><span class="line">        android:value=<span class="string">&quot;com.example.app.CastOptionsProvider&quot;</span> /&gt;  <span class="comment">//&lt;---記得更改</span></span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="CastOptions-Builder"   >
+          <a href="#CastOptions-Builder" class="heading-link"><i class="fas fa-link"></i></a><a href="#CastOptions-Builder" class="headerlink" title="CastOptions.Builder()"></a>CastOptions.Builder()</h3>
+      <p>Chromecast SDK利用Option Provider Class中的內容（包含所提供的Receiver Application Id），為Chromecast按鈕Build一個CastOptions的實例。</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">CastOptionsProvider</span> : <span class="type">OptionsProvider &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCastOptions</span><span class="params">(context: <span class="type">Context</span>)</span></span>: CastOptions &#123;</span><br><span class="line">        <span class="keyword">return</span> CastOptions.Builder()</span><br><span class="line">            .setReceiverApplicationId(DEFAULT_MEDIA_RECEIVER_APPLICATION_ID)</span><br><span class="line">            .build()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAdditionalSessionProviders</span><span class="params">(context: <span class="type">Context</span>)</span></span>: List&lt;SessionProvider&gt;? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="Session-Started"   >
+          <a href="#Session-Started" class="heading-link"><i class="fas fa-link"></i></a><a href="#Session-Started" class="headerlink" title="Session Started"></a>Session Started</h3>
+      <p>對話確定連接後，將CastSession所需要的MediaInfo包裝並送出讓Receiver Application去作loading的動作。</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSessionStarted</span><span class="params">(castSession: <span class="type">CastSession</span>, s:<span class="type">String</span> )</span></span> &#123;</span><br><span class="line">    mRemoteData?.let &#123;   <span class="comment">//設置詳細資料</span></span><br><span class="line">        <span class="keyword">val</span> movieMetadata = MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE).apply &#123;</span><br><span class="line">            putString(MediaMetadata.KEY_SUBTITLE, it.videoName)</span><br><span class="line">            putString(MediaMetadata.KEY_TITLE, it.videoTitle)</span><br><span class="line">            addImage(WebImage(Uri.parse(it.videoPicture)))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">val</span> mediaInfo = MediaInfo.Builder(it.videoUrl)  <span class="comment">//設置影音資訊</span></span><br><span class="line">            .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)</span><br><span class="line">            .setContentType(<span class="string">&quot;videos/mp4&quot;</span>)</span><br><span class="line">            .setMetadata(movieMetadata)</span><br><span class="line">            .build()</span><br><span class="line"></span><br><span class="line">        <span class="comment">//開始設定遠端投屏以及狀態監聽</span></span><br><span class="line">        castSession.remoteMediaClient.apply &#123;</span><br><span class="line">            load(mediaInfo, <span class="literal">true</span>, <span class="number">0</span>).setResultCallback(<span class="keyword">object</span> :</span><br><span class="line">                ResultCallbacks&lt;RemoteMediaClient.MediaChannelResult&gt;() &#123;</span><br><span class="line">                <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">(mediaChannelResult: <span class="type">RemoteMediaClient</span>.<span class="type">MediaChannelResult</span>)</span></span> &#123;</span><br><span class="line">                    <span class="comment">//TODO()</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(status: <span class="type">Status</span>)</span></span> &#123;</span><br><span class="line">                    stop()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<hr>
+
+        <h2 id="Receiver教學網址"   >
+          <a href="#Receiver教學網址" class="heading-link"><i class="fas fa-link"></i></a><a href="#Receiver教學網址" class="headerlink" title="Receiver教學網址"></a>Receiver教學網址</h2>
+      <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/cast-receiver#0" >https://codelabs.developers.google.com/codelabs/cast-receiver#0</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><img src="https://i.imgur.com/mPhc6B0.png" alt="Imgur"></p>
+
+        <h3 id="範例檔"   >
+          <a href="#範例檔" class="heading-link"><i class="fas fa-link"></i></a><a href="#範例檔" class="headerlink" title="範例檔"></a>範例檔</h3>
+      <ul>
+<li><a href="/file/da740470f4af94a289424160beed16fc">index.html</a>   ：主視圖  </li>
+<li><a href="/file/d74e7a16668e8c911dffdcb84ee57af9">receiver.js</a>  ：包含所有使Receiver運作的程式碼</li>
+</ul>
+
+        <h3 id="基本的Cast-Receiver"   >
+          <a href="#基本的Cast-Receiver" class="heading-link"><i class="fas fa-link"></i></a><a href="#基本的Cast-Receiver" class="headerlink" title="基本的Cast Receiver"></a>基本的Cast Receiver</h3>
+      <p>⭐️ <font color=Peru>index.html</font> 初始化：合併API ( CastDebugLogger等等 )<br>⭐️ <font color=Peru>index.html</font> 引用script <font color=Turquoise>receiver.js</font>     </p>
+<figure class="highlight html"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Cast CAF Receiver<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Cast Debug Logger --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cast-media-player</span>&gt;</span><span class="tag">&lt;/<span class="name">cast-media-player</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/receiver.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>⭐️ <font color=Turquoise>receiver.js</font> 初始化：取得CastReceiverContext、CastDebugLogger等等</p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> context = cast.framework.CastReceiverContext.getInstance();</span><br><span class="line"><span class="keyword">const</span> playerManager = context.getPlayerManager();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Media Sample API Values</span></span><br><span class="line"><span class="keyword">const</span> SAMPLE_URL = <span class="string">&quot;https://storage.googleapis.com/cpe-sample-media/content.json&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> StreamType = &#123;</span><br><span class="line">   DASH: <span class="string">&#x27;application/dash+xml&#x27;</span>,</span><br><span class="line">   HLS: <span class="string">&#x27;application/x-mpegurl&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> TEST_STREAM_TYPE = StreamType.DASH</span><br><span class="line"></span><br><span class="line"><span class="comment">// Debug Logger</span></span><br><span class="line"><span class="keyword">const</span> castDebugLogger = cast.debug.CastDebugLogger.getInstance();</span><br><span class="line"><span class="keyword">const</span> LOG_TAG = <span class="string">&#x27;MyAPP.LOG&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>⭐️ <font color=Turquoise>receiver.js</font> LOAD 訊息攔截：取得影片資訊  </p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">playerManager.setMessageInterceptor(   <span class="comment">//訊息攔截器</span></span><br><span class="line">   cast.framework.messages.MessageType.LOAD,    <span class="comment">//Type -&gt; LOAD</span></span><br><span class="line">   request =&gt; &#123;</span><br><span class="line">      castDebugLogger.info(LOG_TAG, <span class="string">&#x27;Intercepting LOAD request&#x27;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// Map contentId to entity</span></span><br><span class="line">      <span class="keyword">if</span> (request.media &amp;&amp; request.media.entity) &#123;</span><br><span class="line">         request.media.contentId = request.media.entity;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">         <span class="comment">// Fetch content repository by requested contentId</span></span><br><span class="line">         makeRequest(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;https://storage.googleapis.com/cpe-sample-media/content.json&#x27;</span>)</span><br><span class="line">           .then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">let</span> item = data[request.media.contentId];</span><br><span class="line">              <span class="keyword">if</span>(!item) &#123;</span><br><span class="line">                 <span class="comment">// Content could not be found in repository</span></span><br><span class="line">                 castDebugLogger.error(LOG_TAG, <span class="string">&#x27;Content not found&#x27;</span>);</span><br><span class="line">                 reject();</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="comment">// Adjusting request to make requested content playable</span></span><br><span class="line">                 request.media.contentUrl = item.stream.dash;</span><br><span class="line">                 request.media.contentType = <span class="string">&#x27;application/dash+xml&#x27;</span>;</span><br><span class="line">                 castDebugLogger.warn(LOG_TAG, <span class="string">&#x27;Playable URL:&#x27;</span>, request.media.contentUrl);</span><br><span class="line"></span><br><span class="line">                 <span class="comment">// Add metadata</span></span><br><span class="line">                 <span class="keyword">let</span> metadata = <span class="keyword">new</span> cast.framework.messages.MovieMediaMetadata();</span><br><span class="line">                 metadata.metadataType = cast.framework.messages.MetadataType.MOVIE;</span><br><span class="line">                 metadata.title = item.title;</span><br><span class="line">                 metadata.subtitle = item.author;</span><br><span class="line"></span><br><span class="line">                 request.media.metadata = metadata;</span><br><span class="line"></span><br><span class="line">                 <span class="comment">// Resolve request</span></span><br><span class="line">                 resolve(request);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">       &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>⭐️ <font color=Turquoise>receiver.js</font> 對畫面進行處理</p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Optimizing for smart displays</span></span><br><span class="line"><span class="keyword">const</span> touchControls = cast.framework.ui.Controls.getInstance();</span><br><span class="line"><span class="keyword">const</span> playerData = <span class="keyword">new</span> cast.framework.ui.PlayerData();</span><br><span class="line"><span class="keyword">const</span> playerDataBinder = <span class="keyword">new</span> cast.framework.ui.PlayerDataBinder(playerData);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> browseItems = getBrowseItems();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBrowseItems</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">let</span> browseItems = [];</span><br><span class="line">   makeRequest(<span class="string">&#x27;GET&#x27;</span>, SAMPLE_URL)</span><br><span class="line">   .then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> data) &#123;</span><br><span class="line">         <span class="keyword">let</span> item = <span class="keyword">new</span> cast.framework.ui.BrowseItem();</span><br><span class="line">         item.entity = key;</span><br><span class="line">         item.title = data[key].title;</span><br><span class="line">         item.subtitle = data[key].description;</span><br><span class="line">         item.image = <span class="keyword">new</span> cast.framework.messages.Image(data[key].poster);</span><br><span class="line">         item.imageType = cast.framework.ui.BrowseImageType.MOVIE;</span><br><span class="line">         browseItems.push(item);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   <span class="keyword">return</span> browseItems;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> browseContent = <span class="keyword">new</span> cast.framework.ui.BrowseContent();</span><br><span class="line">browseContent.title = <span class="string">&#x27;Up Next&#x27;</span>;</span><br><span class="line">browseContent.items = browseItems;</span><br><span class="line">browseContent.targetAspectRatio =</span><br><span class="line">   cast.framework.ui.BrowseImageAspectRatio.LANDSCAPE_16_TO_9;</span><br><span class="line"></span><br><span class="line">playerDataBinder.addEventListener(</span><br><span class="line">   cast.framework.ui.PlayerDataEventType.MEDIA_CHANGED,</span><br><span class="line">   (e) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (!e.value) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Media browse</span></span><br><span class="line">       touchControls.setBrowseContent(browseContent);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Clear default buttons and re-assign</span></span><br><span class="line">       touchControls.clearDefaultSlotAssignments();</span><br><span class="line">       touchControls.assignButton(</span><br><span class="line">          cast.framework.ui.ControlsSlot.SLOT_PRIMARY_1,</span><br><span class="line">          cast.framework.ui.ControlsButton.SEEK_BACKWARD_30</span><br><span class="line">       );</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>⭐️ <font color=Turquoise>receiver.js</font> APP啟用</p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> context = cast.framework.CastReceiverContext.getInstance();</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">context.start();</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+<p>⭐️ 恭喜</p>
+<p><img src="https://i.imgur.com/WqAuzu4.png" alt="Imgur"></p>
+
+        <h6 id="tags-技術分享-Chromecast"   >
+          <a href="#tags-技術分享-Chromecast" class="heading-link"><i class="fas fa-link"></i></a><a href="#tags-技術分享-Chromecast" class="headerlink" title="tags: 技術分享 Chromecast"></a>tags: <code>技術分享</code> <code>Chromecast</code></h6>
+      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文結束，感謝您的閱讀 ------</div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/tutu1023/2021/04/29/%E7%9B%B4%E6%92%AD%E4%B8%B2%E6%B5%81/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">直播串流</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/tutu1023/2021/04/29/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%A4%BA%E6%B3%95Regex/"><span class="paginator-prev__text">正規表示法Regex</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目錄</span><span class="sidebar-nav-ov">站點概覽</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ChromeCast%E6%B7%BA%E8%AB%87"><span class="toc-number">1.</span> <span class="toc-text">
+          ChromeCast淺談</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sender-App-amp-Receiver-App"><span class="toc-number">2.</span> <span class="toc-text">
+          Sender App &amp; Receiver App</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sender-App"><span class="toc-number">2.1.</span> <span class="toc-text">
+          Sender App</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Receiver-App"><span class="toc-number">2.2.</span> <span class="toc-text">
+          Receiver App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sender%E5%BB%BA%E6%A7%8B%E5%8F%8A%E4%B8%B2%E6%8E%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">
+          Sender建構及串接流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%BD%AE%E6%8C%89%E9%88%95"><span class="toc-number">3.1.</span> <span class="toc-text">
+          建置按鈕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9BOption-Provider-Class%E7%B5%A6SDK"><span class="toc-number">3.2.</span> <span class="toc-text">
+          提供Option Provider Class給SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CastOptions-Builder"><span class="toc-number">3.3.</span> <span class="toc-text">
+          CastOptions.Builder()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-Started"><span class="toc-number">3.4.</span> <span class="toc-text">
+          Session Started</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Receiver%E6%95%99%E5%AD%B8%E7%B6%B2%E5%9D%80"><span class="toc-number">4.</span> <span class="toc-text">
+          Receiver教學網址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E6%AA%94"><span class="toc-number">4.1.</span> <span class="toc-text">
+          範例檔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84Cast-Receiver"><span class="toc-number">4.2.</span> <span class="toc-text">
+          基本的Cast Receiver</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#tags-%E6%8A%80%E8%A1%93%E5%88%86%E4%BA%AB-Chromecast"><span class="toc-number">4.2.0.0.1.</span> <span class="toc-text">
+          tags: 技術分享 Chromecast</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://graph.facebook.com/2680630765557021/picture?type=large" alt="avatar"></div><p class="sidebar-ov-author__text">Pei-Yu, Chen</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/ttps92319?tab=projects" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/tutu1023/archives"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">文章</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/tutu1023/categories"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">分類</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tutu1023/tags"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">標籤</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已閱讀了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>PY</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 強力驅動</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主題 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜尋文章（支持多關鍵詞，請用空格分隔）"><div class="search-btns">使用搜尋：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/tutu1023/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章無標題 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '請輸入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/tutu1023/js/utils.js?v=2.6.2"></script><script src="/tutu1023/js/stun-boot.js?v=2.6.2"></script><script src="/tutu1023/js/scroll.js?v=2.6.2"></script><script src="/tutu1023/js/header.js?v=2.6.2"></script><script src="/tutu1023/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/tutu1023/search.xml"></script></body></html>

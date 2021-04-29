@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/tutu1023/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/tutu1023/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Update：2021&#x2F;01&#x2F;21  By：Ada 資料來源：  直播原理—-協議    视频流协议HLS与RTMP 直播原理 点播原理     科普！直播中常說的推流拉流究竟是什麼東東？  目錄： [TOC]                      直播流程圖                            推流、拉流與CDN        推流：把採集階段封包好的内容傳輸到服務器的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="直播串流">
+<meta property="og:url" content="http://example.com/2021/04/29/%E7%9B%B4%E6%92%AD%E4%B8%B2%E6%B5%81/index.html">
+<meta property="og:site_name" content="PY&#39;s Blog">
+<meta property="og:description" content="Update：2021&#x2F;01&#x2F;21  By：Ada 資料來源：  直播原理—-協議    视频流协议HLS与RTMP 直播原理 点播原理     科普！直播中常說的推流拉流究竟是什麼東東？  目錄： [TOC]                      直播流程圖                            推流、拉流與CDN        推流：把採集階段封包好的内容傳輸到服務器的">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Uwhqp94.png">
+<meta property="og:image" content="https://i.imgur.com/X3D1btY.png">
+<meta property="og:image" content="https://i.imgur.com/H8qpsSY.png">
+<meta property="og:image" content="https://i.imgur.com/157KKNb.png">
+<meta property="og:image" content="https://i.imgur.com/H8qpsSY.png">
+<meta property="og:image" content="https://i.imgur.com/1gML9lL.png">
+<meta property="og:image" content="https://i.imgur.com/Y88cGhA.png">
+<meta property="article:published_time" content="2021-04-29T00:07:14.000Z">
+<meta property="article:modified_time" content="2021-04-29T09:18:14.111Z">
+<meta property="article:author" content="PY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Uwhqp94.png"><title>直播串流 | PY's Blog</title><link ref="canonical" href="http://example.com/2021/04/29/%E7%9B%B4%E6%92%AD%E4%B8%B2%E6%B5%81/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/tutu1023/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/tutu1023/',
+  algolia: undefined,
+  assistSearch: ["google"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"複製","copySuccess":"複製成功","copyError":"複製失敗"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首頁</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/archives"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/categories"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分類</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/tags"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">標籤</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/about"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">關於</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜尋</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">PY's Blog</div><div class="header-banner-info__subtitle">跌跌撞撞的AS學習筆記</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">直播串流</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">發表於</span><span class="post-meta-item__value">2021-04-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于於</span><span class="post-meta-item__value">2021-04-29</span></span></div></header><div class="post-body"><p>  Update：2021/01/21<br>  By：Ada</p>
+<p>資料來源：</p>
+<ul>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.itread01.com/content/1550627461.html" >直播原理—-協議</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>   </li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/rsapaper/p/9807816.html" >视频流协议HLS与RTMP 直播原理 点播原理</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>    </li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/news/122941" >科普！直播中常說的推流拉流究竟是什麼東東？</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+<p>目錄：</p>
+<p>[TOC]</p>
+<hr>
+
+        <h2 id="直播流程圖"   >
+          <a href="#直播流程圖" class="heading-link"><i class="fas fa-link"></i></a><a href="#直播流程圖" class="headerlink" title="直播流程圖"></a>直播流程圖</h2>
+      <p><img src="https://i.imgur.com/Uwhqp94.png" alt="Imgur"></p>
+
+        <h2 id="推流、拉流與CDN"   >
+          <a href="#推流、拉流與CDN" class="heading-link"><i class="fas fa-link"></i></a><a href="#推流、拉流與CDN" class="headerlink" title="推流、拉流與CDN"></a>推流、拉流與CDN</h2>
+      <ul>
+<li><p>推流：把採集階段封包好的内容傳輸到服務器的過程。其實就是將現場的視頻信號傳到網路的過程。“推流”對網路要求比較高，如果網路不穩定，直播效果就會很差，觀眾觀看直播時就會發生卡頓等現象，觀看體驗很是糟糕。</p>
+</li>
+<li><p>拉流：指服務器已有直播內容，根據協議類型（如RTMP、RTP、RTSP、HTTP等），與服務器建立連接並接收數據，進行拉取的過程。拉流端的核心處理在播放器端的解碼和渲染，在互動直播中還需集成聊天室、點贊和禮物系統等功能。</p>
+</li>
+<li><p>CDN：全稱為Content Delivery Network，是一個策略性部署的整體系統，主要用來解決由於網絡帶寬小、用戶訪問量大、網點分布不均勻等導致用戶訪問網站速度慢的問題。</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/X3D1btY.png" alt="Imgur"></p>
+<hr>
+
+        <h1 id="協議"   >
+          <a href="#協議" class="heading-link"><i class="fas fa-link"></i></a><a href="#協議" class="headerlink" title="協議"></a>協議</h1>
+      
+        <h2 id="HLS"   >
+          <a href="#HLS" class="heading-link"><i class="fas fa-link"></i></a><a href="#HLS" class="headerlink" title="HLS"></a>HLS</h2>
+      <p>HTTP Live Streaming（簡稱 HLS）是一個基於 HTTP 的視頻協議，由 Apple 公司實現，Mac OS 上的 QuickTime、Safari 以及 iOS 上的 Safari 都能很好的支持 HLS，高版本 Android 也增加了對 HLS 的支持。</p>
+<p>HLS 協議基於 HTTP，而一個提供 HLS 的服務器需要做两件事：</p>
+<ul>
+<li>編碼：以 H.263 格式對圖像進行編碼，以 MP3 或者 HE-AAC 對聲音進行編碼，最終打包到 MPEG-2 TS（Transport Stream）容器之中；</li>
+<li>分割：把編碼好的 TS 文件等長切分成 .ts 的小文件來對應hls格式，並生成一個 .m3u8 的純文本索引文件；</li>
+</ul>
+<p>工作原理圖如下：</p>
+<p><img src="https://i.imgur.com/H8qpsSY.png" alt="Imgur"></p>
+<p>HLS 協議本質還是一個個 HTTP 請求，所以適應性很好，不會受到防火墙影響。但它也有一個致命的弱點：延遲現象非常明顯。</p>
+<p>如果每個 ts 按照 5 秒來切分，一個 m3u8 放 4 個 .ts 索引 ，那麽至少就会帶來 20 秒的延遲。如果減少每個 .ts 的長度，減少 m3u8 中的索引数，延遲確實會減少，但會帶来更頻繁的緩衝，對服務端的請求壓力也會成倍增加。所以只能根據實際情況找到一個折衷的點。</p>
+<p>以圖奇為例：一個.ts的時長為2秒，一M3U8檔內含有8個.ts檔，延遲時間大約就是16秒。</p>
+
+        <h2 id="RTMP"   >
+          <a href="#RTMP" class="heading-link"><i class="fas fa-link"></i></a><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h2>
+      <p>Real Time Messaging Protocol（簡稱 RTMP）是 Macromedia 開發的一套視頻直播協議，現在屬於 Adobe。這套方案需要搭建專門的 RTMP 流媒體服務如 Adobe Media Server，並且在瀏覽器中只能使用 Flash 實現播放器。它的實時性非常好，延遲很小，但無法支持移動端 WEB 播放是它的硬傷。主要用來在Flash、AIR平臺和支援RTMP協議的流媒體/互動伺服器之間進行音訊和資料通訊。傳統的軟體跟伺服器之間的互動，還是用rtmp協議為主。傳輸的視訊格式為flv，即為“.flv”形式。</p>
+<p>瀏覽器端，HTML5 video標籤無法播放 RTMP 協議的視頻，可以通過 video.js 來實現。</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;link href&#x3D;&quot;http:&#x2F;&#x2F;vjs.zencdn.net&#x2F;5.8.8&#x2F;video-js.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line"> </span><br><span class="line">&lt;video id&#x3D;&quot;example_video_1&quot; class&#x3D;&quot;video-js vjs-default-skin&quot; controls preload&#x3D;&quot;auto&quot; width&#x3D;&quot;640&quot; height&#x3D;&quot;264&quot; loop&#x3D;&quot;loop&quot; webkit-playsinline&gt;</span><br><span class="line">&lt;source src&#x3D;&quot;rtmp:&#x2F;&#x2F;10.14.221.17:1935&#x2F;rtmplive&#x2F;home&quot; type&#x3D;&#39;rtmp&#x2F;flv&#39;&gt;</span><br><span class="line">&lt;&#x2F;video&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;vjs.zencdn.net&#x2F;5.8.8&#x2F;video.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">videojs.options.flash.swf &#x3D; &#39;video.swf&#39;;</span><br><span class="line">videojs(&#39;example_video_1&#39;).ready(function() &#123;</span><br><span class="line">this.play();</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></div></figure>
+
+<link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+ 
+<video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264" loop="loop" webkit-playsinline>
+<source src="rtmp://10.14.221.17:1935/rtmplive/home" type='rtmp/flv'>
+</video>
+ 
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+<script>
+videojs.options.flash.swf = 'video.swf';
+videojs('example_video_1').ready(function() {
+this.play();
+});
+</script>
+
+
+        <h2 id="HLS-V-S-RTMP"   >
+          <a href="#HLS-V-S-RTMP" class="heading-link"><i class="fas fa-link"></i></a><a href="#HLS-V-S-RTMP" class="headerlink" title="HLS V.S. RTMP"></a>HLS V.S. RTMP</h2>
+      <p><img src="https://i.imgur.com/157KKNb.png" alt="Imgur"></p>
+
+        <h2 id="HTTP-FLV"   >
+          <a href="#HTTP-FLV" class="heading-link"><i class="fas fa-link"></i></a><a href="#HTTP-FLV" class="headerlink" title="HTTP-FLV"></a>HTTP-FLV</h2>
+      <p>HTTP-FLV可理解為RTMP的升級版本，傳輸的視訊格式同rtmp一樣為flv格式。</p>
+<p>HTTP-FLV結合了HLS的優點，採用HTTP請求，又結合了RTMP低延時的特性，因為中間建立了FLV的長連線，中間通訊過程相對RTMP協議就不再複雜。相對RTMP協議來說，其優點可總結為：</p>
+<ol>
+<li><p>可以在一定程度上避免防火牆的干擾（例如，有的機房只允許80埠通過）</p>
+</li>
+<li><p>可以很好的相容HTTP302跳轉，做到靈活排程</p>
+</li>
+<li><p>可以使用HTTPS做加密通道</p>
+</li>
+<li><p>很好的支援移動端</p>
+</li>
+</ol>
+
+        <h1 id="M3U8介紹"   >
+          <a href="#M3U8介紹" class="heading-link"><i class="fas fa-link"></i></a><a href="#M3U8介紹" class="headerlink" title="M3U8介紹"></a>M3U8介紹</h1>
+      <p>以hls協議來說，它會首先發放一個m3u8索引檔案，video在一般瀏覽器中不支援m3u8檔案的識別，safari中可以。video拿到m3u8檔案，它會對其進行解析，解析的內容就為圖中所示的m3u8中的segment.ts檔案，每一個片段即為直播流的分段。</p>
+<p><img src="https://i.imgur.com/H8qpsSY.png" alt="Imgur"></p>
+<p>直播是實時的，所以m3u8檔案肯定不會是固定的，給的m3u8檔案只是當前時間段的索引，segment.ts都會有個時長，在segment總時長之前，video會重新向伺服器請求m3u8檔案，這是瀏覽器自身的行為，此時，伺服器會返回新的m3u8檔案，更新後的segment.ts檔案將會改變，可能是2345或者34567等等。</p>
+<p><img src="https://i.imgur.com/1gML9lL.png" alt="Imgur"></p>
+<p>另外，m3u8檔案結構並不一定全是由ts檔案組成，有可能會巢狀一層m3u8檔案，如下所示：</p>
+<p><img src="https://i.imgur.com/Y88cGhA.png" alt="Imgur"></p>
+<p>如果m3u8檔案中包含m3u8檔案，就對應的是master playlist，如果拿到的m3u8檔案裡只包含ts檔案，那就對應的是media playlists。</p>
+<p>一個典型的 master playlist 文件格式如下：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#EXTM3U</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=200000</span><br><span class="line">gear1/prog_index.m3u8</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=311111</span><br><span class="line">gear2/prog_index.m3u8</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=484444</span><br><span class="line">gear3/prog_index.m3u8</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=737777</span><br><span class="line">gear4/prog_index.m3u8</span><br></pre></td></tr></table></div></figure>
+
+<p>media playlists：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">＃EXTM3U</span><br><span class="line">＃EXT-X-VERSION：3</span><br><span class="line">＃EXT-X-MEDIA-SEQUENCE：30508</span><br><span class="line">＃EXT-X-TARGETDURATION：5 </span><br><span class="line">#EXTINF：4.972，</span><br><span class="line">https://6.mms.vlog.xuite.net/hls/ftvtv/30508.ts </span><br><span class="line">#EXTINF：4.437，</span><br><span class="line">https：//6.mms .vlog.xuite.net / hls / ftvtv / 30509.ts </span><br><span class="line">#EXTINF：4.306，</span><br><span class="line">https://6.mms.vlog.xuite.net/hls/ftvtv/30510.ts</span><br></pre></td></tr></table></div></figure>
+<hr>
+
+        <h1 id="實作"   >
+          <a href="#實作" class="heading-link"><i class="fas fa-link"></i></a><a href="#實作" class="headerlink" title="實作"></a>實作</h1>
+      
+        <h2 id="M3U8解析"   >
+          <a href="#M3U8解析" class="heading-link"><i class="fas fa-link"></i></a><a href="#M3U8解析" class="headerlink" title="M3U8解析"></a>M3U8解析</h2>
+      <p>所接收的文件格式如下：</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#EXTM3U</span><br><span class="line">#EXT-X-TWITCH-INFO:NODE=<span class="string">&quot;video-edge-d59628...(以下省略)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#EXT-X-MEDIA:TYPE=VIDEO,GROUP-ID=&quot;</span>chunked<span class="string">&quot;,NAME=&quot;</span>1080p60 (source)<span class="string">&quot;,AUTOSELECT=YES,DEFAULT=YES</span></span><br><span class="line"><span class="string">#EXT-X-STREAM-INF:BANDWIDTH=9007387,RESOLUTION=1920x1080,CODECS=&quot;</span>avc1.64002A,mp4a<span class="number">.40</span><span class="number">.2</span><span class="string">&quot;,VIDEO=&quot;</span>chunked<span class="string">&quot;</span></span><br><span class="line"><span class="string">https://video-...g0fYI.m3u8</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#EXT-X-MEDIA:TYPE=VIDEO,GROUP-ID=&quot;</span>720p60<span class="string">&quot;,NAME=&quot;</span>720p60<span class="string">&quot;,AUTOSELECT=YES,DEFAULT=YES</span></span><br><span class="line"><span class="string">#EXT-X-STREAM-INF:BANDWIDTH=3425658,RESOLUTION=1280x720,CODECS=&quot;</span>avc1.4D401F,mp4a<span class="number">.40</span><span class="number">.2</span><span class="string">&quot;,VIDEO=&quot;</span>720p60<span class="string">&quot;</span></span><br><span class="line"><span class="string">https://video-...UVodQ.m3u8</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#EXT-X-MEDIA:TYPE=VIDEO,GROUP-ID=&quot;</span>720p30<span class="string">&quot;,NAME=&quot;</span>720p<span class="string">&quot;,AUTOSELECT=YES,DEFAULT=YES</span></span><br><span class="line"><span class="string">#EXT-X-STREAM-INF:BANDWIDTH=2375658,RESOLUTION=1280x720,CODECS=&quot;</span>avc1.4D401F,mp4a<span class="number">.40</span><span class="number">.2</span><span class="string">&quot;,VIDEO=&quot;</span>720p30<span class="string">&quot;</span></span><br><span class="line"><span class="string">https://video-...bTobg.m3u8</span></span><br></pre></td></tr></table></div></figure>
+
+<p>求取每個畫質的M3U8檔以及所對應的畫質名稱、fps（禎數）</p>
+<ul>
+<li>1080p 60fps <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://video-...g0fyi.m3u8/" >https://video-...g0fYI.m3u8</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>720p  60fps <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://video-...uvodq.m3u8/" >https://video-...UVodQ.m3u8</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>720p  30fps <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://video-...btobg.m3u8/" >https://video-...bTobg.m3u8</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> bufferedReader = BufferedReader(InputStreamReader(URL(path).openStream()))</span><br><span class="line">                        </span><br><span class="line"><span class="keyword">while</span> (bufferedReader.readLine().also &#123; eachLine = it &#125; != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (eachLine!!.contains(<span class="string">&quot;EXT&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (eachLine!!.contains(<span class="string">&quot;NAME&quot;</span>)) &#123;</span><br><span class="line">        </span><br><span class="line">            <span class="comment">//將MEDIA-INFO以 , 區隔成一陣列</span></span><br><span class="line">            <span class="keyword">val</span> tempLines =eachLine!!.split(<span class="string">&quot;,&quot;</span>).toTypedArray() </span><br><span class="line">            <span class="keyword">for</span> (tempLine <span class="keyword">in</span> tempLines) &#123;</span><br><span class="line">                <span class="comment">//找到NAME=&quot;&quot;</span></span><br><span class="line">                <span class="keyword">if</span> (tempLine.contains(<span class="string">&quot;NAME&quot;</span>)) &#123;  </span><br><span class="line">                </span><br><span class="line">                    <span class="comment">//提取NAME=&quot;&quot;中的資料</span></span><br><span class="line">                    <span class="keyword">val</span> regexCode = Regex(pattern = <span class="string">&quot;\&quot;(.*?)\&quot;&quot;</span>).find(input = tempLine)?.value  </span><br><span class="line">                    <span class="comment">//去掉“”</span></span><br><span class="line">                    <span class="keyword">val</span> result = regexCode?.let &#123; Regex(<span class="string">&quot;\&quot;&quot;</span>).replace(it, <span class="string">&quot;&quot;</span>) &#125;     </span><br><span class="line">                    <span class="comment">//720p30 以p來區分畫質及禎數</span></span><br><span class="line">                    <span class="keyword">val</span> tempRESOLUTIONs = result!!.split(<span class="string">&quot;p&quot;</span>).toTypedArray()       </span><br><span class="line">                    qualityNames.add(tempRESOLUTIONs[<span class="number">0</span>] + <span class="string">&quot;p&quot;</span>)            </span><br><span class="line">                    qualityFps.add(tempRESOLUTIONs[<span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//非EXT開頭➡️網址https</span></span><br><span class="line">        qualityUrls.add(eachLine!!)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bufferedReader.close()</span><br></pre></td></tr></table></div></figure>
+<p>對於M3U8的解析，這個解法是參照前人所留下的code，將資料分成三個陣列。</p>
+<p>分別為qualityNames畫質名稱、qualityFps畫質禎數、qualityUrls畫質網址，以按照順序的方式逐步存取。利用相同位置的特性去相互對照以取得資料。</p>
+<figure class="highlight q"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qualityNames：<span class="number">1080</span>p、<span class="number">720</span>p、<span class="number">720</span>p</span><br><span class="line">qualityFps：<span class="number">60</span>、<span class="number">60</span>、<span class="number">30</span></span><br><span class="line">qualityUrls：https:<span class="comment">//video-...g0fYI.m3u8、https://video-...UVodQ.m3u8、https://video-...bTobg.m3u8</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="下一步目標"   >
+          <a href="#下一步目標" class="heading-link"><i class="fas fa-link"></i></a><a href="#下一步目標" class="headerlink" title="下一步目標"></a>下一步目標</h2>
+      <p>將M3U8解析流程另外拉出一類別進行運算，再返回一資料類別Quality</p>
+<figure class="highlight q"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data class Quality(</span><br><span class="line">    val name: String,</span><br><span class="line">    val fps: String,</span><br><span class="line">    val url: String,</span><br><span class="line">)</span><br></pre></td></tr></table></div></figure>
+<p>目的是為了分工合作減少活動頁運算負擔，以及資料提取便利性。</p>
+
+        <h2 id="回饋"   >
+          <a href="#回饋" class="heading-link"><i class="fas fa-link"></i></a><a href="#回饋" class="headerlink" title="回饋"></a>回饋</h2>
+      <ol>
+<li>M3U8應有parser可以使用</li>
+<li>數據類Quality應更名為Source</li>
+<li>MP4與M3U8的差別以及M3U8被廣泛使用的原因</li>
+<li>Network Profiler檢查網絡流量：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/studio/profile/network-profiler" >https://developer.android.com/studio/profile/network-profiler</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ol>
+
+        <h6 id="tags-技術分享-直播串流-Video-M3U8"   >
+          <a href="#tags-技術分享-直播串流-Video-M3U8" class="heading-link"><i class="fas fa-link"></i></a><a href="#tags-技術分享-直播串流-Video-M3U8" class="headerlink" title="tags: 技術分享 直播串流 Video M3U8"></a>tags: <code>技術分享</code> <code>直播串流</code> <code>Video</code> <code>M3U8</code></h6>
+      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文結束，感謝您的閱讀 ------</div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/tutu1023/2021/04/29/Exo%E6%92%AD%E6%94%BE%E5%99%A8ExoPlayer/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Exo播放器ExoPlayer</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/tutu1023/2021/04/29/Chromecast/"><span class="paginator-prev__text">Chromecast</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目錄</span><span class="sidebar-nav-ov">站點概覽</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%92%AD%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.</span> <span class="toc-text">
+          直播流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E6%B5%81%E3%80%81%E6%8B%89%E6%B5%81%E8%88%87CDN"><span class="toc-number">2.</span> <span class="toc-text">
+          推流、拉流與CDN</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%94%E8%AD%B0"><span class="toc-number"></span> <span class="toc-text">
+          協議</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HLS"><span class="toc-number">1.</span> <span class="toc-text">
+          HLS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RTMP"><span class="toc-number">2.</span> <span class="toc-text">
+          RTMP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HLS-V-S-RTMP"><span class="toc-number">3.</span> <span class="toc-text">
+          HLS V.S. RTMP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-FLV"><span class="toc-number">4.</span> <span class="toc-text">
+          HTTP-FLV</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#M3U8%E4%BB%8B%E7%B4%B9"><span class="toc-number"></span> <span class="toc-text">
+          M3U8介紹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C"><span class="toc-number"></span> <span class="toc-text">
+          實作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#M3U8%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">
+          M3U8解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5%E7%9B%AE%E6%A8%99"><span class="toc-number">2.</span> <span class="toc-text">
+          下一步目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A5%8B"><span class="toc-number">3.</span> <span class="toc-text">
+          回饋</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#tags-%E6%8A%80%E8%A1%93%E5%88%86%E4%BA%AB-%E7%9B%B4%E6%92%AD%E4%B8%B2%E6%B5%81-Video-M3U8"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">
+          tags: 技術分享 直播串流 Video M3U8</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://graph.facebook.com/2680630765557021/picture?type=large" alt="avatar"></div><p class="sidebar-ov-author__text">Pei-Yu, Chen</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/ttps92319?tab=projects" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/tutu1023/archives"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">文章</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/tutu1023/categories"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">分類</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tutu1023/tags"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">標籤</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已閱讀了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>PY</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 強力驅動</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主題 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜尋文章（支持多關鍵詞，請用空格分隔）"><div class="search-btns">使用搜尋：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/tutu1023/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章無標題 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '請輸入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/tutu1023/js/utils.js?v=2.6.2"></script><script src="/tutu1023/js/stun-boot.js?v=2.6.2"></script><script src="/tutu1023/js/scroll.js?v=2.6.2"></script><script src="/tutu1023/js/header.js?v=2.6.2"></script><script src="/tutu1023/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/tutu1023/search.xml"></script></body></html>

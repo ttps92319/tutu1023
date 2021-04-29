@@ -1,183 +1,338 @@
-<html>
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/tutu1023/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/tutu1023/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Update：2019&#x2F;12&#x2F;11  Code：Java、KotlinBy：Ada 參考來源：https:&#x2F;&#x2F;github.com&#x2F;recruit-lifestyle&#x2F;FloatingView  圖示需要漂浮在桌面以及其他應用程式上方，方便使用者快速回到APP。  1.加入依賴到build.gradle(Module:app) 1234567891011repositories &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浮動圖示FloatingView(Firebase)">
+<meta property="og:url" content="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/index.html">
+<meta property="og:site_name" content="PY&#39;s Blog">
+<meta property="og:description" content="Update：2019&#x2F;12&#x2F;11  Code：Java、KotlinBy：Ada 參考來源：https:&#x2F;&#x2F;github.com&#x2F;recruit-lifestyle&#x2F;FloatingView  圖示需要漂浮在桌面以及其他應用程式上方，方便使用者快速回到APP。  1.加入依賴到build.gradle(Module:app) 1234567891011repositories &amp;#123;">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://example.com/file/2778ac939a97d89c72106c416bedc5d8">
+<meta property="article:published_time" content="2021-04-28T00:48:20.000Z">
+<meta property="article:modified_time" content="2021-04-28T09:47:26.392Z">
+<meta property="article:author" content="PY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/file/2778ac939a97d89c72106c416bedc5d8"><title>浮動圖示FloatingView(Firebase) | PY's Blog</title><link ref="canonical" href="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/tutu1023/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/tutu1023/',
+  algolia: undefined,
+  assistSearch: ["google"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"複製","copySuccess":"複製成功","copyError":"複製失敗"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-<head>
-    <meta charset="utf-8">
-    
-    <title>浮動圖示FloatingView(Firebase) | PY&#39;s Blog</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/favicon/favicon.ico">
-    
-<link rel="stylesheet" href="/tutu1023/css/main.css">
-
-    
-<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
-
-    
-<link rel="stylesheet" href="/tutu1023/css/highlight.css">
-
-    
-
-
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/tutu1023/atom.xml" title="PY&#39;s Blog" type="application/atom+xml" />
-    
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-<body>
-  <div class="blog-header">
-   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
-   <div class="nav-container">
-     <nav id="main-nav">
-       
-         <a class="main-nav-link" href="/tutu1023/">Home</a>
-       
-         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
-       
-     </nav>
-   </div>
-   <!--
-   <div id="search-form-wrap">
-     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-   </div>
- -->
-    <h1 class="blog-title">PY&#39;s Blog</h1>
-    <p class="lead blog-description"></p>
-</div>
-
-  <div id='main-part'>
-      <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/浮動圖示FloatingView(Firebase)/">
-            浮動圖示FloatingView(Firebase)
-        </a>
-    </h1>
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <p>Update：2019/12/11  Code：Java、Kotlin<br>By：Ada</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://github.com/recruit-lifestyle/FloatingView">https://github.com/recruit-lifestyle/FloatingView</a></p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首頁</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/archives"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜尋</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">PY's Blog</div><div class="header-banner-info__subtitle">跌跌撞撞的AS學習筆記</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">浮動圖示FloatingView(Firebase)</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">發表於</span><span class="post-meta-item__value">2021-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于於</span><span class="post-meta-item__value">2021-04-28</span></span></div></header><div class="post-body"><p>Update：2019/12/11  Code：Java、Kotlin<br>By：Ada</p>
+<p>參考來源：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/recruit-lifestyle/FloatingView" >https://github.com/recruit-lifestyle/FloatingView</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><img src="/file/2778ac939a97d89c72106c416bedc5d8" alt="6-1.png"></p>
 <p>圖示需要漂浮在桌面以及其他應用程式上方，方便使用者快速回到APP。</p>
 <hr>
 <p>1.加入依賴到build.gradle(Module:app)</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url <span class="string">&quot;https://jitpack.io&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.github.recruit-lifestyle:FloatingView:2.4.4&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url <span class="string">&quot;https://jitpack.io&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.github.recruit-lifestyle:FloatingView:2.4.4&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>2.創建一個伺服器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatHeadService</span> <span class="keyword">extends</span> <span class="title">Service</span> <span class="keyword">implements</span> <span class="title">FloatingViewListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;ChatHeadService&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_CUTOUT_SAFE_AREA = <span class="string">&quot;cutout_safe_area&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NOTIFICATION_ID = <span class="number">9083150</span>;</span><br><span class="line">    <span class="keyword">private</span> FloatingViewManager mFloatingViewManager;</span><br><span class="line">    <span class="keyword">private</span> ImageView iconView;</span><br><span class="line">    <span class="meta">@TargetApi(Build.VERSION_CODES.Q)</span></span><br><span class="line">    <span class="meta">@RequiresApi(api = Build.VERSION_CODES.M)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> START_STICKY;   <span class="comment">//如果已經存在就直接返回</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> DisplayMetrics metrics = <span class="keyword">new</span> DisplayMetrics();</span><br><span class="line">        <span class="keyword">final</span> WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">        <span class="keyword">assert</span> windowManager != <span class="keyword">null</span>;</span><br><span class="line">        windowManager.getDefaultDisplay().getMetrics(metrics);</span><br><span class="line">        <span class="keyword">final</span> LayoutInflater inflater = LayoutInflater.from(<span class="keyword">this</span>);</span><br><span class="line">        iconView = (ImageView) inflater.inflate(R.layout.widget_chathead, <span class="keyword">null</span>, <span class="keyword">false</span>);  </span><br><span class="line">        Bitmap bmp;    <span class="comment">//設定圖示</span></span><br><span class="line">        <span class="keyword">int</span> width=<span class="number">300</span>;</span><br><span class="line">        <span class="keyword">int</span> height=<span class="number">300</span>;</span><br><span class="line">        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.rd);<span class="comment">//image is your image</span></span><br><span class="line">        bmp = Bitmap.createScaledBitmap(bmp, width,height, <span class="keyword">true</span>);</span><br><span class="line">        iconView.setImageBitmap(bmp);</span><br><span class="line">        iconView.setOnClickListener(view -&gt; &#123;</span><br><span class="line">            <span class="comment">//點擊圖示後要做的事情</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mFloatingViewManager = <span class="keyword">new</span> FloatingViewManager(<span class="keyword">this</span>, <span class="keyword">this</span>);</span><br><span class="line">        mFloatingViewManager.setFixedTrashIconImage(R.drawable.ic_trash_fixed);</span><br><span class="line">        mFloatingViewManager.setActionTrashIconImage(R.drawable.ic_trash_action);</span><br><span class="line">        mFloatingViewManager.setSafeInsetRect((Rect) intent.getParcelableExtra(EXTRA_CUTOUT_SAFE_AREA));</span><br><span class="line">        <span class="keyword">final</span> FloatingViewManager.Options options = <span class="keyword">new</span> FloatingViewManager.Options();</span><br><span class="line">        options.overMargin = (<span class="keyword">int</span>) (<span class="number">16</span> * metrics.density);</span><br><span class="line">        mFloatingViewManager.addViewToWindow(iconView, options);</span><br><span class="line">        <span class="comment">// 常駐起動</span></span><br><span class="line">        startForeground(NOTIFICATION_ID, createNotification(<span class="keyword">this</span>));</span><br><span class="line">        YoYo.with(Techniques.Shake)   <span class="comment">//YoYo為動畫套件 主要作用為產生圖示時博取使用者注意的震動</span></span><br><span class="line">                .duration(<span class="number">500</span>)</span><br><span class="line">                .repeat(<span class="number">1</span>)</span><br><span class="line">                .playOn(iconView);</span><br><span class="line">        <span class="keyword">return</span> START_REDELIVER_INTENT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        destroy();</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFinishFloatingView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stopSelf();</span><br><span class="line">        Log.d(TAG, getString(R.string.finish_deleted));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTouchFinished</span><span class="params">(<span class="keyword">boolean</span> isFinishing, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFinishing) &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.deleted_soon));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.touch_finished_position, x, y));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mFloatingViewManager.removeAllViewToWindow();</span><br><span class="line">            mFloatingViewManager = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Notification <span class="title">createNotification</span><span class="params">(Context context)</span> </span>&#123;   <span class="comment">//設置通知</span></span><br><span class="line">        <span class="keyword">final</span> NotificationCompat.Builder builder = <span class="keyword">new</span> NotificationCompat.Builder(context, context.getString(R.string.default_floatingview_channel_id));</span><br><span class="line">        builder.setWhen(System.currentTimeMillis());</span><br><span class="line">        builder.setSmallIcon(R.mipmap.ic_noti_58);</span><br><span class="line">        builder.setContentTitle(context.getString(R.string.chathead_content_title));</span><br><span class="line">        builder.setContentText(context.getString(R.string.content_text));</span><br><span class="line">        builder.setOngoing(<span class="keyword">true</span>);</span><br><span class="line">        builder.setPriority(NotificationCompat.PRIORITY_MIN);</span><br><span class="line">        builder.setCategory(NotificationCompat.CATEGORY_SERVICE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatHeadService</span> <span class="keyword">extends</span> <span class="title">Service</span> <span class="keyword">implements</span> <span class="title">FloatingViewListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;ChatHeadService&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_CUTOUT_SAFE_AREA = <span class="string">&quot;cutout_safe_area&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NOTIFICATION_ID = <span class="number">9083150</span>;</span><br><span class="line">    <span class="keyword">private</span> FloatingViewManager mFloatingViewManager;</span><br><span class="line">    <span class="keyword">private</span> ImageView iconView;</span><br><span class="line">    <span class="meta">@TargetApi(Build.VERSION_CODES.Q)</span></span><br><span class="line">    <span class="meta">@RequiresApi(api = Build.VERSION_CODES.M)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> START_STICKY;   <span class="comment">//如果已經存在就直接返回</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> DisplayMetrics metrics = <span class="keyword">new</span> DisplayMetrics();</span><br><span class="line">        <span class="keyword">final</span> WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">        <span class="keyword">assert</span> windowManager != <span class="keyword">null</span>;</span><br><span class="line">        windowManager.getDefaultDisplay().getMetrics(metrics);</span><br><span class="line">        <span class="keyword">final</span> LayoutInflater inflater = LayoutInflater.from(<span class="keyword">this</span>);</span><br><span class="line">        iconView = (ImageView) inflater.inflate(R.layout.widget_chathead, <span class="keyword">null</span>, <span class="keyword">false</span>);  </span><br><span class="line">        Bitmap bmp;    <span class="comment">//設定圖示</span></span><br><span class="line">        <span class="keyword">int</span> width=<span class="number">300</span>;</span><br><span class="line">        <span class="keyword">int</span> height=<span class="number">300</span>;</span><br><span class="line">        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.rd);<span class="comment">//image is your image</span></span><br><span class="line">        bmp = Bitmap.createScaledBitmap(bmp, width,height, <span class="keyword">true</span>);</span><br><span class="line">        iconView.setImageBitmap(bmp);</span><br><span class="line">        iconView.setOnClickListener(view -&gt; &#123;</span><br><span class="line">            <span class="comment">//點擊圖示後要做的事情</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mFloatingViewManager = <span class="keyword">new</span> FloatingViewManager(<span class="keyword">this</span>, <span class="keyword">this</span>);</span><br><span class="line">        mFloatingViewManager.setFixedTrashIconImage(R.drawable.ic_trash_fixed);</span><br><span class="line">        mFloatingViewManager.setActionTrashIconImage(R.drawable.ic_trash_action);</span><br><span class="line">        mFloatingViewManager.setSafeInsetRect((Rect) intent.getParcelableExtra(EXTRA_CUTOUT_SAFE_AREA));</span><br><span class="line">        <span class="keyword">final</span> FloatingViewManager.Options options = <span class="keyword">new</span> FloatingViewManager.Options();</span><br><span class="line">        options.overMargin = (<span class="keyword">int</span>) (<span class="number">16</span> * metrics.density);</span><br><span class="line">        mFloatingViewManager.addViewToWindow(iconView, options);</span><br><span class="line">        <span class="comment">// 常駐起動</span></span><br><span class="line">        startForeground(NOTIFICATION_ID, createNotification(<span class="keyword">this</span>));</span><br><span class="line">        YoYo.with(Techniques.Shake)   <span class="comment">//YoYo為動畫套件 主要作用為產生圖示時博取使用者注意的震動</span></span><br><span class="line">                .duration(<span class="number">500</span>)</span><br><span class="line">                .repeat(<span class="number">1</span>)</span><br><span class="line">                .playOn(iconView);</span><br><span class="line">        <span class="keyword">return</span> START_REDELIVER_INTENT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        destroy();</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFinishFloatingView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stopSelf();</span><br><span class="line">        Log.d(TAG, getString(R.string.finish_deleted));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTouchFinished</span><span class="params">(<span class="keyword">boolean</span> isFinishing, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFinishing) &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.deleted_soon));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Log.d(TAG, getString(R.string.touch_finished_position, x, y));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mFloatingViewManager != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mFloatingViewManager.removeAllViewToWindow();</span><br><span class="line">            mFloatingViewManager = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Notification <span class="title">createNotification</span><span class="params">(Context context)</span> </span>&#123;   <span class="comment">//設置通知</span></span><br><span class="line">        <span class="keyword">final</span> NotificationCompat.Builder builder = <span class="keyword">new</span> NotificationCompat.Builder(context, context.getString(R.string.default_floatingview_channel_id));</span><br><span class="line">        builder.setWhen(System.currentTimeMillis());</span><br><span class="line">        builder.setSmallIcon(R.mipmap.ic_noti_58);</span><br><span class="line">        builder.setContentTitle(context.getString(R.string.chathead_content_title));</span><br><span class="line">        builder.setContentText(context.getString(R.string.content_text));</span><br><span class="line">        builder.setOngoing(<span class="keyword">true</span>);</span><br><span class="line">        builder.setPriority(NotificationCompat.PRIORITY_MIN);</span><br><span class="line">        builder.setCategory(NotificationCompat.CATEGORY_SERVICE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>3.在AndroidManifest中開啟權限</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.FOREGROUND_SERVICE&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.FOREGROUND_SERVICE&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>4.在AndroidManifest中定義Service</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    &lt;service android:name=<span class="string">&quot;.FloatingController.ChatHeadService&quot;</span></span><br><span class="line">        android:exported=<span class="string">&quot;false&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;application&gt;</span><br><span class="line">    &lt;service android:name=<span class="string">&quot;.FloatingController.ChatHeadService&quot;</span></span><br><span class="line">        android:exported=<span class="string">&quot;false&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;/application&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>5.呼叫方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showFloatingView(applicationContext, isShowOverlayPermission &#x3D; true, isCustomFloatingView &#x3D; false)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showFloatingView(applicationContext, isShowOverlayPermission &#x3D; true, isCustomFloatingView &#x3D; false)</span><br></pre></td></tr></table></div></figure>
 
 <p>這時會遇到一個特殊權限，叫做「在其他應用程式上層繪製內容」，經由google play認證的app是預設開啟的</p>
 <p>在安卓6(API22)以上才有區分是跟否!!!!sdk需大於安卓6以上(含)才能詢問，不然會報錯</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings.canDrawOverlays(this)   &#x2F;&#x2F;判斷是否可在其他程式上繪製東西</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings.canDrawOverlays(this)   &#x2F;&#x2F;判斷是否可在其他程式上繪製東西</span><br></pre></td></tr></table></div></figure>
 
 <p>若得到false，需跳轉到設定頁讓使用者手動設定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(&quot;package:$packageName&quot;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(&quot;package:$packageName&quot;))</span><br></pre></td></tr></table></div></figure>
 
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;NewApi&quot;</span>)</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFloatingView</span><span class="params">(context: <span class="type">Context</span>, isShowOverlayPermission: <span class="type">Boolean</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// API22以下不需要詢問Settings.canDrawOverlays(context)，詢問會閃退</span></span><br><span class="line">    <span class="comment">//  --&gt;直接開啟下一步</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt;= Build.VERSION_CODES.LOLLIPOP_MR1) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// API22以上先詢問Settings.canDrawOverlays(context)</span></span><br><span class="line">    <span class="keyword">if</span> (Settings.canDrawOverlays(context)) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 沒有開啟canDrawOverlays 跳轉到設定讓使用者手動開啟</span></span><br><span class="line">    <span class="keyword">if</span> (isShowOverlayPermission) &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(<span class="string">&quot;package:&quot;</span> + context.packageName))</span><br><span class="line">        startActivityForResult(</span><br><span class="line">            intent,</span><br><span class="line">            <span class="keyword">if</span> (isCustomFloatingView) CUSTOM_OVERLAY_PERMISSION_REQUEST_CODE <span class="keyword">else</span> CHATHEAD_OVERLAY_PERMISSION_REQUEST_CODE</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">startFloatingViewService</span><span class="params">(activity: <span class="type">Activity</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// *** You must follow these rules when obtain the cutout(FloatingViewManager.findCutoutSafeArea) ***</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.P) &#123;</span><br><span class="line">        <span class="comment">// 1. &#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> (activity.window.attributes.layoutInDisplayCutoutMode == WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;&#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2. Do not set Activity to landscape</span></span><br><span class="line">        <span class="keyword">if</span> (activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;Do not set Activity to landscape&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// launch service</span></span><br><span class="line">    <span class="keyword">val</span> service: Class&lt;<span class="keyword">out</span> Service&gt;</span><br><span class="line">    <span class="keyword">val</span> key: String</span><br><span class="line">    <span class="keyword">if</span> (isCustomFloatingView) &#123;</span><br><span class="line">        service = CustomFloatingViewService::<span class="keyword">class</span>.java</span><br><span class="line">        key = CustomFloatingViewService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        service = ChatHeadService::<span class="keyword">class</span>.java</span><br><span class="line">        key = ChatHeadService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(activity, service)</span><br><span class="line">    intent.putExtra(key, FloatingViewManager.findCutoutSafeArea(activity))</span><br><span class="line">    ContextCompat.startForegroundService(activity, intent)</span><br><span class="line">&#125;         </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint(<span class="meta-string">&quot;NewApi&quot;</span>)</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFloatingView</span><span class="params">(context: <span class="type">Context</span>, isShowOverlayPermission: <span class="type">Boolean</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// API22以下不需要詢問Settings.canDrawOverlays(context)，詢問會閃退</span></span><br><span class="line">    <span class="comment">//  --&gt;直接開啟下一步</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt;= Build.VERSION_CODES.LOLLIPOP_MR1) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// API22以上先詢問Settings.canDrawOverlays(context)</span></span><br><span class="line">    <span class="keyword">if</span> (Settings.canDrawOverlays(context)) &#123;</span><br><span class="line">        startFloatingViewService(<span class="keyword">this</span>, isCustomFloatingView)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 沒有開啟canDrawOverlays 跳轉到設定讓使用者手動開啟</span></span><br><span class="line">    <span class="keyword">if</span> (isShowOverlayPermission) &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(<span class="string">&quot;package:&quot;</span> + context.packageName))</span><br><span class="line">        startActivityForResult(</span><br><span class="line">            intent,</span><br><span class="line">            <span class="keyword">if</span> (isCustomFloatingView) CUSTOM_OVERLAY_PERMISSION_REQUEST_CODE <span class="keyword">else</span> CHATHEAD_OVERLAY_PERMISSION_REQUEST_CODE</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">startFloatingViewService</span><span class="params">(activity: <span class="type">Activity</span>, isCustomFloatingView: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// *** You must follow these rules when obtain the cutout(FloatingViewManager.findCutoutSafeArea) ***</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.P) &#123;</span><br><span class="line">        <span class="comment">// 1. &#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> (activity.window.attributes.layoutInDisplayCutoutMode == WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;&#x27;windowLayoutInDisplayCutoutMode&#x27; do not be set to &#x27;never&#x27;&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2. Do not set Activity to landscape</span></span><br><span class="line">        <span class="keyword">if</span> (activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;Do not set Activity to landscape&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// launch service</span></span><br><span class="line">    <span class="keyword">val</span> service: Class&lt;<span class="keyword">out</span> Service&gt;</span><br><span class="line">    <span class="keyword">val</span> key: String</span><br><span class="line">    <span class="keyword">if</span> (isCustomFloatingView) &#123;</span><br><span class="line">        service = CustomFloatingViewService::<span class="keyword">class</span>.java</span><br><span class="line">        key = CustomFloatingViewService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        service = ChatHeadService::<span class="keyword">class</span>.java</span><br><span class="line">        key = ChatHeadService.EXTRA_CUTOUT_SAFE_AREA</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(activity, service)</span><br><span class="line">    intent.putExtra(key, FloatingViewManager.findCutoutSafeArea(activity))</span><br><span class="line">    ContextCompat.startForegroundService(activity, intent)</span><br><span class="line">&#125;         </span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文結束，感謝您的閱讀 ------</div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/tutu1023/2021/04/28/%E6%B5%AE%E5%8B%95%E7%9B%AE%E9%8C%84PopMenu(%E9%99%84%E6%8C%87%E5%AE%9AAPP%E5%88%86%E4%BA%AB%E8%B7%AF%E5%BE%91)/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">浮動目錄PopMenu(附指定APP分享路徑)</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/tutu1023/2021/04/28/%E6%97%A5%E5%A4%9C%E9%96%93%E6%A8%A1%E5%BC%8FDayNight/"><span class="paginator-prev__text">日夜間模式DayNight</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目錄</span><span class="sidebar-nav-ov">站點概覽</span></div><section class="sidebar-toc"></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://graph.facebook.com/2680630765557021/picture?type=large" alt="avatar"></div><p class="sidebar-ov-author__text">Pei-Yu, Chen</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/tutu1023/archives"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">文章</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已閱讀了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>PY</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 強力驅動</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主題 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜尋文章（支持多關鍵詞，請用空格分隔）"><div class="search-btns">使用搜尋：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-    <!-- Social share choices -->
-    
-  <div id="social-share">
-    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
-  </div>
+  var path = '/tutu1023/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章無標題 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-<!--
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E6%B5%AE%E5%8B%95%E5%9C%96%E7%A4%BAFloatingView(Firebase)/
-http://example.com/2021/04/28/%25E6%25B5%25AE%25E5%258B%2595%25E5%259C%2596%25E7%25A4%25BAFloatingView(Firebase)/
--->
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-    <hr />
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    <!-- Tags and Categories links -->
-    
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
 
-    
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-    <!-- Comment using disqus -->
-    
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-</div>
-</div>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
 
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
 
-  </div>
-  <!-- Footer -->
-  <div id="footer">
-  <div id="footer-social">
-    
-    
-    
-    
-    
-    
-</div>
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
 
-  <p id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
-    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
-  </p>
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '請輸入字符');
+  }
+}
 
-  <div id="busuanzi">
-    <span id="busuanzi_container_site_pv">
-      &hearts;
-    Total visits: <span id="busuanzi_value_site_pv"></span>
-    </span>
-  </div>
-  <!--
-  <div id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-  </div>
--->
-</div>
+var assistSearchList = window.CONFIG.assistSearch;
 
-  <!-- After footer scripts -->
-  <!-- Disqus Comments -->
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<script src="/tutu1023/js/main.js"></script>
-
-
-</body>
-
-</html>
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/tutu1023/js/utils.js?v=2.6.2"></script><script src="/tutu1023/js/stun-boot.js?v=2.6.2"></script><script src="/tutu1023/js/scroll.js?v=2.6.2"></script><script src="/tutu1023/js/header.js?v=2.6.2"></script><script src="/tutu1023/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/tutu1023/search.xml"></script></body></html>

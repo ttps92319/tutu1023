@@ -1,177 +1,356 @@
-<html>
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/tutu1023/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/tutu1023/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Update：2020&#x2F;08&#x2F;17  By：Ada  Code：Kotlin 參考來源：https:&#x2F;&#x2F;developers.google.com&#x2F;interactive-media-ads&#x2F;docs&#x2F;sdks&#x2F;android&#x2F;client-side  放置在影片前的影片廣告ImaAdsLoader（本篇適用於Android系統之半官方承認播放器ExoPlayer）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="影片廣告ImaAdsLoader">
+<meta property="og:url" content="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/index.html">
+<meta property="og:site_name" content="PY&#39;s Blog">
+<meta property="og:description" content="Update：2020&#x2F;08&#x2F;17  By：Ada  Code：Kotlin 參考來源：https:&#x2F;&#x2F;developers.google.com&#x2F;interactive-media-ads&#x2F;docs&#x2F;sdks&#x2F;android&#x2F;client-side  放置在影片前的影片廣告ImaAdsLoader（本篇適用於Android系統之半官方承認播放器ExoPlayer）">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://example.com/file/73c7275a66277efff6ee88341fbb5668">
+<meta property="article:published_time" content="2021-04-27T23:39:26.000Z">
+<meta property="article:modified_time" content="2021-04-28T09:48:22.216Z">
+<meta property="article:author" content="PY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/file/73c7275a66277efff6ee88341fbb5668"><title>影片廣告ImaAdsLoader | PY's Blog</title><link ref="canonical" href="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/tutu1023/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/tutu1023/',
+  algolia: undefined,
+  assistSearch: ["google"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"複製","copySuccess":"複製成功","copyError":"複製失敗"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-<head>
-    <meta charset="utf-8">
-    
-    <title>影片廣告ImaAdsLoader | PY&#39;s Blog</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/favicon/favicon.ico">
-    
-<link rel="stylesheet" href="/tutu1023/css/main.css">
-
-    
-<link rel="stylesheet" href="/tutu1023/css/tagplugins.css">
-
-    
-<link rel="stylesheet" href="/tutu1023/css/highlight.css">
-
-    
-
-
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/tutu1023/atom.xml" title="PY&#39;s Blog" type="application/atom+xml" />
-    
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-<body>
-  <div class="blog-header">
-   <a id="menu-nav-icon"><img src="/tutu1023/image/menu.png"/></a>
-   <div class="nav-container">
-     <nav id="main-nav">
-       
-         <a class="main-nav-link" href="/tutu1023/">Home</a>
-       
-         <a class="main-nav-link" href="/tutu1023/archives">Archives</a>
-       
-     </nav>
-   </div>
-   <!--
-   <div id="search-form-wrap">
-     <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-   </div>
- -->
-    <h1 class="blog-title">PY&#39;s Blog</h1>
-    <p class="lead blog-description"></p>
-</div>
-
-  <div id='main-part'>
-      <div class="main">
-<div class="blog-post">
-    <!-- Title -->
-    <h1 class="blog-post-title">
-        <a href="/tutu1023/2021/04/28/影片廣告ImaAdsLoader/">
-            影片廣告ImaAdsLoader
-        </a>
-    </h1>
-    <!-- Date and Author -->
-    <p class="blog-post-meta">
-        2021-04-28
-        
-    </p>
-
-    
-
-    <!-- Content -->
-    <p>  Update：2020/08/17<br>  By：Ada<br>  Code：Kotlin</p>
-<p>參考來源：<a target="_blank" rel="noopener" href="https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side">https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side</a></p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首頁</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/archives"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜尋</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">PY's Blog</div><div class="header-banner-info__subtitle">跌跌撞撞的AS學習筆記</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">影片廣告ImaAdsLoader</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">發表於</span><span class="post-meta-item__value">2021-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于於</span><span class="post-meta-item__value">2021-04-28</span></span></div></header><div class="post-body"><p>  Update：2020/08/17<br>  By：Ada<br>  Code：Kotlin</p>
+<p>參考來源：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side" >https://developers.google.com/interactive-media-ads/docs/sdks/android/client-side</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><img src="/file/73c7275a66277efff6ee88341fbb5668" alt="image.png"></p>
 <p>放置在影片前的影片廣告ImaAdsLoader（本篇適用於Android系統之半官方承認播放器ExoPlayer）</p>
 <hr>
-<h4 id="1-build-gradle-app增加依賴"><a href="#1-build-gradle-app增加依賴" class="headerlink" title="1.build.gradle/app增加依賴"></a>1.build.gradle/app增加依賴</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">29</span></span><br><span class="line">    buildToolsVersion <span class="string">&quot;29.0.2&quot;</span></span><br><span class="line"></span><br><span class="line">    compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer-hls:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:extension-ima:2.11.1&#x27;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h4 id="2-AndroidMenifest增加權限"><a href="#2-AndroidMenifest增加權限" class="headerlink" title="2.AndroidMenifest增加權限"></a>2.AndroidMenifest增加權限</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span>/&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-放置player-view"><a href="#3-放置player-view" class="headerlink" title="3.放置player_view"></a>3.放置player_view</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;com.google.android.exoplayer2.ui.PlayerView</span><br><span class="line">    android:id=<span class="string">&quot;@+id/player_view&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+        <h4 id="1-build-gradle-app增加依賴"   >
+          <a href="#1-build-gradle-app增加依賴" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-build-gradle-app增加依賴" class="headerlink" title="1.build.gradle/app增加依賴"></a>1.build.gradle/app增加依賴</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">29</span></span><br><span class="line">    buildToolsVersion <span class="string">&quot;29.0.2&quot;</span></span><br><span class="line"></span><br><span class="line">    compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:exoplayer-hls:2.11.1&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.exoplayer:extension-ima:2.11.1&#x27;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 
-<h4 id="4-在value的string中加入測試用影片及廣告網址"><a href="#4-在value的string中加入測試用影片及廣告網址" class="headerlink" title="4.在value的string中加入測試用影片及廣告網址"></a>4.在value的string中加入測試用影片及廣告網址</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;string name=<span class="string">&quot;content_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//storage.googleapis.com/gvabox/media/samples/stock.mp4]]&gt;&lt;/string&gt;</span></span><br><span class="line">&lt;string name=<span class="string">&quot;ad_tag_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//pubads.g.doubleclick.net/gampad/ads?sz=640x480&amp;iu=/124319096/external/single_ad_samples&amp;ciu_szs=300x250&amp;impl=s&amp;gdfp_req=1&amp;env=vp&amp;output=vast&amp;unviewed_position_start=1&amp;cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&amp;correlator=]]&gt;&lt;/string&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h4 id="2-AndroidMenifest增加權限"   >
+          <a href="#2-AndroidMenifest增加權限" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-AndroidMenifest增加權限" class="headerlink" title="2.AndroidMenifest增加權限"></a>2.AndroidMenifest增加權限</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.INTERNET&quot;</span>/&gt;</span><br><span class="line">&lt;uses-permission android:name=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span>/&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="3-放置player-view"   >
+          <a href="#3-放置player-view" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-放置player-view" class="headerlink" title="3.放置player_view"></a>3.放置player_view</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;com.google.android.exoplayer2.ui.PlayerView</span><br><span class="line">    android:id=<span class="string">&quot;@+id/player_view&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 
 
-<h4 id="5-初始化播放器"><a href="#5-初始化播放器" class="headerlink" title="5.初始化播放器"></a>5.初始化播放器</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">simpleExoplayer = SimpleExoPlayer.Builder(<span class="keyword">this</span>).build()</span><br><span class="line">simpleExoplayerView.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line">imaAdsLoader = ImaAdsLoader(<span class="keyword">this</span>,Uri.parse(getString(R.string.ad_tag_url)))<span class="comment">//預設廣告網址</span></span><br><span class="line">imaAdsLoader.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> defaultDataSourceFactory= DefaultHttpDataSourceFactory(Util.getUserAgent(<span class="keyword">this</span>, <span class="string">&quot;app-name&quot;</span>))</span><br><span class="line"><span class="keyword">val</span> mediaSource = HlsMediaSource.Factory(defaultDataSourceFactory).createMediaSource(Uri.parse(R.string.content_url)) <span class="comment">//預設影片網址</span></span><br><span class="line"><span class="keyword">val</span> adsMediaSource = AdsMediaSource(mediaSource, defaultDataSourceFactory, imaAdsLoader, simpleExoPlayerView)</span><br><span class="line">simpleExoplayer.prepare(adsMediaSource)</span><br><span class="line">simpleExoplayer.seekTo(<span class="number">0L</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h4 id="6-記得在onDestroy把廣告釋放掉"><a href="#6-記得在onDestroy把廣告釋放掉" class="headerlink" title="6.記得在onDestroy把廣告釋放掉"></a>6.記得在onDestroy把廣告釋放掉</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//清除廣告的快取</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    imaAdsLoader.release()</span><br><span class="line">&#125;<span class="keyword">catch</span> (e:Exception)&#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h4 id="4-在value的string中加入測試用影片及廣告網址"   >
+          <a href="#4-在value的string中加入測試用影片及廣告網址" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-在value的string中加入測試用影片及廣告網址" class="headerlink" title="4.在value的string中加入測試用影片及廣告網址"></a>4.在value的string中加入測試用影片及廣告網址</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;string name=<span class="string">&quot;content_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//storage.googleapis.com/gvabox/media/samples/stock.mp4]]&gt;&lt;/string&gt;</span></span><br><span class="line">&lt;string name=<span class="string">&quot;ad_tag_url&quot;</span>&gt;&lt;![CDATA[https:<span class="comment">//pubads.g.doubleclick.net/gampad/ads?sz=640x480&amp;iu=/124319096/external/single_ad_samples&amp;ciu_szs=300x250&amp;impl=s&amp;gdfp_req=1&amp;env=vp&amp;output=vast&amp;unviewed_position_start=1&amp;cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&amp;correlator=]]&gt;&lt;/string&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h4 id="5-初始化播放器"   >
+          <a href="#5-初始化播放器" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-初始化播放器" class="headerlink" title="5.初始化播放器"></a>5.初始化播放器</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">simpleExoplayer = SimpleExoPlayer.Builder(<span class="keyword">this</span>).build()</span><br><span class="line">simpleExoplayerView.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line">imaAdsLoader = ImaAdsLoader(<span class="keyword">this</span>,Uri.parse(getString(R.string.ad_tag_url)))<span class="comment">//預設廣告網址</span></span><br><span class="line">imaAdsLoader.setPlayer(simpleExoplayer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> defaultDataSourceFactory= DefaultHttpDataSourceFactory(Util.getUserAgent(<span class="keyword">this</span>, <span class="string">&quot;app-name&quot;</span>))</span><br><span class="line"><span class="keyword">val</span> mediaSource = HlsMediaSource.Factory(defaultDataSourceFactory).createMediaSource(Uri.parse(R.string.content_url)) <span class="comment">//預設影片網址</span></span><br><span class="line"><span class="keyword">val</span> adsMediaSource = AdsMediaSource(mediaSource, defaultDataSourceFactory, imaAdsLoader, simpleExoPlayerView)</span><br><span class="line">simpleExoplayer.prepare(adsMediaSource)</span><br><span class="line">simpleExoplayer.seekTo(<span class="number">0L</span>)</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="6-記得在onDestroy把廣告釋放掉"   >
+          <a href="#6-記得在onDestroy把廣告釋放掉" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-記得在onDestroy把廣告釋放掉" class="headerlink" title="6.記得在onDestroy把廣告釋放掉"></a>6.記得在onDestroy把廣告釋放掉</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//清除廣告的快取</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    imaAdsLoader.release()</span><br><span class="line">&#125;<span class="keyword">catch</span> (e:Exception)&#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>Do Re Mi So ~ ~ 這樣就大功告成了<br>至於怎麼樣將廣告平均分配在影片中，還沒有研究出來😂</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文結束，感謝您的閱讀 ------</div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/tutu1023/2021/04/28/Exo%E6%92%AD%E6%94%BE%E5%99%A8ExoPlayer/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Exo播放器ExoPlayer</span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目錄</span><span class="sidebar-nav-ov">站點概覽</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-build-gradle-app%E5%A2%9E%E5%8A%A0%E4%BE%9D%E8%B3%B4"><span class="toc-number">1.</span> <span class="toc-text">
+          1.build.gradle&#x2F;app增加依賴</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-AndroidMenifest%E5%A2%9E%E5%8A%A0%E6%AC%8A%E9%99%90"><span class="toc-number">2.</span> <span class="toc-text">
+          2.AndroidMenifest增加權限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%94%BE%E7%BD%AEplayer-view"><span class="toc-number">3.</span> <span class="toc-text">
+          3.放置player_view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%9C%A8value%E7%9A%84string%E4%B8%AD%E5%8A%A0%E5%85%A5%E6%B8%AC%E8%A9%A6%E7%94%A8%E5%BD%B1%E7%89%87%E5%8F%8A%E5%BB%A3%E5%91%8A%E7%B6%B2%E5%9D%80"><span class="toc-number">4.</span> <span class="toc-text">
+          4.在value的string中加入測試用影片及廣告網址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%92%AD%E6%94%BE%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text">
+          5.初始化播放器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%A8%98%E5%BE%97%E5%9C%A8onDestroy%E6%8A%8A%E5%BB%A3%E5%91%8A%E9%87%8B%E6%94%BE%E6%8E%89"><span class="toc-number">6.</span> <span class="toc-text">
+          6.記得在onDestroy把廣告釋放掉</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://graph.facebook.com/2680630765557021/picture?type=large" alt="avatar"></div><p class="sidebar-ov-author__text">Pei-Yu, Chen</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://twitter.com/" target="_blank" rel="noopener" data-popover="Twitter" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-twitter"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/tutu1023/archives"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">文章</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已閱讀了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>PY</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 強力驅動</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主題 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜尋文章（支持多關鍵詞，請用空格分隔）"><div class="search-btns">使用搜尋：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
 
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-    <!-- Social share choices -->
-    
-  <div id="social-share">
-    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/tutu1023/image/googleplusicon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/tutu1023/image/twittericon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/tutu1023/image/pinteresticon.png" alt=""/></a>
-    <a data-url="http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/tutu1023/image/facebookicon.png" alt=""/></a>
-  </div>
+  var path = '/tutu1023/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章無標題 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-<!--
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/28/%E5%BD%B1%E7%89%87%E5%BB%A3%E5%91%8AImaAdsLoader/
-http://example.com/2021/04/28/%25E5%25BD%25B1%25E7%2589%2587%25E5%25BB%25A3%25E5%2591%258AImaAdsLoader/
--->
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-    <hr />
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-    <!-- Tags and Categories links -->
-    
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
 
-    
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-    <!-- Comment using disqus -->
-    
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-</div>
-</div>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
 
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
 
-  </div>
-  <!-- Footer -->
-  <div id="footer">
-  <div id="footer-social">
-    
-    
-    
-    
-    
-    
-</div>
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
 
-  <p id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
-    Theme <a href="https://github.com/Suolawangzai/hexo-theme-nebula" target="_blank">nebula</a>
-  </p>
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '請輸入字符');
+  }
+}
 
-  <div id="busuanzi">
-    <span id="busuanzi_container_site_pv">
-      &hearts;
-    Total visits: <span id="busuanzi_value_site_pv"></span>
-    </span>
-  </div>
-  <!--
-  <div id="footer-info">
-    &copy; 2021 John Doe<br>
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-  </div>
--->
-</div>
+var assistSearchList = window.CONFIG.assistSearch;
 
-  <!-- After footer scripts -->
-  <!-- Disqus Comments -->
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<script src="/tutu1023/js/main.js"></script>
-
-
-</body>
-
-</html>
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/tutu1023/js/utils.js?v=2.6.2"></script><script src="/tutu1023/js/stun-boot.js?v=2.6.2"></script><script src="/tutu1023/js/scroll.js?v=2.6.2"></script><script src="/tutu1023/js/header.js?v=2.6.2"></script><script src="/tutu1023/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/tutu1023/search.xml"></script></body></html>

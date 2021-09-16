@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/tutu1023/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/tutu1023/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Create：2021&#x2F;05&#x2F;11  Update：2021&#x2F;09&#x2F;16  By：Ada  Code：Kotlin 資料來源：https:&#x2F;&#x2F;developer.android.com&#x2F;guide&#x2F;topics&#x2F;ui&#x2F;picture-in-picture         https:&#x2F;&#x2F;developer.android.com&#x2F;images&#x2F;pip.mp4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="子母畫面Picture in picture">
+<meta property="og:url" content="http://example.com/2021/09/16/%E5%AD%90%E6%AF%8D%E7%95%AB%E9%9D%A2Picture%20in%20picture/index.html">
+<meta property="og:site_name" content="PY&#39;s Blog">
+<meta property="og:description" content="Create：2021&#x2F;05&#x2F;11  Update：2021&#x2F;09&#x2F;16  By：Ada  Code：Kotlin 資料來源：https:&#x2F;&#x2F;developer.android.com&#x2F;guide&#x2F;topics&#x2F;ui&#x2F;picture-in-picture         https:&#x2F;&#x2F;developer.android.com&#x2F;images&#x2F;pip.mp4">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/yQjTBDx.jpg">
+<meta property="og:image" content="https://i.imgur.com/c43q0k4.png">
+<meta property="og:image" content="https://i.imgur.com/NFKhBkA.png">
+<meta property="og:image" content="https://i.imgur.com/3axAfm3.jpg">
+<meta property="og:image" content="https://i.imgur.com/QUOydKm.png">
+<meta property="article:published_time" content="2021-09-15T19:35:06.000Z">
+<meta property="article:modified_time" content="2021-09-16T06:40:07.670Z">
+<meta property="article:author" content="PY">
+<meta property="article:tag" content="應用技術, Picture In Picture, PIP, 子母畫面">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/yQjTBDx.jpg"><title>子母畫面Picture in picture | PY's Blog</title><link ref="canonical" href="http://example.com/2021/09/16/%E5%AD%90%E6%AF%8D%E7%95%AB%E9%9D%A2Picture%20in%20picture/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/tutu1023/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/tutu1023/',
+  algolia: undefined,
+  assistSearch: ["google"],
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"複製","copySuccess":"複製成功","copyError":"複製失敗"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首頁</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/archives"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/categories"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分類</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/tags"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">標籤</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tutu1023/about"><span class="header-nav-menu-item__icon"><i class="fas fa-address-card"></i></span><span class="header-nav-menu-item__text">關於</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜尋</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">PY's Blog</div><div class="header-banner-info__subtitle">跌跌撞撞的AS學習筆記</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">子母畫面Picture in picture</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">發表於</span><span class="post-meta-item__value">2021-09-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于於</span><span class="post-meta-item__value">2021-09-16</span></span></div></header><div class="post-body"><p>  Create：2021/05/11<br>  Update：2021/09/16<br>  By：Ada<br>  Code：Kotlin</p>
+<p>資料來源：<br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/picture-in-picture" >https://developer.android.com/guide/topics/ui/picture-in-picture</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<video autoplay controls width="350" loop>
+    <source type="video/mp4" src="https://developer.android.com/images/pip.mp4"></source>
+</video>
+
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/images/pip.mp4" >https://developer.android.com/images/pip.mp4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<hr>
+
+        <h2 id="子母畫面"   >
+          <a href="#子母畫面" class="heading-link"><i class="fas fa-link"></i></a><a href="#子母畫面" class="headerlink" title="子母畫面"></a>子母畫面</h2>
+      <p><img src="https://i.imgur.com/yQjTBDx.jpg" alt="Imgur"></p>
+<p>Android 8.0（API 級別26）允許以畫中畫(PIP)模式啟動Activity。畫中畫是一種特殊類型的多窗口模式，最常用於視頻播放。使用該模式時，用戶可以通過固定到屏幕一角的小窗口觀看視頻，同時在應用之間進行導航或瀏覽主屏幕上的內容。</p>
+<p>如要將畫中畫添加到您的應用中，您需要註冊支持畫中畫的Activity，根據需要將Activity 切換為畫中畫模式，並確保當Activity 處於畫中畫模式時，界面元素處於隱藏狀態且視頻能夠繼續播放。</p>
+<p>畫中畫窗口會顯示在屏幕的最上層，位於系統選擇的一角。您可以將畫中畫窗口拖動到其他位置。當您點按該窗口時，會看到兩個特殊的控件：全屏切換開關（位於窗口的中心）和關閉按鈕（右上角的“X”）。</p>
+
+        <h4 id="聲明對畫中畫的支持"   >
+          <a href="#聲明對畫中畫的支持" class="heading-link"><i class="fas fa-link"></i></a><a href="#聲明對畫中畫的支持" class="headerlink" title="聲明對畫中畫的支持"></a>聲明對畫中畫的支持</h4>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;activity</span><br><span class="line">    android:name=&quot;.PlayerActivity&quot;</span><br><span class="line">    android:configChanges=&quot;screenSize|smallestScreenSize|screenLayout|orientation|uiMode&quot;</span><br><span class="line">    android:launchMode=&quot;singleTask&quot;</span><br><span class="line">    android:supportsPictureInPicture=&quot;true&quot;&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span>       </span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="將您的Activity-切換到畫中畫模式"   >
+          <a href="#將您的Activity-切換到畫中畫模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#將您的Activity-切換到畫中畫模式" class="headerlink" title="將您的Activity 切換到畫中畫模式"></a>將您的Activity 切換到畫中畫模式</h4>
+      <figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N</span><br><span class="line">    &amp;&amp; packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE))  <span class="comment">//確保設備等級、內存夠用</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) </span><br><span class="line">        enterPictureInPictureMode(PictureInPictureParams.Builder().build())</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        enterPictureInPictureMode()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="處理畫中畫模式下的界面元素"   >
+          <a href="#處理畫中畫模式下的界面元素" class="heading-link"><i class="fas fa-link"></i></a><a href="#處理畫中畫模式下的界面元素" class="headerlink" title="處理畫中畫模式下的界面元素"></a>處理畫中畫模式下的界面元素</h3>
+      <ul>
+<li>加入自定義控件：setActions(actions: RemoteAction)</li>
+<li>設定畫面比例（非畫面大小）：setAspectRatio(aspectRatio: Rational)</li>
+</ul>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">val</span> actions = arrayListOf&lt;RemoteAction&gt;()</span><br><span class="line"><span class="keyword">val</span> remoteAction = RemoteAction(</span><br><span class="line">    Icon.createWithResource(<span class="keyword">this</span><span class="symbol">@PlayerActivity</span>, R.drawable.control_1), <span class="string">&quot;title&quot;</span>, <span class="string">&quot;contentDescription&quot;</span>,</span><br><span class="line">    PendingIntent.getBroadcast(<span class="keyword">this</span><span class="symbol">@PlayerActivity</span>, <span class="number">0</span>, Intent(<span class="string">&quot;MY_PIP_ACTION&quot;</span>), <span class="number">0</span>))</span><br><span class="line">actions.add(remoteAction)</span><br><span class="line"></span><br><span class="line">setPictureInPictureParams(PictureInPictureParams.Builder().setActions(actions).build())</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>P.S. 只要加上自定義控件的程式碼，Google Pixel設備就會有子母畫面特別大或無法控制的bug，不知是不是少設定了什麼東西導致的。</p>
+
+        <h3 id="onPictureInPictureModeChanged"   >
+          <a href="#onPictureInPictureModeChanged" class="heading-link"><i class="fas fa-link"></i></a><a href="#onPictureInPictureModeChanged" class="headerlink" title="onPictureInPictureModeChanged"></a>onPictureInPictureModeChanged</h3>
+      <p>利用onPictureInPictureModeChanged方法去顯示/隱藏controller</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPictureInPictureModeChanged</span><span class="params">(isInPictureInPictureMode: <span class="type">Boolean</span>, newConfig: <span class="type">Configuration</span>?)</span></span> &#123;</span><br><span class="line">    simpleExoPlayerView?.useController = !isInPictureInPictureMode</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="測試結果"   >
+          <a href="#測試結果" class="heading-link"><i class="fas fa-link"></i></a><a href="#測試結果" class="headerlink" title="測試結果"></a>測試結果</h3>
+      <video controls width="350">
+  <source type="video/mp4" src="https://i.imgur.com/fHu9vHb.mp4"></source>
+</video>
+
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://i.imgur.com/fHu9vHb.mp4" >https://i.imgur.com/fHu9vHb.mp4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="發現問題"   >
+          <a href="#發現問題" class="heading-link"><i class="fas fa-link"></i></a><a href="#發現問題" class="headerlink" title="發現問題"></a>發現問題</h2>
+      <p>看過測試結果之後，再觀察YouTube Premium 依照使用者習慣/喜好以及PIP模式所規劃的一系列使用流程，點出幾個皮克這邊不順暢的地方。</p>
+<p>首先先來看看YouTube Premium 以及 Chrome 對於子母畫面的使用流程</p>
+<p>👇🏻 YouTube Premium</p>
+<p>影片按住下拉➡️內部子母畫面➡️按下home鍵➡️進入子母畫面</p>
+<p><img src="https://i.imgur.com/c43q0k4.png" alt="Imgur"></p>
+<p>👇🏻 Chrome瀏覽器</p>
+<p>影片在全螢幕的狀態下按home鍵才會變成子母畫面</p>
+<video controls width="350">
+  <source type="video/mp4" src="https://imgur.com/6jYHXBW.mp4"></source>
+</video>
+
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://imgur.com/6jYHXBW.mp4" >https://imgur.com/6jYHXBW.mp4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<video controls width="350">
+  <source type="video/mp4" src="https://i.imgur.com/fHu9vHb.mp4"></source>
+</video>
+
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://i.imgur.com/fHu9vHb.mp4" >https://i.imgur.com/fHu9vHb.mp4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>相比Chrome瀏覽器，在皮克這邊，我們發現播放頁和原本APP會被獨立切開來。在子母畫面/播放頁中不管怎麼操作都回不了App列表頁，只能透過背景執行程式回去。</p>
+<p>而點擊Chrome的子母畫面後，子母畫面會展開回到全螢幕模式，按下返回鍵時是退出全螢幕回到網頁模式，而非再次變成子母畫面。</p>
+
+        <h2 id="觀察與比較Chrome、YouTube-Premium的做法"   >
+          <a href="#觀察與比較Chrome、YouTube-Premium的做法" class="heading-link"><i class="fas fa-link"></i></a><a href="#觀察與比較Chrome、YouTube-Premium的做法" class="headerlink" title="觀察與比較Chrome、YouTube Premium的做法"></a>觀察與比較Chrome、YouTube Premium的做法</h2>
+      <p>列出幾點相異的部分，並試著分析Google產品使用子母畫面時所應用的系統架構。</p>
+
+        <h3 id="最近使用的應用程式-00-21-vs-00-20"   >
+          <a href="#最近使用的應用程式-00-21-vs-00-20" class="heading-link"><i class="fas fa-link"></i></a><a href="#最近使用的應用程式-00-21-vs-00-20" class="headerlink" title="最近使用的應用程式 00:21 vs. 00:20"></a>最近使用的應用程式 00:21 vs. 00:20</h3>
+      <p>開啟子母畫面後，Google應用程式在背景執行程式是找不到的，但皮克仍然能在背景執行程式中看到。</p>
+
+        <h3 id="再次縮小時沒有返回app-00-28-vs-YouTube-Premium"   >
+          <a href="#再次縮小時沒有返回app-00-28-vs-YouTube-Premium" class="heading-link"><i class="fas fa-link"></i></a><a href="#再次縮小時沒有返回app-00-28-vs-YouTube-Premium" class="headerlink" title="再次縮小時沒有返回app 00:28 vs. YouTube Premium"></a>再次縮小時沒有返回app 00:28 vs. YouTube Premium</h3>
+      <p>當在桌面/其他應用程式中點擊子母畫面時，子母畫面會擴展成原先的播放頁。YouTube可以選擇再次將影片下拉成小播放控制器，或直接按下home鍵回到桌面並生成子母畫面，但皮克從子母畫面回來之後，按返回鍵縮回子母畫面後卻是回到桌面。</p>
+
+        <h3 id="分析原因"   >
+          <a href="#分析原因" class="heading-link"><i class="fas fa-link"></i></a><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h3>
+      <p>其實早先為了另外一個問題在爬文的時候，有看過 stackflow 討論串說明 YouTube 將所有東西寫在一起。並且PIP模式的標準行為，便是回桌面後點開子母畫面，再返回會仍然會回到桌面。</p>
+<p>綜合以上幾點，我推論出 Android 端的子母畫面，是將整個 Activity 活動頁給包裝進子母畫面的框架中，有別於 iOS 是將播放器畫面嫁接給系統的懸浮播放器。 iOS 在使用子母畫面時，原先播放頁會顯示：「此影片正在以子母畫面播放」，但安卓端會將整個播放頁吃進子母畫面。會發現吃進整個播放頁，是因為前期在測試子母畫面時，誤打誤撞在子母畫面裡看見播放頁下方的聊天室。</p>
+<p>若是將 <code>android:supportsPictureInPicture=&quot;true&quot;</code> 寫在 Application 的聲明中是不起作用的。所以在只有一個 Activity 能夠被裝到子母畫面的情況下，表示 這些應用程式的整體架構只有一個Activity來處理多個畫面。</p>
+<p><img src="https://i.imgur.com/NFKhBkA.png" alt="Imgur"></p>
+<p><img src="https://i.imgur.com/3axAfm3.jpg" alt="Imgur"></p>
+
+        <h2 id="解決辦法"   >
+          <a href="#解決辦法" class="heading-link"><i class="fas fa-link"></i></a><a href="#解決辦法" class="headerlink" title="解決辦法"></a>解決辦法</h2>
+      
+        <h3 id="❌-1-再寫一個新的Activity專門處理Picture-in-picture畫面"   >
+          <a href="#❌-1-再寫一個新的Activity專門處理Picture-in-picture畫面" class="heading-link"><i class="fas fa-link"></i></a><a href="#❌-1-再寫一個新的Activity專門處理Picture-in-picture畫面" class="headerlink" title="❌ 1. 再寫一個新的Activity專門處理Picture in picture畫面"></a>❌ 1. 再寫一個新的Activity專門處理Picture in picture畫面</h3>
+      <p>資料傳遞到新的Activity後把舊player給他Finish掉（或藏起來），直接進入子母畫面模式。但重複作影片loading的動作，且將子母畫面點開之後，還要再把原本包含聊天室等功能的Player呼叫或新增回來。</p>
+
+        <h3 id="❌-2-更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login"   >
+          <a href="#❌-2-更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login" class="heading-link"><i class="fas fa-link"></i></a><a href="#❌-2-更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login" class="headerlink" title="❌ 2. 更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login"></a>❌ 2. 更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login</h3>
+      <p>效仿YouTube模式，將所有畫面建置在一個Activity的架構上，但考慮到要改的話需要動到一堆頁面，且有許多功能是仰仗身為Activity而非Fragment的Player，所以遲遲不敢動工。</p>
+
+        <h3 id="❌-3-在返回鍵的function中，強制將上一個頁面挖回來"   >
+          <a href="#❌-3-在返回鍵的function中，強制將上一個頁面挖回來" class="heading-link"><i class="fas fa-link"></i></a><a href="#❌-3-在返回鍵的function中，強制將上一個頁面挖回來" class="headerlink" title="❌ 3. 在返回鍵的function中，強制將上一個頁面挖回來"></a>❌ 3. 在返回鍵的function中，強制將上一個頁面挖回來</h3>
+      <p>如：從MainActivity來就Intent回去。但MainActivity/SearchActivity/CategoryActivity都跟Player有直接關係，需要每次進來Player時都帶一個寄件人住址，所以這個方法也不好。</p>
+
+        <h3 id="⭕️-4-在返回鍵的function中，強制將App整疊抱回來"   >
+          <a href="#⭕️-4-在返回鍵的function中，強制將App整疊抱回來" class="heading-link"><i class="fas fa-link"></i></a><a href="#⭕️-4-在返回鍵的function中，強制將App整疊抱回來" class="headerlink" title="⭕️ 4. 在返回鍵的function中，強制將App整疊抱回來"></a>⭕️ 4. 在返回鍵的function中，強制將App整疊抱回來</h3>
+      <p>這是後來在寫推播通知點擊事件的時候，陰錯陽差想到可以利用同樣的方法，在返回鍵的function中，直接把App call回來。而App整疊的最上面，就是之前使用的最後一個畫面。</p>
+<p>在觸發事件之後先啟動App的第一個頁面（LauncherActivity啟動畫面），這時Launcher會先判斷Launcher本人是不是整個App唯一一個Activity。如果是的話，就繼續做該做的事，如：loading、get API…。如果不是的話，就把自己Finish掉，Show出堆疊在Launcher下面的那位同胞。</p>
+<p><img src="https://i.imgur.com/QUOydKm.png" alt="啟動模式.png"></p>
+
+        <h6 id="tags-應用技術-Picture-In-Picture-PIP-子母畫面"   >
+          <a href="#tags-應用技術-Picture-In-Picture-PIP-子母畫面" class="heading-link"><i class="fas fa-link"></i></a><a href="#tags-應用技術-Picture-In-Picture-PIP-子母畫面" class="headerlink" title="tags: 應用技術 Picture In Picture PIP 子母畫面"></a>tags: <code>應用技術</code> <code>Picture In Picture</code> <code>PIP</code> <code>子母畫面</code></h6>
+      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文結束，感謝您的閱讀 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E6%87%89%E7%94%A8%E6%8A%80%E8%A1%93-Picture-In-Picture-PIP-%E5%AD%90%E6%AF%8D%E7%95%AB%E9%9D%A2/">應用技術, Picture In Picture, PIP, 子母畫面</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/tutu1023/2021/09/16/%E5%A0%B4%E6%99%AF%E8%BD%89%E6%8F%9B%E5%8B%95%E7%95%ABSceneTransitionAnimation-%E5%9C%96%E5%B0%8D%E5%9C%96/"><span class="paginator-prev__text">場景轉換動畫SceneTransitionAnimation-圖對圖</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目錄</span><span class="sidebar-nav-ov">站點概覽</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E6%AF%8D%E7%95%AB%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">
+          子母畫面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%B2%E6%98%8E%E5%B0%8D%E7%95%AB%E4%B8%AD%E7%95%AB%E7%9A%84%E6%94%AF%E6%8C%81"><span class="toc-number">1.0.1.</span> <span class="toc-text">
+          聲明對畫中畫的支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%87%E6%82%A8%E7%9A%84Activity-%E5%88%87%E6%8F%9B%E5%88%B0%E7%95%AB%E4%B8%AD%E7%95%AB%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.0.2.</span> <span class="toc-text">
+          將您的Activity 切換到畫中畫模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%95%E7%90%86%E7%95%AB%E4%B8%AD%E7%95%AB%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E7%95%8C%E9%9D%A2%E5%85%83%E7%B4%A0"><span class="toc-number">1.1.</span> <span class="toc-text">
+          處理畫中畫模式下的界面元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onPictureInPictureModeChanged"><span class="toc-number">1.2.</span> <span class="toc-text">
+          onPictureInPictureModeChanged</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6%E7%B5%90%E6%9E%9C"><span class="toc-number">1.3.</span> <span class="toc-text">
+          測試結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BC%E7%8F%BE%E5%95%8F%E9%A1%8C"><span class="toc-number">2.</span> <span class="toc-text">
+          發現問題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%80%E5%AF%9F%E8%88%87%E6%AF%94%E8%BC%83Chrome%E3%80%81YouTube-Premium%E7%9A%84%E5%81%9A%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">
+          觀察與比較Chrome、YouTube Premium的做法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8%E7%9A%84%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-00-21-vs-00-20"><span class="toc-number">3.1.</span> <span class="toc-text">
+          最近使用的應用程式 00:21 vs. 00:20</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%AC%A1%E7%B8%AE%E5%B0%8F%E6%99%82%E6%B2%92%E6%9C%89%E8%BF%94%E5%9B%9Eapp-00-28-vs-YouTube-Premium"><span class="toc-number">3.2.</span> <span class="toc-text">
+          再次縮小時沒有返回app 00:28 vs. YouTube Premium</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.3.</span> <span class="toc-text">
+          分析原因</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%B1%BA%E8%BE%A6%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">
+          解決辦法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%8C-1-%E5%86%8D%E5%AF%AB%E4%B8%80%E5%80%8B%E6%96%B0%E7%9A%84Activity%E5%B0%88%E9%96%80%E8%99%95%E7%90%86Picture-in-picture%E7%95%AB%E9%9D%A2"><span class="toc-number">4.1.</span> <span class="toc-text">
+          ❌ 1. 再寫一個新的Activity專門處理Picture in picture畫面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%8C-2-%E6%9B%B4%E6%94%B9%E6%9E%B6%E6%A7%8B%EF%BC%8C%E5%B0%87Player%E5%BE%9EActivity%E8%AE%8A%E6%9B%B4%E7%82%BAFragment%EF%BC%8C%E5%8C%85%E5%90%AB%E5%85%B6%E4%BB%96Activity%E5%A6%82Search%E3%80%81Login"><span class="toc-number">4.2.</span> <span class="toc-text">
+          ❌ 2. 更改架構，將Player從Activity變更為Fragment，包含其他Activity如Search、Login</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%8C-3-%E5%9C%A8%E8%BF%94%E5%9B%9E%E9%8D%B5%E7%9A%84function%E4%B8%AD%EF%BC%8C%E5%BC%B7%E5%88%B6%E5%B0%87%E4%B8%8A%E4%B8%80%E5%80%8B%E9%A0%81%E9%9D%A2%E6%8C%96%E5%9B%9E%E4%BE%86"><span class="toc-number">4.3.</span> <span class="toc-text">
+          ❌ 3. 在返回鍵的function中，強制將上一個頁面挖回來</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%AD%95%EF%B8%8F-4-%E5%9C%A8%E8%BF%94%E5%9B%9E%E9%8D%B5%E7%9A%84function%E4%B8%AD%EF%BC%8C%E5%BC%B7%E5%88%B6%E5%B0%87App%E6%95%B4%E7%96%8A%E6%8A%B1%E5%9B%9E%E4%BE%86"><span class="toc-number">4.4.</span> <span class="toc-text">
+          ⭕️ 4. 在返回鍵的function中，強制將App整疊抱回來</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#tags-%E6%87%89%E7%94%A8%E6%8A%80%E8%A1%93-Picture-In-Picture-PIP-%E5%AD%90%E6%AF%8D%E7%95%AB%E9%9D%A2"><span class="toc-number">4.4.0.0.1.</span> <span class="toc-text">
+          tags: 應用技術 Picture In Picture PIP 子母畫面</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://graph.facebook.com/2680630765557021/picture?type=large" alt="avatar"></div><p class="sidebar-ov-author__text">Pei-Yu, Chen</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/ttps92319?tab=projects" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-google"></i></span></a><a class="sidebar-ov-social-item" href="https://youtube.com/" target="_blank" rel="noopener" data-popover="Youtube" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-youtube"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/tutu1023/archives"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">文章</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/tutu1023/categories"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">分類</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tutu1023/tags"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">標籤</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已閱讀了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>PY</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 強力驅動</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主題 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜尋文章（支持多關鍵詞，請用空格分隔）"><div class="search-btns">使用搜尋：<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/tutu1023/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章無標題 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '請輸入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/tutu1023/js/utils.js?v=2.6.2"></script><script src="/tutu1023/js/stun-boot.js?v=2.6.2"></script><script src="/tutu1023/js/scroll.js?v=2.6.2"></script><script src="/tutu1023/js/header.js?v=2.6.2"></script><script src="/tutu1023/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/tutu1023/search.xml"></script></body></html>
